@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using OasysUnits;
+﻿using System.Collections.Generic;
 
 namespace MagmaWorks.Geometry
 {
