@@ -4,6 +4,6 @@ namespace MagmaWorks.Geometry
 {
     public interface IPolygon2d
     {
-        List<IPoint2d> Points { get; }
+        IList<IPoint2d> Points { get; }
     }
 }

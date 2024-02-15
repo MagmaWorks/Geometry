@@ -2,7 +2,7 @@
 {
     public interface IColor
     {
-        int Color { get; }
+        int ColorInt { get; }
         byte Alpha { get; }
         byte Red { get; }
         byte Green { get; }

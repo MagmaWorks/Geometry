@@ -3,7 +3,7 @@ using OasysUnits;
 
 namespace MagmaWorks.Geometry
 {
-    public interface IPoint3d : IEquatable<IPoint2d>
+    public interface IPoint3d
     {
         Length X { get; }
         Length Y { get; }

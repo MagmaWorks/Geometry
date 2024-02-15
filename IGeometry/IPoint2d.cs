@@ -1,9 +1,8 @@
-﻿using System;
-using OasysUnits;
+﻿using OasysUnits;
 
 namespace MagmaWorks.Geometry
 {
-    public interface IPoint2d : IEquatable<IPoint2d>
+    public interface IPoint2d
     {
         Length X { get; }
         Length Y { get; }

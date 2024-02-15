@@ -4,8 +4,8 @@ namespace MagmaWorks.Geometry
 {
     public interface IMesh
     {
-        List<int[]> MeshIndices { get; }
-        List<INode> Nodes { get; }
+        IList<int[]> MeshIndices { get; }
+        IList<INode> Nodes { get; }
         double Opacity { get; set; }
         IBrush Brush { get; set; }
     }
