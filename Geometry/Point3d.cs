@@ -9,9 +9,9 @@ namespace MagmaWorks.Geometry
 {
     public class Point3d : IPoint3d, IEquatable<IPoint3d>
     {
-        public Length X { get; private set; } = Length.Zero;
-        public Length Y { get; private set; } = Length.Zero;
-        public Length Z { get; private set; } = Length.Zero;
+        public Length X { get; set; } = Length.Zero;
+        public Length Y { get; set; } = Length.Zero;
+        public Length Z { get; set; } = Length.Zero;
 
         public Point3d() { }
         public Point3d(Length x, Length y, Length z)

@@ -9,8 +9,8 @@ namespace MagmaWorks.Geometry
 {
     public class Mesh : IMesh
     {
-        public IList<int[]> MeshIndices { get; private set; }
-        public IList<IVertex> Nodes { get; private set; }
+        public IList<int[]> MeshIndices { get; set; }
+        public IList<IVertex> Nodes { get; set; }
         public double Opacity { get; set; }
         public IBrush Brush { get; set; }
 

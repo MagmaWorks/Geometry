@@ -7,9 +7,9 @@ namespace MagmaWorks.Geometry
 {
     public class Vector3d : IVector3d
     {
-        public Length X { get; private set; }
-        public Length Y { get; private set; }
-        public Length Z { get; private set; }
+        public Length X { get; set; }
+        public Length Y { get; set; }
+        public Length Z { get; set; }
         public Length Length
         {
             get

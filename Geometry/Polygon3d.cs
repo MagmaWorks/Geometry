@@ -6,7 +6,7 @@ namespace MagmaWorks.Geometry
 {
     public class Polygon3d : IPolygon3d
     {
-        public IList<IPoint3d> Points { get; private set; }
+        public IList<IPoint3d> Points { get; set; }
 
         public Polygon3d(IList<IPoint3d> points)
         {

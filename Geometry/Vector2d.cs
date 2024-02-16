@@ -6,8 +6,8 @@ namespace MagmaWorks.Geometry
 {
     public class Vector2d : IVector2d
     {
-        public Length X { get; private set; }
-        public Length Y { get; private set; }
+        public Length X { get; set; }
+        public Length Y { get; set; }
         public Length Length
         {
             get

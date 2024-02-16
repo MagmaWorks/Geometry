@@ -6,8 +6,8 @@ namespace MagmaWorks.Geometry
 {
     public class Model3d : IModel3d
     {
-        public IList<IMesh> Meshes { get; private set; }
-        public IList<IText3d> Texts { get; private set; }
+        public IList<IMesh> Meshes { get; set; }
+        public IList<IText3d> Texts { get; set; }
 
         public Model3d(IMesh mesh)
         {

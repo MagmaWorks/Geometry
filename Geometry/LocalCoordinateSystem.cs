@@ -7,10 +7,10 @@ namespace MagmaWorks.Geometry
 {
     public class LocalCoordinateSystem : ILocalCoordinateSystem
     {
-        public IVector3d XAxis { get; private set; } = Vector3d.UnitX;
-        public IVector3d YAxis { get; private set; } = Vector3d.UnitY;
-        public IVector3d ZAxis { get; private set; } = Vector3d.UnitZ;
-        public IPoint3d Origin { get; private set; } = new Point3d();
+        public IVector3d XAxis { get; set; } = Vector3d.UnitX;
+        public IVector3d YAxis { get; set; } = Vector3d.UnitY;
+        public IVector3d ZAxis { get; set; } = Vector3d.UnitZ;
+        public IPoint3d Origin { get; set; } = new Point3d();
 
         public LocalCoordinateSystem() { }
 

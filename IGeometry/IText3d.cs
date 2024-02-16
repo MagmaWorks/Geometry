@@ -1,6 +1,6 @@
 ﻿namespace MagmaWorks.Geometry
 {
-    public interface IText3d
+    public interface IText3d : IGeometry
     {
         IPoint3d Position { get; }
         IVector3d Direction { get; }

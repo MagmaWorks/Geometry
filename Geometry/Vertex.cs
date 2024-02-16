@@ -2,8 +2,8 @@
 {
     public class Vertex : IVertex
     {
-        public IPoint3d Point { get; private set; }
-        public IPoint2d TextureCoordinate { get; private set; }
+        public IPoint3d Point { get; set; }
+        public IPoint2d TextureCoordinate { get; set; }
 
         public Vertex(IPoint3d point, IPoint2d textureCoords)
         {

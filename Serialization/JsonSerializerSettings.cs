@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 
-namespace MagmaWorks.Taxonomy.Serialization
+namespace MagmaWorks.Geometry.Serialization
 {
-    internal static class TaxonomyJsonSerializer
+    public static class GeometryJsonSerializer
     {
-        internal static JsonSerializerSettings Settings
+        public static JsonSerializerSettings Settings
         {
             get
             {

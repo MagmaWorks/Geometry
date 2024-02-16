@@ -7,8 +7,8 @@ namespace MagmaWorks.Geometry
 {
     public class LocalPoint2d : ILocalPoint2d, IEquatable<ILocalPoint2d>
     {
-        public Length Y { get; private set; } = Length.Zero;
-        public Length Z { get; private set; } = Length.Zero;
+        public Length Y { get; set; } = Length.Zero;
+        public Length Z { get; set; } = Length.Zero;
 
         public LocalPoint2d() { }
 

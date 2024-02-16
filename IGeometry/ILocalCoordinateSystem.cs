@@ -1,6 +1,6 @@
 ﻿namespace MagmaWorks.Geometry
 {
-    public interface ILocalCoordinateSystem
+    public interface ILocalCoordinateSystem : IGeometry
     {
         IVector3d XAxis { get; }
         IVector3d YAxis { get; }
