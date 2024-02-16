@@ -10,21 +10,21 @@ namespace MagmaWorks.Geometry
     public class Mesh : IMesh
     {
         public IList<int[]> MeshIndices { get; private set; }
-        public IList<INode> Nodes { get; private set; }
+        public IList<IVertex> Nodes { get; private set; }
         public double Opacity { get; set; }
         public IBrush Brush { get; set; }
 
         public Mesh()
         {
             MeshIndices = new List<int[]>();
-            Nodes = new List<INode>();
+            Nodes = new List<IVertex>();
             Brush = new Brush(128, 128, 0);
             Opacity = 1;
         }
 
         public void AddNode(Length x, Length y, Length z, IPoint2d textureCoordinates)
         {
-            Nodes.Add(new Node(new Point3d(x, y, z), textureCoordinates));
+            Nodes.Add(new Vertex(new Point3d(x, y, z), textureCoordinates));
         }
 
         public void SetIndices(List<int[]> indices)
