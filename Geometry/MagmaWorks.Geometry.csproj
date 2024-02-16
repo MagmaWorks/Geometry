@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IGeometry\MagmaWorks.IGeometry.csproj" />
-    <ProjectReference Include="..\IProfiles\MagmaWorks.IGeometry.csproj" />
   </ItemGroup>
 
 </Project>

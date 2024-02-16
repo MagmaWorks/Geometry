@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IProfiles\MagmaWorks.IGeometry.csproj" />
-    <ProjectReference Include="..\Profiles\MagmaWorks.Geometry.csproj" />
+    <ProjectReference Include="..\IGeometry\MagmaWorks.IGeometry.csproj" />
+    <ProjectReference Include="..\Geometry\MagmaWorks.Geometry.csproj" />
   </ItemGroup>
 
 </Project>

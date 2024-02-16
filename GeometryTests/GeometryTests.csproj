@@ -24,8 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Geometry\MagmaWorks.Geometry.csproj" />
     <ProjectReference Include="..\IGeometry\MagmaWorks.IGeometry.csproj" />
-    <ProjectReference Include="..\IProfiles\MagmaWorks.IGeometry.csproj" />
-    <ProjectReference Include="..\Profiles\MagmaWorks.Geometry.csproj" />
     <ProjectReference Include="..\Serialization\MagmaWorks.Geometry.Serialization.csproj" />
   </ItemGroup>
 
