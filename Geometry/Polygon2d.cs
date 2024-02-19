@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using MagmaWorks.Geometry.Utility.Extensions;
 using OasysUnits;
 
 namespace MagmaWorks.Geometry
@@ -10,6 +12,11 @@ namespace MagmaWorks.Geometry
 
         public Polygon2d(IList<IPoint2d> points)
         {
+            if (points.IsNullOrEmpty() || points.Count < 2)
+            {
+                throw new ArgumentException("List must contain two or more points");
+            }
+
             Points = points;
         }
 

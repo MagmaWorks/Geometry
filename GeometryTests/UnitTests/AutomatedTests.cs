@@ -7,6 +7,14 @@ namespace GeometryTests.UnitTests
 {
     public class AutomatedTests
     {
+        // Add classes here that has complex constructors (e.i throws exceptions)
+        // Add manual tests of these class' constructors instead
+        private static readonly List<Type> _excludedTypes =
+        [
+            typeof(Polygon2d),
+            typeof(Polygon3d),
+        ];
+
         private static readonly string _string = "lava";
         private static readonly int _int = 42;
         private static readonly double _double = 9.8;
@@ -56,6 +64,7 @@ namespace GeometryTests.UnitTests
 
                     if (type.Namespace.StartsWith("MagmaWorks.Geometry")
                       && type.BaseType.Name != "Enum"
+                      && !_excludedTypes.Contains(type)
                       && type.Attributes.HasFlag(TypeAttributes.Public)
                       && !type.Attributes.HasFlag(TypeAttributes.Abstract)
                       && !type.Attributes.HasFlag(TypeAttributes.Interface))
