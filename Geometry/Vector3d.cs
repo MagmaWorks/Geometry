@@ -42,6 +42,11 @@ namespace MagmaWorks.Geometry
             Z = other.Z.ToUnit(other.X.Unit);
         }
 
+        public static implicit operator Point3d(Vector3d vect)
+        {
+            return new Point3d(vect.X, vect.Y, vect.Z);
+        }
+
         public Vector3d Normalised()
         {
             LengthUnit unit = X.Unit;

@@ -49,6 +49,11 @@ namespace MagmaWorks.Geometry
             return new Vector2d(point.X * number, point.Y * number);
         }
 
+        public static implicit operator Point2d(Vector2d vect)
+        {
+            return new Point2d(vect.X, vect.Y);
+        }
+
         public static double ScalarProduct(IVector2d v1, IVector2d v2)
         {
             LengthUnit unit = v1.X.Unit;

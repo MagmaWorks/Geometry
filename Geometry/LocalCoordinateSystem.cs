@@ -1,4 +1,5 @@
-﻿using OasysUnits.Units;
+﻿using System;
+using OasysUnits.Units;
 
 namespace MagmaWorks.Geometry
 {
@@ -19,12 +20,17 @@ namespace MagmaWorks.Geometry
             Origin = origin;
         }
 
+        public static ILocalCoordinateSystem LocalCoordSystemFromLinePoints(ILine3d ln)
+        {
+            return LocalCoordSystemFromLinePoints(ln.Start, ln.End);
+        }
+
         public static ILocalCoordinateSystem LocalCoordSystemFromLinePoints(IPoint3d point1, IPoint3d point2)
         {
             LengthUnit unit = point1.X.Unit;
             Vector3d normal = ((Point3d)point2) - ((Point3d)point1);
             Vector3d newX;
-            if (normal.Z.As(unit) < 0.99)
+            if (Math.Abs(normal.Z.As(unit)) < 0.99)
             {
                 newX = Vector3d.CrossProduct(normal, Vector3d.UnitZ);
             }

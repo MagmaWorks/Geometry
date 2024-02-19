@@ -1,5 +1,6 @@
 ﻿using System;
 using MagmaWorks.Geometry.Utility;
+using MagmaWorks.Geometry.Utility.Extensions;
 using OasysUnits;
 using OasysUnits.Units;
 

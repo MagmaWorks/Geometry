@@ -32,5 +32,15 @@ namespace MagmaWorks.Geometry
         {
             return Point3d.PlaneLineIntersection(line.Points, plane.Points, within);
         }
+
+        public static explicit operator Line3d(Polygon3d polygon)
+        {
+            if (polygon.Points.Count != 2)
+            {
+                throw new InvalidCastException("Only a Polygon with two points can be cast to a Line");
+            }
+
+            return new Line3d(polygon.Points[0], polygon.Points[1]);
+        }
     }
 }

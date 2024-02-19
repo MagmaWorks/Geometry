@@ -71,5 +71,15 @@ namespace MagmaWorks.Geometry
             List<IPoint2d> list = Point2d.RotatePoints(Points, angle).Select(x => (IPoint2d)x).ToList();
             return new Polygon2d(list);
         }
+
+        public static explicit operator Line2d(Polygon2d polygon)
+        {
+            if (polygon.Points.Count != 2)
+            {
+                throw new InvalidCastException("Only a Polygon with two points can be cast to a Line");
+            }
+
+            return new Line2d(polygon.Points[0], polygon.Points[1]);
+        }
     }
 }

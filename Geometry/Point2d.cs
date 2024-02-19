@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MagmaWorks.Geometry.Utility;
+using MagmaWorks.Geometry.Utility.Extensions;
 using OasysUnits;
 using OasysUnits.Units;
 
@@ -41,9 +41,19 @@ namespace MagmaWorks.Geometry
             return X.IsEqual(other.X) && Y.IsEqual(other.Y);
         }
 
+        public static Vector2d operator -(Point2d point2, Point2d point1)
+        {
+            return new Vector2d(point2.X - point1.X, point2.Y - point1.Y);
+        }
+
         public static Point2d operator *(double number, Point2d point)
         {
             return new Point2d(point.X * number, point.Y * number);
+        }
+
+        public static implicit operator Vector2d(Point2d pt)
+        {
+            return new Vector2d(pt.X, pt.Y);
         }
 
         /// <summary>
