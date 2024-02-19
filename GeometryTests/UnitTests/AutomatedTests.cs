@@ -54,7 +54,7 @@ namespace GeometryTests.UnitTests
             }
         }
 
-        
+
 
         public class TestDataGenerator : IEnumerable<object[]>
         {
