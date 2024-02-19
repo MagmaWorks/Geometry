@@ -20,16 +20,6 @@ namespace MagmaWorks.Geometry
             Points = points;
         }
 
-        public Polygon2d Contract(double factor)
-        {
-            return new Polygon2d(Point2d.Contract(Points, factor));
-        }
-
-        public Polygon2d Extend(double factor)
-        {
-            return new Polygon2d(Point2d.Extend(Points, factor));
-        }
-
         public Area GetArea()
         {
             return Point2d.GetPolygonArea(Points);
@@ -56,7 +46,7 @@ namespace MagmaWorks.Geometry
             return Point2d.GetClosest(pt, Points);
         }
 
-        public (bool, Point2d) IsClosedToPolygon(IPoint2d p0, Length d)
+        public (bool, Point2d) IsCloseToPolygon(IPoint2d p0, Length d)
         {
             return Point2d.IsCloseToPolygon(p0, Points, d);
         }

@@ -31,6 +31,29 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
+        public void CastPolygonToLineTest()
+        {
+            // Assemble
+            var x1 = new Length(2.3, LengthUnit.Centimeter);
+            var y1 = new Length(5.4, LengthUnit.Centimeter);
+            var x2 = new Length(-5.0, LengthUnit.Centimeter);
+            var y2 = new Length(7.1, LengthUnit.Centimeter);
+
+            // Act
+            IPoint2d pt1 = new Point2d(x1, y1);
+            IPoint2d pt2 = new Point2d(x2, y2);
+            var pts = new List<IPoint2d>() { pt1, pt2 };
+            var polygon = new Polygon2d(pts);
+            Line2d ln = (Line2d)polygon;
+
+            // Assert
+            TestUtility.TestLengthsAreEqual(x1, ln.Start.X);
+            TestUtility.TestLengthsAreEqual(y1, ln.Start.Y);
+            TestUtility.TestLengthsAreEqual(x2, ln.End.X);
+            TestUtility.TestLengthsAreEqual(y2, ln.End.Y);
+        }
+
+        [Fact]
         public void PolygonSurvivesJsonRoundtripTest()
         {
             // Assemble
