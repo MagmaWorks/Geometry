@@ -216,7 +216,7 @@ namespace GeometryTests.FunctionalTests
 
             // Assert
             Assert.Equal(AreaUnit.SquareMillimeter, area.Unit);
-            Assert.Equal(4*4, area.SquareMeters);
+            Assert.Equal(4 * 4, area.SquareMeters);
         }
 
         //[Fact]

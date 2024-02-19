@@ -301,7 +301,7 @@ namespace MagmaWorks.Geometry
         {
             Area res = Area.Zero;
             Area.TryParse($"0 {Length.GetAbbreviation(vertices[0].X.Unit)}²", out res);
-            
+
             int n = vertices.Count;
             if (closed)
             {
