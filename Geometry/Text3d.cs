@@ -8,9 +8,11 @@
         public IVector3d Direction { get; set; }
         public IVector3d Up { get; set; } = Vector3d.UnitZ;
         public bool IsDoubleSided { get; set; } = true;
-        public IColor Color { get; set; } = new Color(255, 0, 0, 0);
+        public IColor Color { get; set; } = new Color();
         public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Centre;
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Centre;
+
+        private Text3d() { }
 
         public Text3d(string text, IPoint3d position, IVector3d direction, double height)
         {

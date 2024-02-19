@@ -9,10 +9,14 @@ namespace MagmaWorks.Geometry
 {
     public class Point2d : IPoint2d, IEquatable<IPoint2d>
     {
-        public Length X { get; set; } = Length.Zero;
-        public Length Y { get; set; } = Length.Zero;
+        public Length X { get; set; }
+        public Length Y { get; set; }
 
-        public Point2d() { }
+        public Point2d()
+        {
+            X = Length.Zero;
+            Y = Length.Zero;
+        }
 
         public Point2d(Length x, Length y)
         {

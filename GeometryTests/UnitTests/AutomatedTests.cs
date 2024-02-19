@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using MagmaWorks.Geometry;
+using MagmaWorks.Geometry.Serialization.Extensions;
 using OasysUnits;
 
 namespace GeometryTests.UnitTests
@@ -15,13 +17,14 @@ namespace GeometryTests.UnitTests
             typeof(Polygon3d),
         ];
 
-        private static readonly string _string = "lava";
-        private static readonly int _int = 42;
-        private static readonly double _double = 9.8;
-        private static readonly bool _bool = true;
-        private static readonly byte _byte = 3;
-        private static readonly Length _length = new Length(2.5, OasysUnits.Units.LengthUnit.Centimeter);
-        private static readonly Angle _angle = new Angle(33, OasysUnits.Units.AngleUnit.Degree);
+        // static inputs used to populate constructor variables
+        private static string _string { get { return "lava"; } }
+        private static int _int { get { return 42; } }
+        private static double _double { get { return 9.8; } }
+        private static bool _bool { get { return true; } }
+        private static byte _byte { get { return 3; } }
+        private static Length _length { get { return new Length(2.5, OasysUnits.Units.LengthUnit.Centimeter); } }
+        private static Angle _angle { get { return new Angle(33, OasysUnits.Units.AngleUnit.Degree); } }
 
         [Theory]
         [ClassData(typeof(TestDataGenerator))]
@@ -36,6 +39,22 @@ namespace GeometryTests.UnitTests
                 TestObjectsPropertiesAreNotNull(instance);
             }
         }
+
+        [Theory]
+        [ClassData(typeof(TestDataGenerator))]
+        public void DeserializeTest(Type type)
+        {
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+            foreach (ConstructorInfo constructor in constructors)
+            {
+                object[] args = CreateConstructorArguments(constructor);
+                IGeometry instance = (IGeometry)constructor.Invoke(args);
+                Assert.NotNull(instance);
+                TestObjectsSurvivesJsonRoundtrip(instance);
+            }
+        }
+
+        
 
         public class TestDataGenerator : IEnumerable<object[]>
         {
@@ -67,7 +86,8 @@ namespace GeometryTests.UnitTests
                       && !_excludedTypes.Contains(type)
                       && type.Attributes.HasFlag(TypeAttributes.Public)
                       && !type.Attributes.HasFlag(TypeAttributes.Abstract)
-                      && !type.Attributes.HasFlag(TypeAttributes.Interface))
+                      && !type.Attributes.HasFlag(TypeAttributes.Interface)
+                      && type.GetCustomAttribute(typeof(CompilerGeneratedAttribute), true) == null)
                     {
                         data.Add([type]);
                     }
@@ -81,9 +101,33 @@ namespace GeometryTests.UnitTests
         {
             PropertyInfo[] propertyInfo = obj.GetType().GetProperties(
                 BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+            Assert.NotEmpty(propertyInfo);
             foreach (PropertyInfo property in propertyInfo)
             {
                 Assert.NotNull(property.GetValue(obj));
+            }
+        }
+
+        private void TestObjectsSurvivesJsonRoundtrip<T>(T obj) where T : IGeometry
+        {
+            string json = obj.ToJson();
+            Assert.NotNull(json);
+            Assert.True(json.Length > 0);
+            T deserialized = json.FromJson<T>();
+            Assert.NotNull(deserialized);
+            TestPropertiesInObjectsAreEqual(obj, deserialized);
+        }
+
+        private void TestPropertiesInObjectsAreEqual<T>(T expected, T actual) where T : IGeometry
+        {
+            PropertyInfo[] expectedProperties = expected.GetType().GetProperties(
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+            PropertyInfo[] actualProperties = actual.GetType().GetProperties(
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+            Assert.Equal(expectedProperties.Length, actualProperties.Length);
+            for (int i = 0; i < expectedProperties.Length; i++)
+            {
+                Assert.Equal(expectedProperties[i], actualProperties[i]);
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using OasysUnits;
 using OasysUnits.Units;
 
@@ -19,6 +18,9 @@ namespace MagmaWorks.Geometry
                 return new Length(Math.Sqrt(area), unit);
             }
         }
+
+        private Vector3d() { }
+
         public Vector3d(Length x, Length y, Length z)
         {
             X = x;

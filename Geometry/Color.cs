@@ -10,6 +10,11 @@ namespace MagmaWorks.Geometry
         public byte Green => (byte)((ColorInt >> (8 * 2)) & 0xff);
         public byte Blue => (byte)((ColorInt >> (8 * 3)) & 0xff);
 
+        public Color()
+        {
+            ColorInt = BitConverter.ToInt32(new byte[] { 255, 0, 0, 0 }, 0);
+        }
+
         public Color(byte alpha, byte red, byte green, byte blue)
         {
             ColorInt = BitConverter.ToInt32(new byte[] { alpha, red, green, blue }, 0);

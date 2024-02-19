@@ -17,6 +17,9 @@ namespace MagmaWorks.Geometry
                 return new Length(Math.Sqrt(area), unit);
             }
         }
+
+        private Vector2d() { }
+
         public Vector2d(Length x, Length y)
         {
             X = x;

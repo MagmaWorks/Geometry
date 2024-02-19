@@ -1,5 +1,4 @@
-﻿using System;
-using OasysUnits;
+﻿using OasysUnits;
 
 namespace MagmaWorks.Geometry
 {

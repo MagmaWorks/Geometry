@@ -1,6 +1,4 @@
-﻿using OasysUnits;
-
-namespace MagmaWorks.Geometry
+﻿namespace MagmaWorks.Geometry
 {
     public class IntersectionResult : IIntersectionResult
     {
