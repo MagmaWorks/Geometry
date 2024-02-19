@@ -82,5 +82,31 @@ namespace GeometryTests.UnitTests
             TestUtility.TestLengthsAreEqual(y1 - y2, vector.Y);
             TestUtility.TestLengthsAreEqual(z1 - z2, vector.Z);
         }
+
+        [Fact]
+        public void LineCastToPolygonTest()
+        {
+            // Assemble
+            var x1 = new Length(2.3, LengthUnit.Centimeter);
+            var y1 = new Length(5.4, LengthUnit.Centimeter);
+            var z1 = new Length(6.8, LengthUnit.Centimeter);
+            var x2 = new Length(-2.3, LengthUnit.Centimeter);
+            var y2 = new Length(-5.4, LengthUnit.Centimeter);
+            var z2 = new Length(-6.8, LengthUnit.Centimeter);
+
+            // Act
+            IPoint3d pt1 = new Point3d(x1, y1, z1);
+            IPoint3d pt2 = new Point3d(x2, y2, z2);
+            var ln = new Line3d(pt1, pt2);
+            var polygon = (Polygon3d)ln;
+
+            // Assert
+            TestUtility.TestLengthsAreEqual(x1, polygon.Points[0].X);
+            TestUtility.TestLengthsAreEqual(x2, polygon.Points[1].X);
+            TestUtility.TestLengthsAreEqual(y1, polygon.Points[0].Y);
+            TestUtility.TestLengthsAreEqual(y2, polygon.Points[1].Y);
+            TestUtility.TestLengthsAreEqual(z1, polygon.Points[0].Z);
+            TestUtility.TestLengthsAreEqual(z2, polygon.Points[1].Z);
+        }
     }
 }

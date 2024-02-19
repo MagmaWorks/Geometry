@@ -74,15 +74,16 @@ namespace MagmaWorks.Geometry
             return u.X.As(unit) * v.X.As(unit) + u.Y.As(unit) * v.Y.As(unit) + u.Z.As(unit) * v.Z.As(unit);
         }
 
-        public static double VectorAngle(IVector3d v1, IVector3d v2)
+        public static Angle VectorAngle(IVector3d v1, IVector3d v2)
         {
             LengthUnit unit = v1.X.Unit;
-            return Math.Acos(ScalarProduct(v1, v2)) / (v1.Length.As(unit) * v2.Length.As(unit));
+            double angle = Math.Acos(ScalarProduct(v1, v2)) / (v1.Length.As(unit) * v2.Length.As(unit));
+            return new Angle(angle, AngleUnit.Radian);
         }
 
         public static Area TriangleArea(IVector3d v1, IVector3d v2)
         {
-            return 0.5 * v1.Length * v2.Length * Math.Abs(Math.Sin(VectorAngle(v1, v2)));
+            return 0.5 * v1.Length * v2.Length * Math.Abs(Math.Sin(VectorAngle(v1, v2).Radians));
         }
 
         public static Vector3d VectorialProduct(IVector3d v1, IVector3d v2)

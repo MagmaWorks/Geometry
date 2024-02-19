@@ -56,6 +56,22 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
+        public void VectorMultiplyOperatorTest()
+        {
+            // Assemble
+            var x = new Length(2.3, LengthUnit.Centimeter);
+            var y = new Length(5.4, LengthUnit.Centimeter);
+
+            // Act
+            var vect = new Vector2d(x, y);
+            Vector2d scaled = 1.5 * vect;
+
+            // Assert
+            Assert.Equal(1.5 * 2.3, scaled.X.Value);
+            Assert.Equal(1.5 * 5.4, scaled.Y.Value);
+        }
+
+        [Fact]
         public void VectorCastToPointTest()
         {
             // Assemble
