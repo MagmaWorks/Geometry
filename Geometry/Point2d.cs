@@ -103,6 +103,18 @@ namespace MagmaWorks.Geometry
         /// <param name="p2"></param>
         /// <param name="p3"></param>
         /// <returns> Returns the distance between p3 and the infinite line formed by p1 and p2 </returns>
+        public static Length DistancePointToLine(ILine2d ln, IPoint2d p, bool infinite = true)
+        {
+            return DistancePointToLine(ln.Start, ln.End, p, infinite);
+        }
+
+        /// <summary>
+        /// Returns the distance between p3 and the infinite line formed by p1 and p2
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        /// <returns> Returns the distance between p3 and the infinite line formed by p1 and p2 </returns>
         public static Length DistancePointToLine(IPoint2d l1, IPoint2d l2, IPoint2d p0, bool infinite = true)
         {
             LengthUnit unit = l1.X.Unit;
@@ -136,6 +148,11 @@ namespace MagmaWorks.Geometry
             return new Length(d, unit);
         }
 
+        public static Point2d PointProjOnLine(ILine2d ln, IPoint2d p)
+        {
+            return PointProjOnLine(ln.Start, ln.End, p);
+        }
+
         public static Point2d PointProjOnLine(IPoint2d l1, IPoint2d l2, IPoint2d p0)
         {
             LengthUnit unit = l1.X.Unit;
@@ -147,22 +164,27 @@ namespace MagmaWorks.Geometry
                 l1.Y + uv / d * (l2.Y - l1.Y));
         }
 
-        public static (bool, Point2d) IsClosedToPolygon(IPoint2d p0, IList<IPoint2d> points, Length d)
+        public static (bool, Point2d) IsCloseToPolygon(IPoint2d p, IPolygon2d polygon, Length d)
         {
-            var pt = new Point2d(Length.Zero, Length.Zero);
-            bool isClosed = false;
-            for (int i = 0; i < points.Count; i++)
+            return IsCloseToPolygon(p, polygon.Points, d);
+        }
+
+        public static (bool, Point2d) IsCloseToPolygon(IPoint2d p0, IList<IPoint2d> points, Length d)
+        {
+            Point2d pt = null;
+            bool isClose = false;
+            for (int i = 0; i < points.Count - 1; i++)
             {
-                int j = (i == points.Count - 1) ? 0 : i + 1;
-                if (DistancePointToLine(points[i], points[j], p0) < d)
+                Length distance = DistancePointToLine(points[i], points[i + 1], p0);
+                if (distance <= d)
                 {
-                    pt = PointProjOnLine(points[i], points[j], p0);
-                    isClosed = true;
-                    break;
+                    d = distance;
+                    pt = PointProjOnLine(points[i], points[i + 1], p0);
+                    isClose = true;
                 }
             }
 
-            return (isClosed, pt);
+            return (isClose, pt);
         }
 
         public static List<Point2d> RotatePoints(IList<IPoint2d> pts, Angle angle)
@@ -278,6 +300,8 @@ namespace MagmaWorks.Geometry
         public static Area GetPolygonArea(IList<IPoint2d> vertices, bool closed = false)
         {
             Area res = Area.Zero;
+            Area.TryParse($"0 {Length.GetAbbreviation(vertices[0].X.Unit)}²", out res);
+            
             int n = vertices.Count;
             if (closed)
             {

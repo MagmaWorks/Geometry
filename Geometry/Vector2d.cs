@@ -63,7 +63,8 @@ namespace MagmaWorks.Geometry
         public static Angle VectorAngle(IVector2d v1, IVector2d v2)
         {
             LengthUnit unit = v1.X.Unit;
-            return new Angle(Math.Acos(ScalarProduct(v1, v2)) / (v1.Length.As(unit) * v2.Length.As(unit)), AngleUnit.Radian);
+            double angle = Math.Acos(ScalarProduct(v1, v2) / (v1.Length.As(unit) * v2.Length.As(unit)));
+            return new Angle(angle, AngleUnit.Radian);
         }
 
         public static Vector2d UnitX => new Vector2d(new Length(1, LengthUnit.Meter), Length.Zero);

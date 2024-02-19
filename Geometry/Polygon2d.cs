@@ -58,7 +58,7 @@ namespace MagmaWorks.Geometry
 
         public (bool, Point2d) IsClosedToPolygon(IPoint2d p0, Length d)
         {
-            return Point2d.IsClosedToPolygon(p0, Points, d);
+            return Point2d.IsCloseToPolygon(p0, Points, d);
         }
 
         public bool IsInside(IPoint2d point, double tol = 0, bool border = true)
