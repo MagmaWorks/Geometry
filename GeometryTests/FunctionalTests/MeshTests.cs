@@ -25,13 +25,28 @@ namespace GeometryTests.FunctionalTests
 
             // Act
             var m = new Mesh();
-            m.AddVertex(x1, y1, z1, new Point2d());
+
+            var p1 = new Point3d(x1, y1, z1);
+            var v1 = new Vertex(p1, new Point2d());
+            m.AddVertex(v1);
+
+            var v2 = new Vertex(x2, y2, z2);
+            m.AddVertex(v2);
+
+            var v3 = new Vertex(x3.Value, y3.Value, z3.Value, LengthUnit.Centimeter);
+            m.AddVertex(v3);
 
             // Assert
-            Assert.Single(m.Verticies);
+            Assert.Equal(3, m.Verticies.Count);
             TestUtility.TestLengthsAreEqual(x1, m.Verticies[0].X);
             TestUtility.TestLengthsAreEqual(y1, m.Verticies[0].Y);
             TestUtility.TestLengthsAreEqual(z1, m.Verticies[0].Z);
+            TestUtility.TestLengthsAreEqual(x2, m.Verticies[1].X);
+            TestUtility.TestLengthsAreEqual(y2, m.Verticies[1].Y);
+            TestUtility.TestLengthsAreEqual(z2, m.Verticies[1].Z);
+            TestUtility.TestLengthsAreEqual(x3, m.Verticies[2].X);
+            TestUtility.TestLengthsAreEqual(y3, m.Verticies[2].Y);
+            TestUtility.TestLengthsAreEqual(z3, m.Verticies[2].Z);
         }
     }
 }
