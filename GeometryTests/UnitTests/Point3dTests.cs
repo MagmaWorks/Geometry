@@ -87,6 +87,24 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
+        public void PointCastToVertexTest()
+        {
+            // Assemble
+            var x = new Length(2.3, LengthUnit.Centimeter);
+            var y = new Length(5.4, LengthUnit.Centimeter);
+            var z = new Length(6.8, LengthUnit.Centimeter);
+
+            // Act
+            var pt = new Point3d(x, y, z);
+            var vertex = (Vertex)pt;
+
+            // Assert
+            TestUtility.TestLengthsAreEqual(x, vertex.X);
+            TestUtility.TestLengthsAreEqual(y, vertex.Y);
+            TestUtility.TestLengthsAreEqual(z, vertex.Z);
+        }
+
+        [Fact]
         public void PointMinusOperatorTest()
         {
             // Assemble

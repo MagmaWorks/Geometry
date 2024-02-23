@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
-using MagmaWorks.Geometry.Utility;
 using MagmaWorks.Geometry.Utility.Extensions;
 using OasysUnits;
 using OasysUnits.Units;
@@ -59,6 +58,11 @@ namespace MagmaWorks.Geometry
         public static implicit operator Vector3d(Point3d pt)
         {
             return new Vector3d(pt.X, pt.Y, pt.Z);
+        }
+
+        public static implicit operator Vertex(Point3d pt)
+        {
+            return new Vertex(pt, new Point2d());
         }
 
         /// <summary>
