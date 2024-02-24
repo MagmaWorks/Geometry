@@ -21,7 +21,7 @@ namespace MagmaWorks.Geometry.Utility
             }
 
 
-            for (int i = 0; i < lengths.Count; i++) 
+            for (int i = 0; i < lengths.Count; i++)
             {
                 if (lengths[i].IsEqual(others[i]) == false)
                 {
