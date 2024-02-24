@@ -2,10 +2,10 @@
 
 namespace MagmaWorks.Geometry
 {
-    public interface IMesh
+    public interface IMesh : IGeometry
     {
         IList<int[]> MeshIndices { get; }
-        IList<INode> Nodes { get; }
+        IList<IVertex> Verticies { get; }
         double Opacity { get; set; }
         IBrush Brush { get; set; }
     }

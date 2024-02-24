@@ -6,8 +6,8 @@ namespace MagmaWorks.Geometry
 {
     public class Model3d : IModel3d
     {
-        public IList<IMesh> Meshes { get; private set; }
-        public IList<IText3d> Texts { get; private set; }
+        public IList<IMesh> Meshes { get; set; }
+        public IList<IText3d> Texts { get; set; }
 
         public Model3d(IMesh mesh)
         {
@@ -17,17 +17,17 @@ namespace MagmaWorks.Geometry
 
         public Point3d GetMinimumCorner()
         {
-            Length x = Meshes.SelectMany(a => a.Nodes).Min(b => b.Point.X);
-            Length y = Meshes.SelectMany(a => a.Nodes).Min(b => b.Point.Y);
-            Length z = Meshes.SelectMany(a => a.Nodes).Min(b => b.Point.Z);
+            Length x = Meshes.SelectMany(a => a.Verticies).Min(b => b.X);
+            Length y = Meshes.SelectMany(a => a.Verticies).Min(b => b.Y);
+            Length z = Meshes.SelectMany(a => a.Verticies).Min(b => b.Z);
             return new Point3d(x, y, z);
         }
 
         public Point3d GetMaximumCorner()
         {
-            Length x = Meshes.SelectMany(a => a.Nodes).Max(b => b.Point.X);
-            Length y = Meshes.SelectMany(a => a.Nodes).Max(b => b.Point.Y);
-            Length z = Meshes.SelectMany(a => a.Nodes).Max(b => b.Point.Z);
+            Length x = Meshes.SelectMany(a => a.Verticies).Max(b => b.X);
+            Length y = Meshes.SelectMany(a => a.Verticies).Max(b => b.Y);
+            Length z = Meshes.SelectMany(a => a.Verticies).Max(b => b.Z);
             return new Point3d(x, y, z);
         }
     }

@@ -6,8 +6,8 @@ namespace MagmaWorks.Geometry
 {
     public class Vector2d : IVector2d
     {
-        public Length X { get; private set; }
-        public Length Y { get; private set; }
+        public Length X { get; set; }
+        public Length Y { get; set; }
         public Length Length
         {
             get
@@ -17,6 +17,9 @@ namespace MagmaWorks.Geometry
                 return new Length(Math.Sqrt(area), unit);
             }
         }
+
+        private Vector2d() { }
+
         public Vector2d(Length x, Length y)
         {
             X = x;
@@ -46,6 +49,11 @@ namespace MagmaWorks.Geometry
             return new Vector2d(point.X * number, point.Y * number);
         }
 
+        public static implicit operator Point2d(Vector2d vect)
+        {
+            return new Point2d(vect.X, vect.Y);
+        }
+
         public static double ScalarProduct(IVector2d v1, IVector2d v2)
         {
             LengthUnit unit = v1.X.Unit;
@@ -55,7 +63,8 @@ namespace MagmaWorks.Geometry
         public static Angle VectorAngle(IVector2d v1, IVector2d v2)
         {
             LengthUnit unit = v1.X.Unit;
-            return new Angle(Math.Acos(ScalarProduct(v1, v2)) / (v1.Length.As(unit) * v2.Length.As(unit)), AngleUnit.Radian);
+            double angle = Math.Acos(ScalarProduct(v1, v2) / (v1.Length.As(unit) * v2.Length.As(unit)));
+            return new Angle(angle, AngleUnit.Radian);
         }
 
         public static Vector2d UnitX => new Vector2d(new Length(1, LengthUnit.Meter), Length.Zero);

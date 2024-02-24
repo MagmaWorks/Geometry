@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using OasysUnits;
 using OasysUnits.Units;
 
@@ -7,9 +6,9 @@ namespace MagmaWorks.Geometry
 {
     public class Vector3d : IVector3d
     {
-        public Length X { get; private set; }
-        public Length Y { get; private set; }
-        public Length Z { get; private set; }
+        public Length X { get; set; }
+        public Length Y { get; set; }
+        public Length Z { get; set; }
         public Length Length
         {
             get
@@ -19,6 +18,9 @@ namespace MagmaWorks.Geometry
                 return new Length(Math.Sqrt(area), unit);
             }
         }
+
+        private Vector3d() { }
+
         public Vector3d(Length x, Length y, Length z)
         {
             X = x;
@@ -38,6 +40,11 @@ namespace MagmaWorks.Geometry
             X = other.X;
             Y = other.Y.ToUnit(other.X.Unit);
             Z = other.Z.ToUnit(other.X.Unit);
+        }
+
+        public static implicit operator Point3d(Vector3d vect)
+        {
+            return new Point3d(vect.X, vect.Y, vect.Z);
         }
 
         public Vector3d Normalised()
@@ -67,15 +74,16 @@ namespace MagmaWorks.Geometry
             return u.X.As(unit) * v.X.As(unit) + u.Y.As(unit) * v.Y.As(unit) + u.Z.As(unit) * v.Z.As(unit);
         }
 
-        public static double VectorAngle(IVector3d v1, IVector3d v2)
+        public static Angle VectorAngle(IVector3d v1, IVector3d v2)
         {
             LengthUnit unit = v1.X.Unit;
-            return Math.Acos(ScalarProduct(v1, v2)) / (v1.Length.As(unit) * v2.Length.As(unit));
+            double angle = Math.Acos(ScalarProduct(v1, v2)) / (v1.Length.As(unit) * v2.Length.As(unit));
+            return new Angle(angle, AngleUnit.Radian);
         }
 
         public static Area TriangleArea(IVector3d v1, IVector3d v2)
         {
-            return 0.5 * v1.Length * v2.Length * Math.Abs(Math.Sin(VectorAngle(v1, v2)));
+            return 0.5 * v1.Length * v2.Length * Math.Abs(Math.Sin(VectorAngle(v1, v2).Radians));
         }
 
         public static Vector3d VectorialProduct(IVector3d v1, IVector3d v2)

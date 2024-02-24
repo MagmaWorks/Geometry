@@ -1,8 +1,7 @@
 ﻿namespace MagmaWorks.Geometry
 {
-    public interface INode
+    public interface IVertex : IPoint3d
     {
-        IPoint3d Point { get; }
         IPoint2d TextureCoordinate { get; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using OasysUnits;
 using OasysUnits.Units;
@@ -9,22 +8,32 @@ namespace MagmaWorks.Geometry
 {
     public class Mesh : IMesh
     {
-        public IList<int[]> MeshIndices { get; private set; }
-        public IList<INode> Nodes { get; private set; }
+        public IList<int[]> MeshIndices { get; set; }
+        public IList<IVertex> Verticies { get; set; }
         public double Opacity { get; set; }
         public IBrush Brush { get; set; }
 
         public Mesh()
         {
             MeshIndices = new List<int[]>();
-            Nodes = new List<INode>();
+            Verticies = new List<IVertex>();
             Brush = new Brush(128, 128, 0);
             Opacity = 1;
         }
 
-        public void AddNode(Length x, Length y, Length z, IPoint2d textureCoordinates)
+        public void AddVertex(Length x, Length y, Length z, IPoint2d textureCoordinates)
         {
-            Nodes.Add(new Node(new Point3d(x, y, z), textureCoordinates));
+            Verticies.Add(new Vertex(new Point3d(x, y, z), textureCoordinates));
+        }
+
+        public void AddVertex(Point3d pt)
+        {
+            Verticies.Add(new Vertex(pt, new Point2d()));
+        }
+
+        public void AddVertex(Vertex v)
+        {
+            Verticies.Add(v);
         }
 
         public void SetIndices(List<int[]> indices)
@@ -204,8 +213,8 @@ namespace MagmaWorks.Geometry
             {
                 var newPoint1 = Point3d.TransformedPoint(startPoints[i], transMatrix);
                 var newPoint2 = Point3d.TransformedPoint(endPoints[i], transMatrix);
-                returnMesh.AddNode(newPoint1.X, newPoint1.Y, newPoint1.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
-                returnMesh.AddNode(newPoint2.X, newPoint2.Y, newPoint2.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
+                returnMesh.AddVertex(newPoint1.X, newPoint1.Y, newPoint1.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
+                returnMesh.AddVertex(newPoint2.X, newPoint2.Y, newPoint2.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
             }
 
             int prevStart = sides * 2 - 2;
@@ -241,8 +250,8 @@ namespace MagmaWorks.Geometry
             {
                 IPoint3d newPoint1 = startPoints[i];
                 IPoint3d newPoint2 = endPoints[i];
-                returnMesh.AddNode(newPoint1.X, newPoint1.Y, newPoint1.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
-                returnMesh.AddNode(newPoint2.X, newPoint2.Y, newPoint2.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
+                returnMesh.AddVertex(newPoint1.X, newPoint1.Y, newPoint1.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
+                returnMesh.AddVertex(newPoint2.X, newPoint2.Y, newPoint2.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
             }
 
             int sides = startPoints.Count;

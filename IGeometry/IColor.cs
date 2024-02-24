@@ -1,6 +1,6 @@
 ﻿namespace MagmaWorks.Geometry
 {
-    public interface IColor
+    public interface IColor : IGeometry
     {
         int ColorInt { get; }
         byte Alpha { get; }
