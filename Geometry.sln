@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MagmaWorks.Geometry.Seriali
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeometryTests", "GeometryTests\GeometryTests.csproj", "{86D261B4-B15C-4F44-B655-CE127B7CC3C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICartesianBase", "ICartesianBase\ICartesianBase.csproj", "{0701777F-6600-4D95-B7D5-3BC323AB1FD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{86D261B4-B15C-4F44-B655-CE127B7CC3C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86D261B4-B15C-4F44-B655-CE127B7CC3C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86D261B4-B15C-4F44-B655-CE127B7CC3C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0701777F-6600-4D95-B7D5-3BC323AB1FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0701777F-6600-4D95-B7D5-3BC323AB1FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0701777F-6600-4D95-B7D5-3BC323AB1FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0701777F-6600-4D95-B7D5-3BC323AB1FD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

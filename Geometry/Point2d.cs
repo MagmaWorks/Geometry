@@ -345,7 +345,7 @@ namespace MagmaWorks.Geometry
             {
                 var v = new Vector2d(pt.X - cog.X, pt.Y - cog.Y);
                 v = v.Normalize();
-                points.Add(new Point2d(pt.X + v.X * factor, pt.Y + v.Y * factor));
+                points.Add(new Point2d(pt.X + v.U * factor, pt.Y + v.V * factor));
             }
 
             return points;

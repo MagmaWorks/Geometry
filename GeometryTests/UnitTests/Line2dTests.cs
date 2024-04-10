@@ -68,8 +68,8 @@ namespace GeometryTests.UnitTests
             var vector = (Vector2d)ln;
 
             // Assert
-            TestUtility.TestLengthsAreEqual(x1 - x2, vector.X);
-            TestUtility.TestLengthsAreEqual(y1 - y2, vector.Y);
+            TestUtility.TestLengthsAreEqual(x1 - x2, vector.U);
+            TestUtility.TestLengthsAreEqual(y1 - y2, vector.V);
         }
 
         [Fact]

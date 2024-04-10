@@ -4,14 +4,14 @@ using OasysUnits;
 
 namespace MagmaWorks.Geometry
 {
-    public class Model3d : IModel3d
+    public class Model3d : ICartesianModel3d
     {
-        public IList<IMesh> Meshes { get; set; }
+        public IList<ICartesianMesh> Meshes { get; set; }
         public IList<IText3d> Texts { get; set; }
 
-        public Model3d(IMesh mesh)
+        public Model3d(ICartesianMesh mesh)
         {
-            Meshes = new List<IMesh> { mesh };
+            Meshes = new List<ICartesianMesh> { mesh };
             Texts = new List<IText3d>();
         }
 

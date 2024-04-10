@@ -40,7 +40,7 @@ namespace GeometryTests.UnitTests
             var txtCoord = new Point2d();
             var vertex = new Vertex(pt, txtCoord);
             string json = vertex.ToJson();
-            IVertex vectDeserialized = json.FromJson<Vertex>();
+            ICartesianVertex vectDeserialized = json.FromJson<Vertex>();
 
             // Assert
             TestUtility.TestLengthsAreEqual(x, vectDeserialized.X);

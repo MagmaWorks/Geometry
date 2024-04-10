@@ -135,7 +135,7 @@ namespace MagmaWorks.Geometry
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static Point3d GetBarycenter(IList<IPoint3d> points)
+        public static Point3d GetBarycenter<T>(T points) where T : IList<Point3d>
         {
             Length resX = Length.Zero;
             Length resY = Length.Zero;
@@ -169,7 +169,8 @@ namespace MagmaWorks.Geometry
             return new Length(Math.Sqrt(area), unit);
         }
 
-        public static Point3d PlaneLineIntersection(IList<IPoint3d> linePoints, IList<IPoint3d> planePoints, bool within = true)
+        public static Point3d PlaneLineIntersection<T>(T linePoints, T planePoints, bool within = true)
+            where T : IList<Point3d>
         {
             IPoint3d p1 = planePoints[0];
             IPoint3d p2 = planePoints[1];
@@ -231,7 +232,7 @@ namespace MagmaWorks.Geometry
             }
         }
 
-        public static bool IsInsidePlane(IPoint3d p, IList<IPoint3d> vertices)
+        public static bool IsInsidePlane<P, T>(P p, T vertices) where P : IPoint3d where T : IList<P>
         {
             IPoint3d p1 = vertices[0];
             IPoint3d p2 = vertices[1];

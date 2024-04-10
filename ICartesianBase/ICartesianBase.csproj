@@ -6,14 +6,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-	<TargetFrameworks>net48;net6.0;net7.0;net8.0</TargetFrameworks>
-	  <LangVersion>8.0</LangVersion>
+    <TargetFrameworks>net48;net6.0;net7.0;net8.0</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
     <Platforms>AnyCPU</Platforms>
     <RootNamespace>MagmaWorks.Geometry</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Title>MagmaWorks Geometry Interfaces</Title>
+    <Title>MagmaWorks Carthesian Interfaces</Title>
     <Company>Whitby Wood</Company>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -50,10 +50,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ICartesianBase\ICartesianBase.csproj" />
   </ItemGroup>
 
 </Project>

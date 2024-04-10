@@ -6,17 +6,17 @@ using OasysUnits.Units;
 
 namespace MagmaWorks.Geometry
 {
-    public class Mesh : IMesh
+    public class Mesh : ICartesianMesh
     {
         public IList<int[]> MeshIndices { get; set; }
-        public IList<IVertex> Verticies { get; set; }
+        public IList<ICartesianVertex> Verticies { get; set; }
         public double Opacity { get; set; }
         public IBrush Brush { get; set; }
 
         public Mesh()
         {
             MeshIndices = new List<int[]>();
-            Verticies = new List<IVertex>();
+            Verticies = new List<ICartesianVertex>();
             Brush = new Brush(128, 128, 0);
             Opacity = 1;
         }

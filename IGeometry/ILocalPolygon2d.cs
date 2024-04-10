@@ -2,8 +2,8 @@
 
 namespace MagmaWorks.Geometry
 {
-    public interface ILocalPolygon2d : IGeometry
+    public interface ILocalPolygon2d : IGeometryBase
     {
-        IList<ILocalPoint2d> Points { get; }
+        IEnumerable<ILocalPoint2d> Points { get; }
     }
 }

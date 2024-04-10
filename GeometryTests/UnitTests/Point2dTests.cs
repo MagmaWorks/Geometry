@@ -73,8 +73,8 @@ namespace GeometryTests.UnitTests
             var vector = (Vector2d)pt;
 
             // Assert
-            TestUtility.TestLengthsAreEqual(x, vector.X);
-            TestUtility.TestLengthsAreEqual(y, vector.Y);
+            TestUtility.TestLengthsAreEqual(x, vector.U);
+            TestUtility.TestLengthsAreEqual(y, vector.V);
         }
 
         [Fact]
@@ -92,8 +92,8 @@ namespace GeometryTests.UnitTests
             Vector2d vector = pt1 - pt2;
 
             // Assert
-            Assert.Equal(0, vector.X.Value);
-            Assert.Equal(0, vector.Y.Value);
+            Assert.Equal(0, vector.U.Value);
+            Assert.Equal(0, vector.V.Value);
         }
 
         [Fact]

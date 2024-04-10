@@ -67,8 +67,8 @@ namespace GeometryTests.UnitTests
             Vector2d scaled = 1.5 * vect;
 
             // Assert
-            Assert.Equal(1.5 * 2.3, scaled.X.Value);
-            Assert.Equal(1.5 * 5.4, scaled.Y.Value);
+            Assert.Equal(1.5 * 2.3, scaled.U.Value);
+            Assert.Equal(1.5 * 5.4, scaled.V.Value);
         }
 
         [Fact]

@@ -8,7 +8,7 @@ namespace MagmaWorks.Geometry
         public Length X { get; set; } = Length.Zero;
         public Length Y { get; set; } = Length.Zero;
         public Length Z { get; set; } = Length.Zero;
-        public IPoint2d TextureCoordinate { get; set; } = new Point2d();
+        public ICoordinate TextureCoordinate { get; set; } = new Coordinate();
 
         public Vertex() { }
 
@@ -26,7 +26,7 @@ namespace MagmaWorks.Geometry
             Z = new Length(z, unit);
         }
 
-        public Vertex(IPoint3d point, IPoint2d textureCoords)
+        public Vertex(IPoint3d point, ICoordinate textureCoords)
         {
             X = point.X;
             Y = point.Y;
