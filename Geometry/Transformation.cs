@@ -1,6 +1,6 @@
-﻿using OasysUnits;
+﻿using System.Numerics;
+using OasysUnits;
 using OasysUnits.Units;
-using System.Numerics;
 
 namespace MagmaWorks.Geometry
 {
