@@ -4,11 +4,11 @@ using MagmaWorks.Geometry.Utility.Extensions;
 
 namespace MagmaWorks.Geometry
 {
-    public class Polygon3d : IPolygon3d<IList<Point3d>>
+    public class Polygon3d : IPolygon3d
     {
-        public IList<Point3d> Points { get; set; }
+        public IList<IPoint3d> Points { get; set; }
 
-        public Polygon3d(IList<Point3d> points)
+        public Polygon3d(IList<IPoint3d> points)
         {
             if (points.IsNullOrEmpty() || points.Count < 2)
             {
@@ -23,12 +23,13 @@ namespace MagmaWorks.Geometry
             return Point3d.GetBarycenter(Points);
         }
 
-        public bool IsInsidePlane(IPoint3d p)
+        public bool IsInsidePlane<P>(P p) where P : IPoint3d
         {
             return Point3d.IsInsidePlane(p, Points);
         }
 
-        public static Point3d PlaneLineIntersection(Polygon3d line, Polygon3d plane, bool within = true)
+        public static Point3d PlaneLineIntersection<P>(P line, P plane, bool within = true)
+            where P : Polygon3d
         {
             return Point3d.PlaneLineIntersection(line.Points, plane.Points, within);
         }

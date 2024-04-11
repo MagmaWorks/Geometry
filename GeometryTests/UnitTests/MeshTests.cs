@@ -18,7 +18,7 @@ namespace GeometryTests.UnitTests
 
             // Act
             var m = new Mesh();
-            m.AddVertex(x, y, z, new Point2d());
+            m.AddVertex(x, y, z, new Coordinate());
 
             // Assert
             Assert.Single(m.Verticies);
@@ -37,9 +37,9 @@ namespace GeometryTests.UnitTests
 
             // Act
             var m = new Mesh();
-            m.AddVertex(x, y, z, new Point2d());
+            m.AddVertex(x, y, z, new Coordinate());
             string json = m.ToJson();
-            ICartesianMesh meshDeserialized = json.FromJson<Mesh>();
+            IMesh meshDeserialized = json.FromJson<Mesh>();
 
             // Assert
             Assert.Single(m.Verticies);

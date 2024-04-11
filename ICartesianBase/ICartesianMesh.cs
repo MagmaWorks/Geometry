@@ -8,8 +8,8 @@ namespace MagmaWorks.Geometry
         where TCoordinate : ICoordinate
         where Tx : IQuantity where Ty : IQuantity where Tz : IQuantity
     {
-        IEnumerable<int[]> MeshIndices { get; }
-        IEnumerable<TVertex> Verticies { get; }
+        IList<int[]> MeshIndices { get; }
+        IList<TVertex> Verticies { get; }
         double Opacity { get; set; }
         IBrush Brush { get; set; }
     }

@@ -31,7 +31,7 @@ namespace MagmaWorks.Geometry
             return new Polygon2d(list);
         }
 
-        public Polygon2d GetBoundingBox(IPolygon2d polygon)
+        public Polygon2d GetBoundingBox<P>(P polygon) where P : Polygon2d
         {
             return GetBoundingBox(polygon.Points);
         }
@@ -41,17 +41,17 @@ namespace MagmaWorks.Geometry
             return Point2d.GetBarycenter(Points);
         }
 
-        public Point2d GetClosest(IPoint2d pt)
+        public Point2d GetClosest<P>(P pt) where P : IPoint2d
         {
             return Point2d.GetClosest(pt, Points);
         }
 
-        public (bool, Point2d) IsCloseToPolygon(IPoint2d p0, Length d)
+        public (bool, Point2d) IsCloseToPolygon<P>(P p0, Length d) where P : IPoint2d
         {
             return Point2d.IsCloseToPolygon(p0, Points, d);
         }
 
-        public bool IsInside(IPoint2d point, double tol = 0, bool border = true)
+        public bool IsInside<P>(P point, double tol = 0, bool border = true) where P : IPoint2d
         {
             return Point2d.IsInside(Points, point, tol, border);
         }

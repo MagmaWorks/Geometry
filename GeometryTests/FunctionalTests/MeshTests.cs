@@ -27,7 +27,7 @@ namespace GeometryTests.FunctionalTests
             var m = new Mesh();
 
             var p1 = new Point3d(x1, y1, z1);
-            var v1 = new Vertex(p1, new Point2d());
+            var v1 = new Vertex(p1, new Coordinate());
             m.AddVertex(v1);
 
             var v2 = new Vertex(x2, y2, z2);
@@ -37,7 +37,7 @@ namespace GeometryTests.FunctionalTests
             m.AddVertex(v3);
 
             // Assert
-            Assert.Equal(3, m.Verticies.Count);
+            Assert.Equal(3, m.Verticies.Count());
             TestUtility.TestLengthsAreEqual(x1, m.Verticies[0].X);
             TestUtility.TestLengthsAreEqual(y1, m.Verticies[0].Y);
             TestUtility.TestLengthsAreEqual(z1, m.Verticies[0].Z);

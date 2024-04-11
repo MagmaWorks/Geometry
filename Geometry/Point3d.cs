@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using MagmaWorks.Geometry.Utility.Extensions;
@@ -62,63 +63,7 @@ namespace MagmaWorks.Geometry
 
         public static implicit operator Vertex(Point3d pt)
         {
-            return new Vertex(pt, new Point2d());
-        }
-
-        /// <summary>
-        /// Returns transformation matrix setting 2D plane in 3d space to XY plane
-        /// </summary>
-        /// <param name="pt1 at origin"></param>
-        /// <param name="pt2 on x axis"></param>
-        /// <param name="pt3 on xy plane"></param>
-        /// <returns></returns>
-        public static Matrix4x4 GetTransformMatrix2dTo3d(IPoint3d pt1, IPoint3d pt2, IPoint3d pt3)
-        {
-            var xAxis = new Vector3d(pt2.X - pt1.X, pt2.Y - pt1.Y, pt2.Z - pt1.Z);
-            var hAxis = new Vector3d(pt3.X - pt1.X, pt3.Y - pt1.Y, pt3.Z - pt1.Z);
-            Vector3d zAxis = Vector3d.CrossProduct(xAxis, hAxis);
-            Vector3d yAxis = Vector3d.CrossProduct(zAxis, xAxis);
-
-            xAxis = xAxis.Normalised();
-            yAxis = yAxis.Normalised();
-            zAxis = zAxis.Normalised();
-
-            LengthUnit unit = pt1.X.Unit;
-            Matrix4x4 trans = new Matrix4x4((float)xAxis.X.As(unit), (float)xAxis.Y.As(unit), (float)xAxis.Z.As(unit), 0,
-                                            (float)yAxis.X.As(unit), (float)yAxis.Y.As(unit), (float)yAxis.Z.As(unit), 0,
-                                            (float)zAxis.X.As(unit), (float)zAxis.Y.As(unit), (float)zAxis.Z.As(unit), 0,
-                                            (float)pt1.X.As(unit), (float)pt1.Y.As(unit), (float)pt1.Z.As(unit), 1);
-
-            return trans;
-        }
-
-        /// <summary>
-        /// Returns transformation matrix setting 2D plane in 3d space to XY plane
-        /// </summary>
-        /// <param name="pt1 at origin"></param>
-        /// <param name="pt2 on x axis"></param>
-        /// <param name="pt3 on xy plane"></param>
-        /// <returns></returns>
-        public static Matrix4x4 GetTransformMatrixPlaneIn3dTo2d(IPoint3d pt1, IPoint3d pt2, IPoint3d pt3)
-        {
-            var xAxis = new Vector3d(pt2.X - pt1.X, pt2.Y - pt1.Y, pt2.Z - pt1.Z);
-            var hAxis = new Vector3d(pt3.X - pt1.X, pt3.Y - pt1.Y, pt3.Z - pt1.Z);
-            Vector3d zAxis = Vector3d.CrossProduct(xAxis, hAxis);
-            Vector3d yAxis = Vector3d.CrossProduct(zAxis, xAxis);
-
-            xAxis = xAxis.Normalised();
-            yAxis = yAxis.Normalised();
-            zAxis = zAxis.Normalised();
-
-            LengthUnit unit = pt1.X.Unit;
-            Matrix4x4 trans = new Matrix4x4((float)xAxis.X.As(unit), (float)xAxis.Y.As(unit), (float)xAxis.Z.As(unit), 0,
-                                            (float)yAxis.X.As(unit), (float)yAxis.Y.As(unit), (float)yAxis.Z.As(unit), 0,
-                                            (float)zAxis.X.As(unit), (float)zAxis.Y.As(unit), (float)zAxis.Z.As(unit), 0,
-                                            (float)pt1.X.As(unit), (float)pt1.Y.As(unit), (float)pt1.Z.As(unit), 1);
-            Matrix4x4 returnMatrix;
-            Matrix4x4.Invert(trans, out returnMatrix);
-
-            return returnMatrix;
+            return new Vertex(pt, new Coordinate());
         }
 
         public static Point3d TransformedPoint(IPoint3d pt, Matrix4x4 matrix)
@@ -135,7 +80,7 @@ namespace MagmaWorks.Geometry
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static Point3d GetBarycenter<T>(T points) where T : IList<Point3d>
+        public static Point3d GetBarycenter(IList<IPoint3d> points)
         {
             Length resX = Length.Zero;
             Length resY = Length.Zero;
@@ -160,7 +105,7 @@ namespace MagmaWorks.Geometry
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static Length Distance(IPoint3d p1, IPoint3d p2)
+        public static Length Distance<P>(P p1, P p2) where P : ICartesian3d<Length, Length, Length>
         {
             LengthUnit unit = p1.X.Unit;
             double area = Math.Pow(p1.X.As(unit) - p2.X.As(unit), 2)
@@ -169,8 +114,7 @@ namespace MagmaWorks.Geometry
             return new Length(Math.Sqrt(area), unit);
         }
 
-        public static Point3d PlaneLineIntersection<T>(T linePoints, T planePoints, bool within = true)
-            where T : IList<Point3d>
+        public static Point3d PlaneLineIntersection(IList<IPoint3d> linePoints, IList<IPoint3d> planePoints, bool within = true)
         {
             IPoint3d p1 = planePoints[0];
             IPoint3d p2 = planePoints[1];
@@ -232,7 +176,7 @@ namespace MagmaWorks.Geometry
             }
         }
 
-        public static bool IsInsidePlane<P, T>(P p, T vertices) where P : IPoint3d where T : IList<P>
+        public static bool IsInsidePlane(IPoint3d p, IList<IPoint3d> vertices)
         {
             IPoint3d p1 = vertices[0];
             IPoint3d p2 = vertices[1];

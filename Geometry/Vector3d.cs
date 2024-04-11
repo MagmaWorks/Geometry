@@ -59,7 +59,7 @@ namespace MagmaWorks.Geometry
             return CrossProduct(this, other);
         }
 
-        public static Vector3d CrossProduct(IVector3d v1, IVector3d v2)
+        public static Vector3d CrossProduct<V>(V v1, V v2) where V : IVector3d
         {
             LengthUnit unit = v1.X.Unit;
             double x = v1.Y.As(unit) * v2.Z.As(unit) - v2.Y.As(unit) * v1.Z.As(unit);
@@ -68,25 +68,25 @@ namespace MagmaWorks.Geometry
             return new Vector3d(new Length(x, unit), new Length(y, unit), new Length(z, unit));
         }
 
-        public static double ScalarProduct(IVector3d u, IVector3d v)
+        public static double ScalarProduct<V>(V u, V v) where V : IVector3d
         {
             LengthUnit unit = u.X.Unit;
             return u.X.As(unit) * v.X.As(unit) + u.Y.As(unit) * v.Y.As(unit) + u.Z.As(unit) * v.Z.As(unit);
         }
 
-        public static Angle VectorAngle(IVector3d v1, IVector3d v2)
+        public static Angle VectorAngle<V>(V v1, V v2) where V : IVector3d
         {
             LengthUnit unit = v1.X.Unit;
             double angle = Math.Acos(ScalarProduct(v1, v2)) / (v1.Length.As(unit) * v2.Length.As(unit));
             return new Angle(angle, AngleUnit.Radian);
         }
 
-        public static Area TriangleArea(IVector3d v1, IVector3d v2)
+        public static Area TriangleArea<V>(V v1, V v2) where V : IVector3d
         {
             return 0.5 * v1.Length * v2.Length * Math.Abs(Math.Sin(VectorAngle(v1, v2).Radians));
         }
 
-        public static Vector3d VectorialProduct(IVector3d v1, IVector3d v2)
+        public static Vector3d VectorialProduct<V>(V v1, V v2) where V : IVector3d
         {
             LengthUnit unit = v1.X.Unit;
             return new Vector3d
