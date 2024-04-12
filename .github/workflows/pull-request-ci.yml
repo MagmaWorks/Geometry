@@ -7,5 +7,5 @@ on:
       - 'release/**'
       
 jobs:
-  call-workflow-passing-data:
-    uses: magmaworks/actions/.github/workflows/on-merge-to-main.yml@main
+  call-workflow:
+    uses: magmaworks/actions/.github/workflows/on-pull-request.yml@main
