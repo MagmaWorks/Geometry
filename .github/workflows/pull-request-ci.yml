@@ -1,5 +1,4 @@
 name: On Pull Request -- Lint, Build, Test, Coverage
-
 on:
   pull_request:
     branches:    
@@ -39,6 +38,12 @@ jobs:
           badge: true
           format: 'markdown'
           output: 'both'
+
+      - name: Upload coverage xml
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/*/coverage.cobertura.xml
 
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
