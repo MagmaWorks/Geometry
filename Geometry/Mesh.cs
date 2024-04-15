@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using OasysUnits;
 using OasysUnits.Units;
@@ -21,30 +22,39 @@ namespace MagmaWorks.Geometry
             Opacity = 1;
         }
 
-        public void AddVertex(Length x, Length y, Length z, IPoint2d textureCoordinates)
+        public void AddVertex<C>(Length x, Length y, Length z, C textureCoordinates) where C : ICoordinate
         {
             Verticies.Add(new Vertex(new Point3d(x, y, z), textureCoordinates));
         }
 
-        public void AddVertex(Point3d pt)
+        public void AddVertex<P>(P pt) where P : ICartesian3d<Length, Length, Length>
         {
-            Verticies.Add(new Vertex(pt, new Point2d()));
+            switch (pt)
+            {
+                case Vertex v:
+                    Verticies.Add(v);
+                    return;
+
+                case Point3d p:
+                    Verticies.Add(new Vertex(p, new Coordinate()));
+                    return;
+
+                default:
+                    throw new NotImplementedException($"Type {typeof(P)} not implemented");
+            }
         }
 
-        public void AddVertex(Vertex v)
-        {
-            Verticies.Add(v);
-        }
-
-        public void SetIndices(List<int[]> indices)
+        public void SetIndices(IList<int[]> indices)
         {
             MeshIndices = new List<int[]>();
             foreach (int[] item in indices)
             {
-                if (item.Length == 3)
+                if (item.Length != 3)
                 {
-                    MeshIndices.Add(item);
+                    throw new ArgumentException($"There must three indices per mesh face but {item.Length} was provided");
                 }
+
+                MeshIndices.Add(item);
             }
         }
 
@@ -194,10 +204,10 @@ namespace MagmaWorks.Geometry
         public static Mesh MakeExtrudedPolygon(IPoint3d start, IPoint3d end, Length radius, int sides)
         {
             var returnMesh = new Mesh();
-            LengthUnit unit = start.X.Unit;
             Length length = ((Point3d)end - (Point3d)start).Length;
             ILocalCoordinateSystem localCoords = LocalCoordinateSystem.LocalCoordSystemFromLinePoints(start, end);
-            Matrix4x4 transMatrix = Point3d.GetTransformMatrix2dTo3d(start, (Point3d)start + (Vector3d)localCoords.XAxis, (Point3d)start + (Vector3d)localCoords.YAxis);
+            Matrix4x4 transMatrix = Transformation.GetTransformMatrix2dTo3d(
+                start, (Point3d)start + (Vector3d)localCoords.XAxis, (Point3d)start + (Vector3d)localCoords.YAxis);
             var startPoints = new List<IPoint3d>();
             var endPoints = new List<IPoint3d>();
             double angle = 2 * Math.PI / sides;
@@ -213,8 +223,8 @@ namespace MagmaWorks.Geometry
             {
                 var newPoint1 = Point3d.TransformedPoint(startPoints[i], transMatrix);
                 var newPoint2 = Point3d.TransformedPoint(endPoints[i], transMatrix);
-                returnMesh.AddVertex(newPoint1.X, newPoint1.Y, newPoint1.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
-                returnMesh.AddVertex(newPoint2.X, newPoint2.Y, newPoint2.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
+                returnMesh.AddVertex(newPoint1.X, newPoint1.Y, newPoint1.Z, new Coordinate(0.5, 0.5));
+                returnMesh.AddVertex(newPoint2.X, newPoint2.Y, newPoint2.Z, new Coordinate(0.5, 0.5));
             }
 
             int prevStart = sides * 2 - 2;
@@ -236,10 +246,7 @@ namespace MagmaWorks.Geometry
         public static Mesh MakeExtrudedPolygon(IPoint3d start, IPoint3d end, List<IPoint3d> startPoints)
         {
             Mesh returnMesh = new Mesh();
-            LengthUnit unit = start.X.Unit;
             Vector3d extrusionRail = (Point3d)end - (Point3d)start;
-            ILocalCoordinateSystem localCoords = LocalCoordinateSystem.LocalCoordSystemFromLinePoints(start, end);
-            Matrix4x4 transMatrix = Point3d.GetTransformMatrix2dTo3d(start, (Point3d)start + (Vector3d)localCoords.XAxis, (Point3d)start + (Vector3d)localCoords.YAxis);
             var endPoints = new List<IPoint3d>();
             foreach (IPoint3d point in startPoints)
             {
@@ -250,8 +257,8 @@ namespace MagmaWorks.Geometry
             {
                 IPoint3d newPoint1 = startPoints[i];
                 IPoint3d newPoint2 = endPoints[i];
-                returnMesh.AddVertex(newPoint1.X, newPoint1.Y, newPoint1.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
-                returnMesh.AddVertex(newPoint2.X, newPoint2.Y, newPoint2.Z, new Point2d(new Length(0.5, unit), new Length(0.5, unit)));
+                returnMesh.AddVertex(newPoint1.X, newPoint1.Y, newPoint1.Z, new Coordinate(0.5, 0.5));
+                returnMesh.AddVertex(newPoint2.X, newPoint2.Y, newPoint2.Z, new Coordinate(0.5, 0.5));
             }
 
             int sides = startPoints.Count;

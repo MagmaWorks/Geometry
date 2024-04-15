@@ -18,7 +18,7 @@ namespace GeometryTests.UnitTests
 
             // Act
             var pt = new Point3d(x, y, z);
-            var txtCoord = new Point2d();
+            var txtCoord = new Coordinate();
             var vertex = new Vertex(pt, txtCoord);
 
             // Assert
@@ -37,7 +37,7 @@ namespace GeometryTests.UnitTests
 
             // Act
             var pt = new Point3d(x, y, z);
-            var txtCoord = new Point2d();
+            var txtCoord = new Coordinate();
             var vertex = new Vertex(pt, txtCoord);
             string json = vertex.ToJson();
             IVertex vectDeserialized = json.FromJson<Vertex>();
@@ -58,7 +58,7 @@ namespace GeometryTests.UnitTests
 
             // Act
             var p = new Point3d(x, y, z);
-            var txtCoord = new Point2d();
+            var txtCoord = new Coordinate();
             var vertex = new Vertex(p, txtCoord);
             var pt = (Point3d)vertex;
 

@@ -23,12 +23,13 @@ namespace MagmaWorks.Geometry
             return Point3d.GetBarycenter(Points);
         }
 
-        public bool IsInsidePlane(IPoint3d p)
+        public bool IsInsidePlane<P>(P p) where P : IPoint3d
         {
             return Point3d.IsInsidePlane(p, Points);
         }
 
-        public static Point3d PlaneLineIntersection(IPolygon3d line, IPolygon3d plane, bool within = true)
+        public static Point3d PlaneLineIntersection<P>(P line, P plane, bool within = true)
+            where P : Polygon3d
         {
             return Point3d.PlaneLineIntersection(line.Points, plane.Points, within);
         }

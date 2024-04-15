@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace MagmaWorks.Geometry
+﻿namespace MagmaWorks.Geometry
 {
-    public interface ILine2d : IGeometry
+    public interface ILine2d : IGeometryBase
     {
         IPoint2d Start { get; }
         IPoint2d End { get; }

@@ -48,7 +48,7 @@ namespace GeometryTests.UnitTests
             foreach (ConstructorInfo constructor in constructors)
             {
                 object[] args = CreateConstructorArguments(constructor);
-                IGeometry instance = (IGeometry)constructor.Invoke(args);
+                IGeometryBase instance = (IGeometryBase)constructor.Invoke(args);
                 Assert.NotNull(instance);
                 TestObjectsSurvivesJsonRoundtrip(instance);
             }
@@ -108,7 +108,7 @@ namespace GeometryTests.UnitTests
             }
         }
 
-        private void TestObjectsSurvivesJsonRoundtrip<T>(T obj) where T : IGeometry
+        private void TestObjectsSurvivesJsonRoundtrip<T>(T obj) where T : IGeometryBase
         {
             string json = obj.ToJson();
             Assert.NotNull(json);
@@ -118,7 +118,7 @@ namespace GeometryTests.UnitTests
             TestPropertiesInObjectsAreEqual(obj, deserialized);
         }
 
-        private void TestPropertiesInObjectsAreEqual<T>(T expected, T actual) where T : IGeometry
+        private void TestPropertiesInObjectsAreEqual<T>(T expected, T actual) where T : IGeometryBase
         {
             PropertyInfo[] expectedProperties = expected.GetType().GetProperties(
                 BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);

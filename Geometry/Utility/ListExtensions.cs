@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MagmaWorks.Geometry.Utility.Extensions
 {
     public static class ListExtension
     {
-        public static bool IsNullOrEmpty<T>(this ICollection<T> value)
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> value)
         {
-            if (value == null || value.Count == 0)
+            if (value == null || value.Count() == 0)
             {
                 return true;
             }

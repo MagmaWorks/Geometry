@@ -18,8 +18,8 @@ namespace GeometryTests.FunctionalTests
             Point2d center = Point2d.GetBarycenter(list);
 
             // Assert
-            Assert.Equal(2, center.X.Value);
-            Assert.Equal(3, center.Y.Value);
+            Assert.Equal(2, center.U.Value);
+            Assert.Equal(3, center.V.Value);
         }
 
         [Fact]
@@ -65,8 +65,8 @@ namespace GeometryTests.FunctionalTests
             Point2d ptOnLine = Point2d.PointProjOnLine(ln, pt);
 
             // Assert
-            Assert.Equal(2, ptOnLine.X.Value);
-            Assert.Equal(0, ptOnLine.Y.Value);
+            Assert.Equal(2, ptOnLine.U.Value);
+            Assert.Equal(0, ptOnLine.V.Value);
         }
 
         [Fact]
@@ -89,8 +89,8 @@ namespace GeometryTests.FunctionalTests
             Assert.False(ptClose1.close);
             Assert.Null(ptClose1.pt);
             Assert.True(ptClose2.close);
-            Assert.Equal(2, ptClose2.pt.X.Value);
-            Assert.Equal(0, ptClose2.pt.Y.Value);
+            Assert.Equal(2, ptClose2.pt.U.Value);
+            Assert.Equal(0, ptClose2.pt.V.Value);
         }
 
         [Fact]
@@ -107,14 +107,14 @@ namespace GeometryTests.FunctionalTests
             List<Point2d> rotated = Point2d.RotatePoints(list, new Angle(90, AngleUnit.Degree));
 
             // Assert
-            Assert.Equal(0, rotated[0].X.Value, 6);
-            Assert.Equal(0, rotated[0].Y.Value, 6);
-            Assert.Equal(0, rotated[1].X.Value, 6);
-            Assert.Equal(4, rotated[1].Y.Value, 6);
-            Assert.Equal(-4, rotated[2].X.Value, 6);
-            Assert.Equal(4, rotated[2].Y.Value, 6);
-            Assert.Equal(-4, rotated[3].X.Value, 6);
-            Assert.Equal(0, rotated[3].Y.Value, 6);
+            Assert.Equal(0, rotated[0].U.Value, 6);
+            Assert.Equal(0, rotated[0].V.Value, 6);
+            Assert.Equal(0, rotated[1].U.Value, 6);
+            Assert.Equal(4, rotated[1].V.Value, 6);
+            Assert.Equal(-4, rotated[2].U.Value, 6);
+            Assert.Equal(4, rotated[2].V.Value, 6);
+            Assert.Equal(-4, rotated[3].U.Value, 6);
+            Assert.Equal(0, rotated[3].V.Value, 6);
         }
 
         [Fact]
@@ -127,8 +127,8 @@ namespace GeometryTests.FunctionalTests
             Point2d rotated = Point2d.RotatePoint(pt, new Angle(90, AngleUnit.Degree));
 
             // Assert
-            Assert.Equal(0, rotated.X.Value, 6);
-            Assert.Equal(0, rotated.Y.Value, 6);
+            Assert.Equal(0, rotated.U.Value, 6);
+            Assert.Equal(0, rotated.V.Value, 6);
         }
 
         [Fact]
@@ -141,8 +141,8 @@ namespace GeometryTests.FunctionalTests
             Point2d rotated = Point2d.RotatePoint(pt, new Angle(90, AngleUnit.Degree));
 
             // Assert
-            Assert.Equal(-4, rotated.X.Value, 6);
-            Assert.Equal(4, rotated.Y.Value, 6);
+            Assert.Equal(-4, rotated.U.Value, 6);
+            Assert.Equal(4, rotated.V.Value, 6);
         }
 
         [Fact]
@@ -156,8 +156,8 @@ namespace GeometryTests.FunctionalTests
             Point2d rotated = Point2d.RotatePoint(pt, new Angle(180, AngleUnit.Degree), center);
 
             // Assert
-            Assert.Equal(0, rotated.X.Value, 6);
-            Assert.Equal(0, rotated.Y.Value, 6);
+            Assert.Equal(0, rotated.U.Value, 6);
+            Assert.Equal(0, rotated.V.Value, 6);
         }
 
         //[Fact]

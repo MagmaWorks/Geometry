@@ -2,10 +2,5 @@
 
 namespace MagmaWorks.Geometry
 {
-    public interface IPoint3d : IGeometry
-    {
-        Length X { get; }
-        Length Y { get; }
-        Length Z { get; }
-    }
+    public interface IPoint3d : ICartesian3d<Length, Length, Length> { }
 }

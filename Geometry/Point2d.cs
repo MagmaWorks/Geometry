@@ -9,51 +9,51 @@ namespace MagmaWorks.Geometry
 {
     public class Point2d : IPoint2d, IEquatable<IPoint2d>
     {
-        public Length X { get; set; }
-        public Length Y { get; set; }
+        public Length U { get; set; }
+        public Length V { get; set; }
 
         public Point2d()
         {
-            X = Length.Zero;
-            Y = Length.Zero;
+            U = Length.Zero;
+            V = Length.Zero;
         }
 
-        public Point2d(Length x, Length y)
+        public Point2d(Length u, Length v)
         {
-            X = x;
-            Y = y.ToUnit(x.Unit);
+            U = u;
+            V = v.ToUnit(u.Unit);
         }
 
-        public Point2d(double x, double y, LengthUnit unit)
+        public Point2d(double u, double v, LengthUnit unit)
         {
-            X = new Length(x, unit);
-            Y = new Length(y, unit);
+            U = new Length(u, unit);
+            V = new Length(v, unit);
         }
 
         public Point2d(IPoint2d other)
         {
-            X = other.X;
-            Y = other.Y.ToUnit(other.X.Unit);
+            U = other.U;
+            V = other.V.ToUnit(other.U.Unit);
         }
 
         public bool Equals(IPoint2d other)
         {
-            return X.IsEqual(other.X) && Y.IsEqual(other.Y);
+            return U.IsEqual(other.U) && V.IsEqual(other.V);
         }
 
         public static Vector2d operator -(Point2d point2, Point2d point1)
         {
-            return new Vector2d(point2.X - point1.X, point2.Y - point1.Y);
+            return new Vector2d(point2.U - point1.U, point2.V - point1.V);
         }
 
         public static Point2d operator *(double number, Point2d point)
         {
-            return new Point2d(point.X * number, point.Y * number);
+            return new Point2d(point.U * number, point.V * number);
         }
 
         public static implicit operator Vector2d(Point2d pt)
         {
-            return new Vector2d(pt.X, pt.Y);
+            return new Vector2d(pt.U, pt.V);
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace MagmaWorks.Geometry
             Length resY = Length.Zero;
             for (int i = 0; i < points.Count; i++)
             {
-                resX += points[i].X;
-                resY += points[i].Y;
+                resX += points[i].U;
+                resY += points[i].V;
             }
 
             resX /= points.Count;
@@ -83,10 +83,10 @@ namespace MagmaWorks.Geometry
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        public static Length Distance(IPoint2d p1, IPoint2d p2)
+        public static Length Distance<P>(P p1, P p2) where P : IPoint2d
         {
-            LengthUnit unit = p1.X.Unit;
-            double area = Math.Pow((p1.X.As(unit) - p2.X.As(unit)), 2) + Math.Pow((p1.Y.As(unit) - p2.Y.As(unit)), 2);
+            LengthUnit unit = p1.U.Unit;
+            double area = Math.Pow((p1.U.As(unit) - p2.U.As(unit)), 2) + Math.Pow((p1.V.As(unit) - p2.V.As(unit)), 2);
             return new Length(Math.Sqrt(area), unit);
         }
 
@@ -117,22 +117,22 @@ namespace MagmaWorks.Geometry
         /// <returns> Returns the distance between p3 and the infinite line formed by p1 and p2 </returns>
         public static Length DistancePointToLine(IPoint2d l1, IPoint2d l2, IPoint2d p0, bool infinite = true)
         {
-            LengthUnit unit = l1.X.Unit;
+            LengthUnit unit = l1.U.Unit;
             double d = 0;
             if (((Point2d)l1).Equals(l2) == false)
             {
-                d = Math.Abs((l2.Y.As(unit) - l1.Y.As(unit)) * p0.X.As(unit)
-                           - (l2.X.As(unit) - l1.X.As(unit)) * p0.Y.As(unit)
-                           + l2.X.As(unit) * l1.Y.As(unit) - l2.Y.As(unit) * l1.X.As(unit))
-                    / Math.Sqrt(Math.Pow(l2.Y.As(unit) - l1.Y.As(unit), 2) + Math.Pow(l2.X.As(unit) - l1.X.As(unit), 2));
+                d = Math.Abs((l2.V.As(unit) - l1.V.As(unit)) * p0.U.As(unit)
+                           - (l2.U.As(unit) - l1.U.As(unit)) * p0.V.As(unit)
+                           + l2.U.As(unit) * l1.V.As(unit) - l2.V.As(unit) * l1.U.As(unit))
+                    / Math.Sqrt(Math.Pow(l2.V.As(unit) - l1.V.As(unit), 2) + Math.Pow(l2.U.As(unit) - l1.U.As(unit), 2));
             }
 
             if (!infinite)
             {
-                var v1 = new Vector2d(p0.X - l1.X, p0.Y - l1.Y);
-                var v2 = new Vector2d(p0.X - l2.X, p0.Y - l2.Y);
-                var v12 = new Vector2d(l2.X - l1.X, l2.Y - l1.Y);
-                var v21 = new Vector2d(l1.X - l2.X, l1.Y - l2.Y);
+                var v1 = new Vector2d(p0.U - l1.U, p0.V - l1.V);
+                var v2 = new Vector2d(p0.U - l2.U, p0.V - l2.V);
+                var v12 = new Vector2d(l2.U - l1.U, l2.V - l1.V);
+                var v21 = new Vector2d(l1.U - l2.U, l1.V - l2.V);
                 Angle a1 = Vector2d.VectorAngle(v1, v12);
                 Angle a2 = Vector2d.VectorAngle(v2, v21);
                 if (a1.Radians > Math.PI / 2)
@@ -148,23 +148,24 @@ namespace MagmaWorks.Geometry
             return new Length(d, unit);
         }
 
-        public static Point2d PointProjOnLine(ILine2d ln, IPoint2d p)
+        public static Point2d PointProjOnLine<L, P>(L ln, P p) where L : ILine2d where P : IPoint2d
         {
             return PointProjOnLine(ln.Start, ln.End, p);
         }
 
-        public static Point2d PointProjOnLine(IPoint2d l1, IPoint2d l2, IPoint2d p0)
+        public static Point2d PointProjOnLine<P>(P l1, P l2, P p0) where P : IPoint2d
         {
-            LengthUnit unit = l1.X.Unit;
-            double d = Math.Pow(l2.X.As(unit) - l1.X.As(unit), 2) + Math.Pow(l2.Y.As(unit) - l1.Y.As(unit), 2);
-            double uv = (p0.X.As(unit) - l1.X.As(unit)) * (l2.X.As(unit) - l1.X.As(unit))
-                        + (p0.Y.As(unit) - l1.Y.As(unit)) * (l2.Y.As(unit) - l1.Y.As(unit));
+            LengthUnit unit = l1.U.Unit;
+            double d = Math.Pow(l2.U.As(unit) - l1.U.As(unit), 2) + Math.Pow(l2.V.As(unit) - l1.V.As(unit), 2);
+            double uv = (p0.U.As(unit) - l1.U.As(unit)) * (l2.U.As(unit) - l1.U.As(unit))
+                        + (p0.V.As(unit) - l1.V.As(unit)) * (l2.V.As(unit) - l1.V.As(unit));
             return new Point2d(
-                l1.X + uv / d * (l2.X - l1.X),
-                l1.Y + uv / d * (l2.Y - l1.Y));
+                l1.U + uv / d * (l2.U - l1.U),
+                l1.V + uv / d * (l2.V - l1.V));
         }
 
-        public static (bool, Point2d) IsCloseToPolygon(IPoint2d p, IPolygon2d polygon, Length d)
+        public static (bool, Point2d) IsCloseToPolygon<Pt, Pl>(Pt p, Pl polygon, Length d)
+            where Pt : IPoint2d where Pl : IPolygon2d
         {
             return IsCloseToPolygon(p, polygon.Points, d);
         }
@@ -191,27 +192,27 @@ namespace MagmaWorks.Geometry
         {
             double cosa = Math.Cos(angle.Radians);
             double sina = Math.Sin(angle.Radians);
-            return pts.Select(p => new Point2d(cosa * p.X - sina * p.Y, sina * p.X + cosa * p.Y)).ToList();
+            return pts.Select(p => new Point2d(cosa * p.U - sina * p.V, sina * p.U + cosa * p.V)).ToList();
         }
 
-        public static Point2d RotatePoint(IPoint2d pt, Angle angle)
+        public static Point2d RotatePoint<P>(P pt, Angle angle) where P : IPoint2d
         {
             if (angle.Value != 0)
             {
                 double cosa = Math.Cos(angle.Radians);
                 double sina = Math.Sin(angle.Radians);
-                return new Point2d(cosa * pt.X - sina * pt.Y, sina * pt.X + cosa * pt.Y);
+                return new Point2d(cosa * pt.U - sina * pt.V, sina * pt.U + cosa * pt.V);
             }
             else return new Point2d(pt);
         }
 
-        public static Point2d RotatePoint(IPoint2d pt, Angle angle, IPoint2d p0)
+        public static Point2d RotatePoint<P>(P pt, Angle angle, P p0) where P : IPoint2d
         {
             if (angle.Value != 0)
             {
                 double cosa = Math.Cos(angle.Radians);
                 double sina = Math.Sin(angle.Radians);
-                return new Point2d(cosa * (pt.X - p0.X) - sina * (pt.Y - p0.Y) + p0.X, sina * (pt.X - p0.X) + cosa * (pt.Y - p0.Y) + p0.Y);
+                return new Point2d(cosa * (pt.U - p0.U) - sina * (pt.V - p0.V) + p0.U, sina * (pt.U - p0.U) + cosa * (pt.V - p0.V) + p0.V);
             }
             else return new Point2d(pt);
         }
@@ -225,16 +226,16 @@ namespace MagmaWorks.Geometry
                 {
                     if (i != j)
                     {
-                        if (!(pts[i].X.IsEqual(pts[j].X) && pts[i].Y.IsEqual(pts[j].Y)))
+                        if (!(pts[i].U.IsEqual(pts[j].U) && pts[i].V.IsEqual(pts[j].V)))
                         {
-                            var v = new Vector2d(pts[i].X - pts[j].X, pts[i].Y - pts[j].Y);
+                            var v = new Vector2d(pts[i].U - pts[j].U, pts[i].V - pts[j].V);
                             vecs.Add(v);
                         }
                     }
                 }
             }
 
-            Vector2d vy = Vector2d.UnitY;
+            Vector2d vy = Vector2d.UnitV;
             Area area = new Area(100000, AreaUnit.SquareMillimeter);
             var boundingPts = new List<Point2d>();
             for (int i = 0; i < vecs.Count; i++)
@@ -242,12 +243,12 @@ namespace MagmaWorks.Geometry
                 Angle alpha = Vector2d.VectorAngle(vy, vecs[i]);
                 double cosa = Math.Cos(alpha.Radians);
                 double sina = Math.Sin(alpha.Radians);
-                List<Point2d> pts2 = pts.Select(p => new Point2d(cosa * p.X - sina * p.Y, sina * p.X + cosa * p.Y)).ToList();
+                List<Point2d> pts2 = pts.Select(p => new Point2d(cosa * p.U - sina * p.V, sina * p.U + cosa * p.V)).ToList();
 
-                Length Xmin = pts2.Select(q => q.X).Min();
-                Length Xmax = pts2.Select(q => q.X).Max();
-                Length Ymin = pts2.Select(q => q.Y).Min();
-                Length Ymax = pts2.Select(q => q.Y).Max();
+                Length Xmin = pts2.Select(q => q.U).Min();
+                Length Xmax = pts2.Select(q => q.U).Max();
+                Length Ymin = pts2.Select(q => q.V).Min();
+                Length Ymax = pts2.Select(q => q.V).Max();
 
                 if ((Xmax - Xmin) * (Ymax - Ymin) < area)
                 {
@@ -289,8 +290,8 @@ namespace MagmaWorks.Geometry
             for (int i = 0; i < nvert; i++)
             {
                 int j = (i == 0) ? nvert - 1 : i - 1;
-                if (((vertices[i].Y >= point.Y) != (vertices[j].Y >= point.Y))
-                    && (point.X <= (vertices[j].X - vertices[i].X) * (point.Y - vertices[i].Y) / (vertices[j].Y - vertices[i].Y) + vertices[i].X))
+                if (((vertices[i].V >= point.V) != (vertices[j].V >= point.V))
+                    && (point.U <= (vertices[j].U - vertices[i].U) * (point.V - vertices[i].V) / (vertices[j].V - vertices[i].V) + vertices[i].U))
                     inside = !inside;
             }
 
@@ -300,23 +301,23 @@ namespace MagmaWorks.Geometry
         public static Area GetPolygonArea(IList<IPoint2d> vertices, bool closed = false)
         {
             Area res = Area.Zero;
-            Area.TryParse($"0 {Length.GetAbbreviation(vertices[0].X.Unit)}²", out res);
+            Area.TryParse($"0 {Length.GetAbbreviation(vertices[0].U.Unit)}²", out res);
 
             int n = vertices.Count;
             if (closed)
             {
                 for (int i = 0; i < n - 1; i++)
                 {
-                    res += (vertices[i].X * vertices[i + 1].Y - vertices[i].Y * vertices[i + 1].X) / 2;
+                    res += (vertices[i].U * vertices[i + 1].V - vertices[i].V * vertices[i + 1].U) / 2;
                 }
             }
             else
             {
                 for (int i = 0; i < n - 1; i++)
                 {
-                    res += (vertices[i].X * vertices[i + 1].Y - vertices[i].Y * vertices[i + 1].X) / 2;
+                    res += (vertices[i].U * vertices[i + 1].V - vertices[i].V * vertices[i + 1].U) / 2;
                 }
-                res += (vertices[n - 1].X * vertices[0].Y - vertices[n - 1].Y * vertices[0].X) / 2;
+                res += (vertices[n - 1].U * vertices[0].V - vertices[n - 1].V * vertices[0].U) / 2;
             }
 
             return res.Abs();
@@ -329,8 +330,8 @@ namespace MagmaWorks.Geometry
             var points = new List<IPoint2d>();
             for (int i = 0; i < lpts.Count; i++)
             {
-                Length x = (1 - factor) * cog.X + factor * lpts[i].X;
-                Length y = (1 - factor) * cog.Y + factor * lpts[i].Y;
+                Length x = (1 - factor) * cog.U + factor * lpts[i].U;
+                Length y = (1 - factor) * cog.V + factor * lpts[i].V;
                 points.Add(new Point2d(x, y));
             }
 
@@ -343,9 +344,9 @@ namespace MagmaWorks.Geometry
             var points = new List<IPoint2d>();
             foreach (IPoint2d pt in lpts)
             {
-                var v = new Vector2d(pt.X - cog.X, pt.Y - cog.Y);
+                var v = new Vector2d(pt.U - cog.U, pt.V - cog.V);
                 v = v.Normalize();
-                points.Add(new Point2d(pt.X + v.X * factor, pt.Y + v.Y * factor));
+                points.Add(new Point2d(pt.U + v.U * factor, pt.V + v.V * factor));
             }
 
             return points;

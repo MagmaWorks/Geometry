@@ -7,17 +7,17 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;net6.0;net7.0;net8.0</TargetFrameworks>
-	  <LangVersion>8.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <Platforms>AnyCPU</Platforms>
     <RootNamespace>MagmaWorks.Geometry</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Title>MagmaWorks Geometry</Title>
+    <Title>MagmaWorks Carthesian Interfaces</Title>
     <Company>Whitby Wood</Company>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/MagmaWorks/Geometry/Geometry/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/MagmaWorks/Geometry/ICartesianBase</RepositoryUrl>
     <PackageIcon>MagmaWorks.png</PackageIcon>
   </PropertyGroup>
 
@@ -26,16 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\IGeometry\MagmaWorks.IGeometry.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>GeometryTests</_Parameter1>
-    </AssemblyAttribute>
+    <PackageReference Include="OasysUnits" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

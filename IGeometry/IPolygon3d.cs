@@ -2,8 +2,7 @@
 
 namespace MagmaWorks.Geometry
 {
-    public interface IPolygon3d : IGeometry
-
+    public interface IPolygon3d : IGeometryBase
     {
         IList<IPoint3d> Points { get; }
     }

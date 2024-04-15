@@ -18,8 +18,8 @@ namespace GeometryTests.FunctionalTests
             Point2d center = poly.GetBarycenter();
 
             // Assert
-            Assert.Equal(2, center.X.Value);
-            Assert.Equal(3, center.Y.Value);
+            Assert.Equal(2, center.U.Value);
+            Assert.Equal(3, center.V.Value);
         }
 
 
@@ -36,8 +36,8 @@ namespace GeometryTests.FunctionalTests
             Point2d ptOnLine = poly.GetClosest(pt);
 
             // Assert
-            Assert.Equal(4, ptOnLine.X.Value);
-            Assert.Equal(0, ptOnLine.Y.Value);
+            Assert.Equal(4, ptOnLine.U.Value);
+            Assert.Equal(0, ptOnLine.V.Value);
         }
 
         [Fact]
@@ -60,8 +60,8 @@ namespace GeometryTests.FunctionalTests
             Assert.False(ptClose1.close);
             Assert.Null(ptClose1.pt);
             Assert.True(ptClose2.close);
-            Assert.Equal(2, ptClose2.pt.X.Value);
-            Assert.Equal(0, ptClose2.pt.Y.Value);
+            Assert.Equal(2, ptClose2.pt.U.Value);
+            Assert.Equal(0, ptClose2.pt.V.Value);
         }
 
         [Fact]
@@ -78,14 +78,14 @@ namespace GeometryTests.FunctionalTests
             Polygon2d rotated = polygon.Rotate(new Angle(90, AngleUnit.Degree));
 
             // Assert
-            Assert.Equal(0, rotated.Points[0].X.Value, 6);
-            Assert.Equal(0, rotated.Points[0].Y.Value, 6);
-            Assert.Equal(0, rotated.Points[1].X.Value, 6);
-            Assert.Equal(4, rotated.Points[1].Y.Value, 6);
-            Assert.Equal(-4, rotated.Points[2].X.Value, 6);
-            Assert.Equal(4, rotated.Points[2].Y.Value, 6);
-            Assert.Equal(-4, rotated.Points[3].X.Value, 6);
-            Assert.Equal(0, rotated.Points[3].Y.Value, 6);
+            Assert.Equal(0, rotated.Points[0].U.Value, 6);
+            Assert.Equal(0, rotated.Points[0].V.Value, 6);
+            Assert.Equal(0, rotated.Points[1].U.Value, 6);
+            Assert.Equal(4, rotated.Points[1].V.Value, 6);
+            Assert.Equal(-4, rotated.Points[2].U.Value, 6);
+            Assert.Equal(4, rotated.Points[2].V.Value, 6);
+            Assert.Equal(-4, rotated.Points[3].U.Value, 6);
+            Assert.Equal(0, rotated.Points[3].V.Value, 6);
         }
 
 

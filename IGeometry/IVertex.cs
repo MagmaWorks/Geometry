@@ -1,7 +1,6 @@
-﻿namespace MagmaWorks.Geometry
+﻿using OasysUnits;
+
+namespace MagmaWorks.Geometry
 {
-    public interface IVertex : IPoint3d
-    {
-        IPoint2d TextureCoordinate { get; }
-    }
+    public interface IVertex : ICartesianVertex<ICoordinate, Length, Length, Length> { }
 }

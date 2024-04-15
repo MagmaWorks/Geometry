@@ -9,8 +9,8 @@ namespace GeometryTests.FunctionalTests
         public void ScalarProductTest()
         {
             // Assemble
-            Vector2d v1 = Vector2d.UnitX;
-            Vector2d v2 = Vector2d.UnitY;
+            Vector2d v1 = Vector2d.UnitU;
+            Vector2d v2 = Vector2d.UnitV;
 
             // Act
             double scalarProd = Vector2d.ScalarProduct(v1, v2);
@@ -23,8 +23,8 @@ namespace GeometryTests.FunctionalTests
         public void VectorAngleTest()
         {
             // Assemble
-            Vector2d v1 = Vector2d.UnitX;
-            Vector2d v2 = Vector2d.UnitY;
+            Vector2d v1 = Vector2d.UnitU;
+            Vector2d v2 = Vector2d.UnitV;
 
             // Act
             Angle angle = Vector2d.VectorAngle(v1, v2);
