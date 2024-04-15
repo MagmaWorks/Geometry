@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ICartesianBase\ICartesianBase.csproj" />
+    <ProjectReference Include="..\ICartesianBase\MagmaWorks.ICartesianBase.csproj" />
   </ItemGroup>
 
 </Project>
