@@ -209,12 +209,19 @@ namespace GeometryTests.UnitTests
             }
 
             // reflect on assembly to find concrete implementation of interface
-            Type[] typelist = Assembly.GetAssembly(typeof(Point3d)).GetTypes();
-            foreach (Type concreteType in typelist)
+            List<Type> libraryTypes = new List<Type> {
+                typeof(Point3d),
+                typeof(Coordinate),
+            };
+            foreach (Type t in libraryTypes)
             {
-                if (type.IsAssignableFrom(concreteType))
+                Type[] typelist = Assembly.GetAssembly(t).GetTypes();
+                foreach (Type concreteType in typelist)
                 {
-                    return CreateObjectInstance(concreteType);
+                    if (type.IsAssignableFrom(concreteType))
+                    {
+                        return CreateObjectInstance(concreteType);
+                    }
                 }
             }
 
