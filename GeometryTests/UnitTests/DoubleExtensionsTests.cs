@@ -1,4 +1,4 @@
-using MagmaWorks.Geometry.Utility.Extensions;
+using MagmaWorks.Geometry.Extensions;
 
 namespace GeometryTests.UnitTests
 {

@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using OasysUnits;
 
-namespace MagmaWorks.Geometry.Utility.Extensions
+namespace MagmaWorks.Geometry.Extensions
 {
     internal static class LengthEquatable
     {

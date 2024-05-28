@@ -3,9 +3,10 @@ using OasysUnits;
 
 namespace MagmaWorks.Geometry
 {
-    public interface ICartesianModel3d<TMesh, TVertex, TCoordinate, TText, TPoint, TVector, Txyz, Tx, Ty, Tz> : IGeometryBase
-        where TMesh : ICartesianMesh<TVertex, TCoordinate, Tx, Ty, Tz>
+    public interface ICartesianModel3d<TMesh, TVertex, TFace, TCoordinate, TText, TPoint, TVector, Txyz, Tx, Ty, Tz> : IGeometryBase
+        where TMesh : ICartesianMesh<TVertex, TFace, TCoordinate, Tx, Ty, Tz>
         where TVertex : ICartesianVertex<TCoordinate, Tx, Ty, Tz>
+        where TFace : ICartesianFace<TVertex, TCoordinate, Tx, Ty, Tz>
         where TCoordinate : ICoordinate
         where TText : ICartesianText3d<TPoint, TVector, Txyz, Tx, Ty, Tz>
         where TPoint : ICartesian3d<Tx, Ty, Tz>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MagmaWorks.Geometry.Utility.Extensions;
+using MagmaWorks.Geometry.Extensions;
 using OasysUnits;
 
 namespace MagmaWorks.Geometry
@@ -38,7 +38,7 @@ namespace MagmaWorks.Geometry
 
         public Point2d GetBarycenter()
         {
-            return Point2d.GetBarycenter(Points);
+            return Utility.GetCenterLocal(Points);
         }
 
         public Point2d GetClosest<P>(P pt) where P : IPoint2d

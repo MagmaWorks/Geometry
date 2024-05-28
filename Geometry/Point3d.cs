@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
-using MagmaWorks.Geometry.Utility.Extensions;
+using MagmaWorks.Geometry.Extensions;
 using OasysUnits;
 using OasysUnits.Units;
 
@@ -82,21 +81,7 @@ namespace MagmaWorks.Geometry
         /// <returns></returns>
         public static Point3d GetBarycenter(IList<IPoint3d> points)
         {
-            Length resX = Length.Zero;
-            Length resY = Length.Zero;
-            Length resZ = Length.Zero;
-            for (int i = 0; i < points.Count; i++)
-            {
-                resX += points[i].X;
-                resY += points[i].Y;
-                resZ += points[i].Z;
-            }
-
-            resX /= points.Count;
-            resY /= points.Count;
-            resZ /= points.Count;
-
-            return new Point3d(resX, resY, resZ);
+            return Utility.GetCenter(points);
         }
 
         /// <summary>
@@ -107,11 +92,7 @@ namespace MagmaWorks.Geometry
         /// <returns></returns>
         public static Length Distance<P>(P p1, P p2) where P : ICartesian3d<Length, Length, Length>
         {
-            LengthUnit unit = p1.X.Unit;
-            double area = Math.Pow(p1.X.As(unit) - p2.X.As(unit), 2)
-                + Math.Pow(p1.Y.As(unit) - p2.Y.As(unit), 2)
-                + Math.Pow(p1.Z.As(unit) - p2.Z.As(unit), 2);
-            return new Length(Math.Sqrt(area), unit);
+            return Utility.GetDistance(p1, p2);
         }
 
         public static Point3d PlaneLineIntersection(IList<IPoint3d> linePoints, IList<IPoint3d> planePoints, bool within = true)

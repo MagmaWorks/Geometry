@@ -59,7 +59,7 @@ namespace MagmaWorks.Geometry
             return CrossProduct(this, other);
         }
 
-        public static Vector3d CrossProduct<V>(V v1, V v2) where V : IVector3d
+        public static Vector3d CrossProduct<V>(V v1, V v2) where V : ICartesian3d<Length, Length, Length>
         {
             LengthUnit unit = v1.X.Unit;
             double x = v1.Y.As(unit) * v2.Z.As(unit) - v2.Y.As(unit) * v1.Z.As(unit);

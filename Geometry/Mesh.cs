@@ -11,6 +11,7 @@ namespace MagmaWorks.Geometry
     {
         public IList<int[]> MeshIndices { get; set; }
         public IList<IVertex> Verticies { get; set; }
+        public IList<IFace> Faces { get; set; }
         public double Opacity { get; set; }
         public IBrush Brush { get; set; }
 
@@ -18,6 +19,7 @@ namespace MagmaWorks.Geometry
         {
             MeshIndices = new List<int[]>();
             Verticies = new List<IVertex>();
+            Faces = new List<IFace>();
             Brush = new Brush(128, 128, 0);
             Opacity = 1;
         }
@@ -47,14 +49,32 @@ namespace MagmaWorks.Geometry
         public void SetIndices(IList<int[]> indices)
         {
             MeshIndices = new List<int[]>();
-            foreach (int[] item in indices)
+            Faces = new List<IFace>();
+            foreach (int[] faceIndeces in indices)
             {
-                if (item.Length != 3)
+                switch (faceIndeces.Length)
                 {
-                    throw new ArgumentException($"There must three indices per mesh face but {item.Length} was provided");
-                }
+                    case 3:
+                        Faces.Add(new TriFace(Verticies[faceIndeces[0]], Verticies[faceIndeces[1]], Verticies[faceIndeces[2]]));
+                        MeshIndices.Add(faceIndeces);
+                        break;
 
-                MeshIndices.Add(item);
+                    case 4:
+                        Faces.Add(new QuadFace(Verticies[faceIndeces[0]], Verticies[faceIndeces[1]], Verticies[faceIndeces[2]], Verticies[faceIndeces[3]]));
+                        MeshIndices.Add(faceIndeces);
+                        break;
+
+                    default:
+                        var verts = new List<IVertex>();
+                        foreach (int index in faceIndeces)
+                        {
+                            verts.Add(Verticies[index]);
+                        }
+
+                        Faces.Add(new NgonFace(verts));
+                        MeshIndices.Add(faceIndeces);
+                        break;
+                }
             }
         }
 

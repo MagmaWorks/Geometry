@@ -15,7 +15,7 @@ namespace GeometryTests.FunctionalTests
 
             // Act
             var list = new List<IPoint2d>() { pt1, pt2 };
-            Point2d center = Point2d.GetBarycenter(list);
+            Point2d center = MagmaWorks.Geometry.Utility.GetCenterLocal(list);
 
             // Assert
             Assert.Equal(2, center.U.Value);

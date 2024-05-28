@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace MagmaWorks.Geometry.Utility.Extensions
+namespace MagmaWorks.Geometry.Extensions
 {
     public static class ListExtension
     {
