@@ -35,7 +35,7 @@ namespace MagmaWorks.Geometry
         private Area CalculateArea()
         {
             Area a = OasysUnits.Area.Zero;
-            for (int i = 0; i < Verticies.Count - 1; i++) 
+            for (int i = 0; i < Verticies.Count - 1; i++)
             {
                 a += Utility.GetArea(Verticies[i], Center, Verticies[i + 1]);
             }
