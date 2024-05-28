@@ -3,16 +3,11 @@ using OasysUnits;
 
 namespace MagmaWorks.Geometry
 {
-    public interface ICartesianMesh<TVertex, TFace, TCoordinate, Tx, Ty, Tz> : IGeometryBase
+    public interface ICartesianNgonFace<TVertex, TCoordinate, Tx, Ty, Tz> : ICartesianFace<TVertex, TCoordinate, Tx, Ty, Tz>
         where TVertex : ICartesianVertex<TCoordinate, Tx, Ty, Tz>
-        where TFace : ICartesianFace<TVertex, TCoordinate, Tx, Ty, Tz>
         where TCoordinate : ICoordinate
         where Tx : IQuantity where Ty : IQuantity where Tz : IQuantity
     {
-        IList<int[]> MeshIndices { get; }
         IList<TVertex> Verticies { get; }
-        IList<TFace> Faces { get; }
-        double Opacity { get; set; }
-        IBrush Brush { get; set; }
     }
 }

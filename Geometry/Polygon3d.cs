@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MagmaWorks.Geometry.Utility.Extensions;
+using MagmaWorks.Geometry.Extensions;
 
 namespace MagmaWorks.Geometry
 {

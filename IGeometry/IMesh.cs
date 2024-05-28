@@ -2,5 +2,5 @@
 
 namespace MagmaWorks.Geometry
 {
-    public interface IMesh : ICartesianMesh<IVertex, ICoordinate, Length, Length, Length> { }
+    public interface IMesh : ICartesianMesh<IVertex, IFace, ICoordinate, Length, Length, Length> { }
 }

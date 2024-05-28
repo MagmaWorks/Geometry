@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MagmaWorks.Geometry.Utility.Extensions;
+using MagmaWorks.Geometry.Extensions;
 using OasysUnits;
 using OasysUnits.Units;
 
@@ -54,27 +54,6 @@ namespace MagmaWorks.Geometry
         public static implicit operator Vector2d(Point2d pt)
         {
             return new Vector2d(pt.U, pt.V);
-        }
-
-        /// <summary>
-        /// Returns the barycenter of the points
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        public static Point2d GetBarycenter(IList<IPoint2d> points)
-        {
-            Length resX = Length.Zero;
-            Length resY = Length.Zero;
-            for (int i = 0; i < points.Count; i++)
-            {
-                resX += points[i].U;
-                resY += points[i].V;
-            }
-
-            resX /= points.Count;
-            resY /= points.Count;
-
-            return new Point2d(resX, resY);
         }
 
         /// <summary>
@@ -326,7 +305,7 @@ namespace MagmaWorks.Geometry
 
         public static IList<IPoint2d> Contract(IList<IPoint2d> lpts, double factor)
         {
-            Point2d cog = GetBarycenter(lpts);
+            Point2d cog = Utility.GetCenterLocal(lpts);
             var points = new List<IPoint2d>();
             for (int i = 0; i < lpts.Count; i++)
             {
@@ -340,7 +319,7 @@ namespace MagmaWorks.Geometry
 
         public static IList<IPoint2d> Extend(IList<IPoint2d> lpts, double factor)
         {
-            Point2d cog = GetBarycenter(lpts);
+            Point2d cog = Utility.GetCenterLocal(lpts);
             var points = new List<IPoint2d>();
             foreach (IPoint2d pt in lpts)
             {

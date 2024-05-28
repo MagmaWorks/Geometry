@@ -2,7 +2,7 @@ using MagmaWorks.Geometry;
 using MagmaWorks.Geometry.Serialization.Extensions;
 using OasysUnits;
 using OasysUnits.Units;
-using ProfileTests.Utility;
+using GeometryTests.Utility;
 
 namespace GeometryTests.UnitTests
 {

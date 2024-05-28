@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MagmaWorks.Geometry.Utility.Extensions
+namespace MagmaWorks.Geometry.Extensions
 {
     public static class DoubleExtensions
     {
