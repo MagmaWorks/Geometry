@@ -64,7 +64,7 @@ namespace MagmaWorks.Geometry
 
                     default:
                         var verts = new List<IVertex>();
-                        foreach(int index in faceIndeces)
+                        foreach (int index in faceIndeces)
                         {
                             verts.Add(Verticies[index]);
                         }

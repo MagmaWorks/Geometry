@@ -214,7 +214,7 @@ namespace GeometryTests.UnitTests
                 typeof(Point3d),
                 typeof(Coordinate),
             };
-            foreach(Type t in libraryTypes)
+            foreach (Type t in libraryTypes)
             {
                 Type[] typelist = Assembly.GetAssembly(t).GetTypes();
                 foreach (Type concreteType in typelist)
