@@ -1,7 +1,4 @@
-﻿using MagmaWorks.Geometry;
-using OasysUnits.Units;
-
-namespace GeometryTests.FunctionalTests
+﻿namespace GeometryTests.FunctionalTests
 {
     public class LocalCoordinateSystemTests
     {
