@@ -36,6 +36,12 @@ namespace MagmaWorks.Geometry
             V = other.V.ToUnit(other.U.Unit);
         }
 
+        public Point2d(ILocalPoint2d other)
+        {
+            U = other.Y;
+            V = other.Z.ToUnit(other.Y.Unit);
+        }
+
         public bool Equals(IPoint2d other)
         {
             return U.IsEqual(other.U) && V.IsEqual(other.V);
