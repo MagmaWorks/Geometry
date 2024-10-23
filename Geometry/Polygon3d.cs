@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MagmaWorks.Geometry.Extensions;
 
 namespace MagmaWorks.Geometry
@@ -7,6 +8,7 @@ namespace MagmaWorks.Geometry
     public class Polygon3d : IPolygon3d
     {
         public IList<IPoint3d> Points { get; set; }
+        public bool IsClosed => Points.First().Equals(Points.Last());
 
         public Polygon3d(IList<IPoint3d> points)
         {
