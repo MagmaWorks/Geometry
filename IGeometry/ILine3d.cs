@@ -4,5 +4,6 @@
     {
         IPoint3d Start { get; }
         IPoint3d End { get; }
+        IDomain Domain();
     }
 }

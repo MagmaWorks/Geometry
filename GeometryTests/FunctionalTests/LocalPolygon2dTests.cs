@@ -63,5 +63,43 @@ namespace GeometryTests.FunctionalTests
             Assert.Equal(AreaUnit.SquareMillimeter, area.Unit);
             Assert.Equal(4 * 4, area.SquareMeters);
         }
+
+        [Fact]
+        public void GetDomainTest()
+        {
+            // Assemble
+            var pt1 = new LocalPoint2d(-100, 0, LengthUnit.Millimeter);
+            var pt2 = new LocalPoint2d(400, -250, LengthUnit.Centimeter);
+            var pt3 = new LocalPoint2d(4, 4, LengthUnit.Meter);
+            var pt4 = new LocalPoint2d(0, 5, LengthUnit.Meter);
+
+            // Act
+            var polygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            ILocalDomain2d domain = polygon.Domain();
+
+            // Assert
+            Assert.Equal(4, domain.Max.Y.Meters);
+            Assert.Equal(5, domain.Max.Z.Meters);
+            Assert.Equal(-100, domain.Min.Y.Millimeters);
+            Assert.Equal(-250, domain.Min.Z.Centimeters);
+        }
+
+        [Fact]
+        public void IsClosedTest()
+        {
+            // Assemble
+            var pt1 = new LocalPoint2d(-100, 0, LengthUnit.Millimeter);
+            var pt2 = new LocalPoint2d(400, -250, LengthUnit.Centimeter);
+            var pt3 = new LocalPoint2d(4, 4, LengthUnit.Meter);
+            var pt4 = new LocalPoint2d(0, 5, LengthUnit.Meter);
+
+            // Act
+            var openPolygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            var closedPolygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4, pt1 });
+
+            // Assert
+            Assert.False(openPolygon.IsClosed);
+            Assert.True(closedPolygon.IsClosed);
+        }
     }
 }

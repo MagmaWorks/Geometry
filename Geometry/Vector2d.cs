@@ -49,6 +49,11 @@ namespace MagmaWorks.Geometry
             return new Vector2d(point.U * number, point.V * number);
         }
 
+        public static Vector2d operator +(Vector2d v1, Vector2d v2)
+        {
+            return new Vector2d(v1.U + v2.U, v1.V + v2.V);
+        }
+
         public static implicit operator Point2d(Vector2d vect)
         {
             return new Point2d(vect.U, vect.V);
@@ -58,6 +63,12 @@ namespace MagmaWorks.Geometry
         {
             LengthUnit unit = v1.U.Unit;
             return v1.U.As(unit) * v2.U.As(unit) + v1.V.As(unit) * v2.V.As(unit);
+        }
+
+        public static double CrossProduct<V>(V v1, V v2) where V : IVector2d
+        {
+            LengthUnit unit = v1.U.Unit;
+            return v1.U.As(unit) * v2.V.As(unit) - v1.V.As(unit) * v2.U.As(unit);
         }
 
         public static Angle VectorAngle<V>(V v1, V v2) where V : IVector2d
