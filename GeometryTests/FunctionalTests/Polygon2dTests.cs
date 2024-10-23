@@ -125,5 +125,24 @@ namespace GeometryTests.FunctionalTests
             Assert.Equal(AreaUnit.SquareMillimeter, area.Unit);
             Assert.Equal(4 * 4, area.SquareMeters);
         }
+
+        [Fact]
+        public void IsClosedTest()
+        {
+            // Assemble
+            var pt1 = new Point2d(0, 0, LengthUnit.Millimeter);
+            var pt2 = new Point2d(400, 0, LengthUnit.Centimeter);
+            var pt3 = new Point2d(4, 4, LengthUnit.Meter);
+            var pt4 = new Point2d(0, 4, LengthUnit.Meter);
+            var pt5 = new Point2d(0, 0, LengthUnit.Millimeter);
+
+            // Act
+            var openPolygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
+            var closedPolygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+
+            // Assert
+            Assert.False(openPolygon.IsClosed);
+            Assert.True(closedPolygon.IsClosed);
+        }
     }
 }
