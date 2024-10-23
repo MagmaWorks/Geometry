@@ -2,9 +2,5 @@
 
 namespace MagmaWorks.Geometry
 {
-    public interface ILocalPoint2d : IGeometryBase
-    {
-        Length Y { get; }
-        Length Z { get; }
-    }
+    public interface ILocalPoint2d : ILocalCartesian2d<Length, Length> { }
 }
