@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using OasysUnits;
+using OasysUnits.Units;
 
 namespace MagmaWorks.Geometry
 {
@@ -21,6 +23,25 @@ namespace MagmaWorks.Geometry
         public static implicit operator Vector2d(Line2d ln)
         {
             return (Point2d)ln.Start - (Point2d)ln.End;
+        }
+
+        public IDomain2d Domain()
+        {
+            List<Length> us = new List<Length>()
+            {
+                Start.U,
+                End.U,
+            };
+
+            List<Length> vs = new List<Length>()
+            {
+                Start.V,
+                End.V,
+            };
+
+            var max = new Point2d(us.Max(LengthUnit.Meter), vs.Max(LengthUnit.Meter));
+            var min = new Point2d(us.Min(LengthUnit.Meter), vs.Min(LengthUnit.Meter));
+            return new Domain2d(max, min);
         }
     }
 }

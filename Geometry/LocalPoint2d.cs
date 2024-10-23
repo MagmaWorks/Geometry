@@ -53,12 +53,6 @@ namespace MagmaWorks.Geometry
             return Point2d.GetPolygonArea(vertices.Select(p => (IPoint2d)new Point2d(p)).ToList(), closed);
         }
 
-        public static List<LocalPoint2d> GetBoundingBox(IList<ILocalPoint2d> pts)
-        {
-            return Point2d.GetBoundingBox(pts.Select(p => (IPoint2d)new Point2d(p)).ToList())
-                .Select(p => new LocalPoint2d(p)).ToList();
-        }
-
         public static List<LocalPoint2d> RotatePoints(IList<ILocalPoint2d> pts, Angle angle)
         {
             return Point2d.RotatePoints(pts.Select(p => (IPoint2d)new Point2d(p)).ToList(), angle)
