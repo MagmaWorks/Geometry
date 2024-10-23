@@ -11,7 +11,7 @@ namespace MagmaWorks.Geometry
     public class LocalPolygon2d : ILocalPolygon2d
     {
         public IList<ILocalPoint2d> Points { get; set; }
-        public bool IsClosed => Points.First().Equals(Points.Last());
+        public bool IsClosed => ((LocalPoint2d)Points.First()).Equals(Points.Last());
 
         public LocalPolygon2d(IList<ILocalPoint2d> points)
         {
