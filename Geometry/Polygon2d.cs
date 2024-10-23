@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MagmaWorks.Geometry.Extensions;
 using OasysUnits;
+using OasysUnits.Units;
 
 namespace MagmaWorks.Geometry
 {
@@ -24,17 +25,6 @@ namespace MagmaWorks.Geometry
         public Area GetArea()
         {
             return Point2d.GetPolygonArea(Points);
-        }
-
-        public Polygon2d GetBoundingBox(IList<IPoint2d> pts)
-        {
-            List<IPoint2d> list = Point2d.GetBoundingBox(pts).Select(x => (IPoint2d)x).ToList();
-            return new Polygon2d(list);
-        }
-
-        public Polygon2d GetBoundingBox<P>(P polygon) where P : Polygon2d
-        {
-            return GetBoundingBox(polygon.Points);
         }
 
         public Point2d GetBarycenter()
@@ -71,6 +61,17 @@ namespace MagmaWorks.Geometry
             }
 
             return new Line2d(polygon.Points[0], polygon.Points[1]);
+        }
+
+        public IDomain2d Domain()
+        {
+            var max = new Point2d(
+                Points.Select(pt => pt.U).Max(LengthUnit.Meter),
+                Points.Select(pt => pt.V).Max(LengthUnit.Meter));
+            var min = new Point2d(
+                Points.Select(pt => pt.U).Min(LengthUnit.Meter),
+                Points.Select(pt => pt.V).Min(LengthUnit.Meter));
+            return new Domain2d(max, min);
         }
     }
 }
