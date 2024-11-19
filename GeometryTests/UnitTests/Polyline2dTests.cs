@@ -46,7 +46,7 @@ namespace GeometryTests.UnitTests
             var Polyline = new Polyline2d(pts);
 
             // Assert
-            Assert.Equal("3D Polyline (2 points;Open)", Polyline.ToString());
+            Assert.Equal("2D Polyline (2 points;Open)", Polyline.ToString());
         }
 
         [Fact]
