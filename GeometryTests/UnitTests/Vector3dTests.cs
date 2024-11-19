@@ -17,12 +17,27 @@ namespace GeometryTests.UnitTests
             var z = new Length(6.8, LengthUnit.Centimeter);
 
             // Act
-            IVector3d pt = new Vector3d(x, y, z);
+            IVector3d vector = new Vector3d(x, y, z);
 
             // Assert
-            TestUtility.TestLengthsAreEqual(x, pt.X);
-            TestUtility.TestLengthsAreEqual(y, pt.Y);
-            TestUtility.TestLengthsAreEqual(z, pt.Z);
+            TestUtility.TestLengthsAreEqual(x, vector.X);
+            TestUtility.TestLengthsAreEqual(y, vector.Y);
+            TestUtility.TestLengthsAreEqual(z, vector.Z);
+        }
+
+        [Fact]
+        public void ToStringTest()
+        {
+            // Assemble
+            var x = new Length(2.3, LengthUnit.Centimeter);
+            var y = new Length(5.4, LengthUnit.Centimeter);
+            var z = new Length(6.8, LengthUnit.Centimeter);
+
+            // Act
+            var vector = new Vector3d(x, y, z);
+
+            // Assert
+            Assert.Equal("3D Vector (X:2.3cm, Y:5.4cm, Z:6.8cm)", vector.ToString());
         }
 
         [Fact]
@@ -42,7 +57,7 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
-        public void VectorSurvivesJsonRoundtripTest()
+        public void VectorSurvivesJsonRoundtrivectorest()
         {
             // Assemble
             var x = new Length(2.3, LengthUnit.Centimeter);
@@ -70,12 +85,12 @@ namespace GeometryTests.UnitTests
 
             // Act
             var vect = new Vector3d(x, y, z);
-            var pt = (Point3d)vect;
+            var vector = (Point3d)vect;
 
             // Assert
-            TestUtility.TestLengthsAreEqual(x, pt.X);
-            TestUtility.TestLengthsAreEqual(y, pt.Y);
-            TestUtility.TestLengthsAreEqual(z, pt.Z);
+            TestUtility.TestLengthsAreEqual(x, vector.X);
+            TestUtility.TestLengthsAreEqual(y, vector.Y);
+            TestUtility.TestLengthsAreEqual(z, vector.Z);
         }
     }
 }

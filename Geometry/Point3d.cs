@@ -229,5 +229,17 @@ namespace MagmaWorks.Geometry
                 return false;
             }
         }
+
+        public override string ToString()
+        {
+            return "3D Point " + CoordinatesToString();
+        }
+
+        public string CoordinatesToString()
+        {
+            return $"(X:{X.ToString().Replace(" ", string.Empty)}, " +
+                    $"Y:{Y.ToString().Replace(" ", string.Empty)}, " +
+                    $"Z:{Z.ToString().Replace(" ", string.Empty)})";
+        }
     }
 }

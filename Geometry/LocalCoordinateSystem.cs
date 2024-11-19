@@ -46,5 +46,10 @@ namespace MagmaWorks.Geometry
 
             return new LocalCoordinateSystem(newX2, newY2, newZ2, point1);
         }
+
+        public override string ToString()
+        {
+            return $"LocalCoordinateSystem (O:{Origin};X:{XAxis};Y:{YAxis};Z:{ZAxis})";
+        }
     }
 }

@@ -59,5 +59,11 @@ namespace MagmaWorks.Geometry
             return Points.First().U.Meters == Points.Last().U.Meters
                 && Points.First().V.Meters == Points.Last().V.Meters;
         }
+
+        public override string ToString()
+        {
+            string closed = IsClosed ? "Closed" : "Open";
+            return $"2D Polygon ({Points.Count} points;{closed})";
+        }
     }
 }

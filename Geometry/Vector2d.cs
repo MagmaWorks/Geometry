@@ -92,5 +92,15 @@ namespace MagmaWorks.Geometry
 
         public static Vector2d UnitU => new Vector2d(new Length(1, LengthUnit.Meter), Length.Zero);
         public static Vector2d UnitV => new Vector2d(Length.Zero, new Length(1, LengthUnit.Meter));
+
+        public override string ToString()
+        {
+            return "2D Vector " + CoordinatesToString();
+        }
+
+        public string CoordinatesToString()
+        {
+            return $"(U:{U.ToString().Replace(" ", string.Empty)}, V:{V.ToString().Replace(" ", string.Empty)})";
+        }
     }
 }

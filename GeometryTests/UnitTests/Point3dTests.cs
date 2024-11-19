@@ -26,6 +26,21 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
+        public void ToStringTest()
+        {
+            // Assemble
+            var x = new Length(2.3, LengthUnit.Centimeter);
+            var y = new Length(5.4, LengthUnit.Centimeter);
+            var z = new Length(6.8, LengthUnit.Centimeter);
+
+            // Act
+            var pt = new Point3d(x, y, z);
+
+            // Assert
+            Assert.Equal("3D Point (X:2.3cm, Y:5.4cm, Z:6.8cm)", pt.ToString());
+        }
+
+        [Fact]
         public void PointsAreEqualTest()
         {
             // Assemble

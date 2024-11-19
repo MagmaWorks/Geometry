@@ -55,5 +55,10 @@ namespace MagmaWorks.Geometry
                 zs.Min(LengthUnit.Meter));
             return new Domain(max, min);
         }
+
+        public override string ToString()
+        {
+            return $"3D Line (S:{((Point3d)Start).CoordinatesToString()} - E:{((Point3d)End).CoordinatesToString()}";
+        }
     }
 }

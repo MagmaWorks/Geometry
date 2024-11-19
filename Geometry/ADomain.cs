@@ -10,5 +10,9 @@
             Max = max;
             Min = min;
         }
+        public override string ToString()
+        {
+            return $"Domain (Max:{Max} - Min:{Min}";
+        }
     }
 }

@@ -31,6 +31,25 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
+        public void ToStringTest()
+        {
+            // Assemble
+            var u1 = new Length(2.3, LengthUnit.Centimeter);
+            var y1 = new Length(5.4, LengthUnit.Centimeter);
+            var u2 = new Length(-5.0, LengthUnit.Centimeter);
+            var y2 = new Length(7.1, LengthUnit.Centimeter);
+
+            // Act
+            IPoint2d pt1 = new Point2d(u1, y1);
+            IPoint2d pt2 = new Point2d(u2, y2);
+            var pts = new List<IPoint2d>() { pt1, pt2 };
+            var polygon = new Polygon2d(pts);
+
+            // Assert
+            Assert.Equal("2D Polygon (2 points;Open)", polygon.ToString());
+        }
+
+        [Fact]
         public void CastPolygonToLineTest()
         {
             // Assemble

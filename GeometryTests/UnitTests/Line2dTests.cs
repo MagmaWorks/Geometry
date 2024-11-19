@@ -30,6 +30,24 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
+        public void ToStringTest()
+        {
+            // Assemble
+            var u1 = new Length(2.3, LengthUnit.Centimeter);
+            var v1 = new Length(5.4, LengthUnit.Centimeter);
+            var u2 = new Length(-2.3, LengthUnit.Centimeter);
+            var v2 = new Length(-5.4, LengthUnit.Centimeter);
+
+            // Act
+            IPoint2d pt1 = new Point2d(u1, v1);
+            IPoint2d pt2 = new Point2d(u2, v2);
+            var ln = new Line2d(pt1, pt2);
+
+            // Assert
+            Assert.Equal("2D Line (S:(U:2.3cm, V:5.4cm) - E:(U:-2.3cm, V:-5.4cm)", ln.ToString());
+        }
+
+        [Fact]
         public void LineSurvivesJsonRoundtripTest()
         {
             // Assemble
