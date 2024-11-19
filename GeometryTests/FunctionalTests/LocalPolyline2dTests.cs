@@ -129,5 +129,83 @@ namespace GeometryTests.FunctionalTests
             Assert.True(clockwiseClosed.IsClockwise());
             Assert.False(counterclockwiseClosed.IsClockwise());
         }
+
+        [Fact]
+        public void OffsetTest()
+        {
+            // Assemble
+            LengthUnit u = LengthUnit.Centimeter;
+            var pt1 = new LocalPoint2d(0, 0, u);
+            var pt2 = new LocalPoint2d(0, 250, u);
+            var pt3 = new LocalPoint2d(250, 250, u);
+            var pt4 = new LocalPoint2d(250, 0, u);
+            var pt5 = new LocalPoint2d(Length.Zero, Length.Zero);
+
+            var offset = new Length(50, u);
+
+            var clockwiseOpen = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            var counterclockwiseOpen = new LocalPolyline2d(new List<ILocalPoint2d> { pt4, pt3, pt2, pt1 });
+            var clockwiseClosed = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+            var counterclockwiseClosed = new LocalPolyline2d(new List<ILocalPoint2d> { pt5, pt4, pt3, pt2, pt1 });
+
+            // Act
+            ILocalPolyline2d clockwiseOpenOffset = clockwiseOpen.Offset(offset);
+            ILocalPolyline2d counterclockwiseOpenOffset = counterclockwiseOpen.Offset(offset);
+            ILocalPolyline2d clockwiseClosedOffset = clockwiseClosed.Offset(offset);
+            ILocalPolyline2d counterclockwiseClosedOffset = counterclockwiseClosed.Offset(offset);
+
+            // Assert
+            Assert.False(clockwiseOpenOffset.IsClosed);
+            Assert.Equal(4, clockwiseOpenOffset.Points.Count);
+            int i = 0;
+            Assert.Equal(-50, clockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(0, clockwiseOpenOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(-50, clockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(300, clockwiseOpenOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(300, clockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(300, clockwiseOpenOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(300, clockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(0, clockwiseOpenOffset.Points[i++].Z.As(u), 12);
+
+            Assert.False(counterclockwiseOpenOffset.IsClosed);
+            Assert.Equal(4, counterclockwiseOpenOffset.Points.Count);
+            i = 0;
+            Assert.Equal(200, counterclockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(0, counterclockwiseOpenOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(200, counterclockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(200, counterclockwiseOpenOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(50, counterclockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(200, counterclockwiseOpenOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(50, counterclockwiseOpenOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(0, counterclockwiseOpenOffset.Points[i++].Z.As(u), 12);
+
+            Assert.True(clockwiseClosedOffset.IsClosed);
+            Assert.Equal(5, clockwiseClosedOffset.Points.Count);
+            i = 0;
+            Assert.Equal(-50, clockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(-50, clockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(-50, clockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(300, clockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(300, clockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(300, clockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(300, clockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(-50, clockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(-50, clockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(-50, clockwiseClosedOffset.Points[i++].Z.As(u), 12);
+
+            Assert.True(counterclockwiseClosedOffset.IsClosed);
+            Assert.Equal(5, counterclockwiseClosedOffset.Points.Count);
+            i = 0;
+            Assert.Equal(50, counterclockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(50, counterclockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(200, counterclockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(50, counterclockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(200, counterclockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(200, counterclockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(50, counterclockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(200, counterclockwiseClosedOffset.Points[i++].Z.As(u), 12);
+            Assert.Equal(50, counterclockwiseClosedOffset.Points[i].Y.As(u), 12);
+            Assert.Equal(50, counterclockwiseClosedOffset.Points[i++].Z.As(u), 12);
+        }
     }
 }
