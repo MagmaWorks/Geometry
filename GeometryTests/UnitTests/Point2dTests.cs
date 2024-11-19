@@ -24,6 +24,20 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
+        public void ToStringTest()
+        {
+            // Assemble
+            var u = new Length(2.3, LengthUnit.Centimeter);
+            var v = new Length(5.4, LengthUnit.Centimeter);
+
+            // Act
+            var pt = new Point2d(u, v);
+
+            // Assert
+            Assert.Equal("2D Point (U:2.3cm, V:5.4cm)", pt.ToString());
+        }
+
+        [Fact]
         public void PointsAreEqualTest()
         {
             // Assemble

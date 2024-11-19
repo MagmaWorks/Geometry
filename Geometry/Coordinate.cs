@@ -27,5 +27,10 @@ namespace MagmaWorks.Geometry
             U = new Ratio(u, unit);
             V = new Ratio(v, unit);
         }
+
+        public override string ToString()
+        {
+            return $"Coordinate (U:{U};V:{V}";
+        }
     }
 }

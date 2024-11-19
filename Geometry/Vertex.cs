@@ -38,5 +38,17 @@ namespace MagmaWorks.Geometry
         {
             return new Point3d(v.X, v.Y, v.Z);
         }
+
+        public override string ToString()
+        {
+            return "Vertex " + CoordinatesToString();
+        }
+
+        public string CoordinatesToString()
+        {
+            return $"(X:{X.ToString().Replace(" ", string.Empty)}, " +
+                    $"Y:{Y.ToString().Replace(" ", string.Empty)}, " +
+                    $"Z:{Z.ToString().Replace(" ", string.Empty)})";
+        }
     }
 }

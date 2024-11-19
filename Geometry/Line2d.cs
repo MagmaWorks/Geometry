@@ -43,5 +43,10 @@ namespace MagmaWorks.Geometry
             var min = new Point2d(us.Min(LengthUnit.Meter), vs.Min(LengthUnit.Meter));
             return new Domain2d(max, min);
         }
+
+        public override string ToString()
+        {
+            return $"2D Line (S:{((Point2d)Start).CoordinatesToString()} - E:{((Point2d)End).CoordinatesToString()}";
+        }
     }
 }

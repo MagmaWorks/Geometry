@@ -69,5 +69,15 @@ namespace MagmaWorks.Geometry
             return Point2d.Offset(vertices.Select(p => (IPoint2d)new Point2d(p)).ToList(), distance)
                 .Select(p => new LocalPoint2d(p)).ToList();
         }
+
+        public override string ToString()
+        {
+            return "Local 2D Point " + CoordinatesToString();
+        }
+
+        public string CoordinatesToString()
+        {
+            return $"(Y:{Y.ToString().Replace(" ", string.Empty)}, Z:{Z.ToString().Replace(" ", string.Empty)})";
+        }
     }
 }

@@ -414,5 +414,15 @@ namespace MagmaWorks.Geometry
 
             return res;
         }
+
+        public override string ToString()
+        {
+            return "2D Point " + CoordinatesToString();
+        }
+
+        public string CoordinatesToString()
+        {
+            return $"(U:{U.ToString().Replace(" ", string.Empty)}, V:{V.ToString().Replace(" ", string.Empty)})";
+        }
     }
 }

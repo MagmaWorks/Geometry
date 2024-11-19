@@ -100,5 +100,17 @@ namespace MagmaWorks.Geometry
         public static Vector3d UnitX => new Vector3d(new Length(1, LengthUnit.Meter), Length.Zero, Length.Zero);
         public static Vector3d UnitY => new Vector3d(Length.Zero, new Length(1, LengthUnit.Meter), Length.Zero);
         public static Vector3d UnitZ => new Vector3d(Length.Zero, Length.Zero, new Length(1, LengthUnit.Meter));
+
+        public override string ToString()
+        {
+            return "3D Vector " + CoordinatesToString();
+        }
+
+        public string CoordinatesToString()
+        {
+            return $"(X:{X.ToString().Replace(" ", string.Empty)}, " +
+                    $"Y:{Y.ToString().Replace(" ", string.Empty)}, " +
+                    $"Z:{Z.ToString().Replace(" ", string.Empty)})";
+        }
     }
 }
