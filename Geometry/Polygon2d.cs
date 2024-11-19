@@ -10,7 +10,7 @@ namespace MagmaWorks.Geometry
     public class Polygon2d : IPolygon2d
     {
         public IList<IPoint2d> Points { get; set; }
-        public bool IsClosed => Points.First().Equals(Points.Last());
+        public bool IsClosed => ((Point2d)Points.First()).Equals(Points.Last());
 
         public Polygon2d(IList<IPoint2d> points)
         {

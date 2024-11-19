@@ -43,6 +43,25 @@ namespace GeometryTests.FunctionalTests
             Assert.Equal(1, intersect.Z.Value);
         }
 
+        [Fact]
+        public void IsClosedTest()
+        {
+            // Assemble
+            var pt1 = new Point3d(0, 0, 0, LengthUnit.Meter);
+            var pt2 = new Point3d(4, 0, 0, LengthUnit.Meter);
+            var pt3 = new Point3d(4, 4, 0, LengthUnit.Meter);
+            var pt4 = new Point3d(0, 4, 0, LengthUnit.Meter);
+            var pt5 = new Point3d(0, 0, 0, LengthUnit.Meter);
+
+            // Act
+            var openPolygon = new Polygon3d(new List<IPoint3d> { pt1, pt2, pt3, pt4 });
+            var closedPolygon = new Polygon3d(new List<IPoint3d> { pt1, pt2, pt3, pt4, pt5 });
+
+            // Assert
+            Assert.False(openPolygon.IsClosed);
+            Assert.True(closedPolygon.IsClosed);
+        }
+
         //[Fact]
         //public void IsInsideTest()
         //{
