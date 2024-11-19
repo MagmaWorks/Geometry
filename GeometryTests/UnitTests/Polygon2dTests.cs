@@ -46,7 +46,7 @@ namespace GeometryTests.UnitTests
             var polygon = new Polygon2d(pts);
 
             // Assert
-            Assert.Equal("3D Polygon (2 points;Open)", polygon.ToString());
+            Assert.Equal("2D Polygon (2 points;Open)", polygon.ToString());
         }
 
         [Fact]
