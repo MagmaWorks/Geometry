@@ -7,12 +7,12 @@ using OasysUnits.Units;
 
 namespace MagmaWorks.Geometry
 {
-    public class LocalPolygon2d : ILocalPolygon2d
+    public class LocalPolyline2d : ILocalPolyline2d
     {
         public IList<ILocalPoint2d> Points { get; set; }
         public bool IsClosed => FirstPointEquivilantToLast();
 
-        public LocalPolygon2d(IList<ILocalPoint2d> points)
+        public LocalPolyline2d(IList<ILocalPoint2d> points)
         {
             if (points.IsNullOrEmpty() || points.Count < 2)
             {
@@ -22,13 +22,13 @@ namespace MagmaWorks.Geometry
             Points = points;
         }
 
-        public Area GetArea() => LocalPoint2d.GetPolygonArea(Points);
+        public Area GetArea() => LocalPoint2d.GetPolylineArea(Points);
 
         public LocalPoint2d GetBarycenter() =>
             new LocalPoint2d(Utility.GetCenterLocal(Points.Select(p => new Point2d(p)).ToList()));
 
-        public LocalPolygon2d Rotate(Angle angle) =>
-            new LocalPolygon2d(LocalPoint2d.RotatePoints(Points, angle).Select(x => (ILocalPoint2d)x).ToList());
+        public LocalPolyline2d Rotate(Angle angle) =>
+            new LocalPolyline2d(LocalPoint2d.RotatePoints(Points, angle).Select(x => (ILocalPoint2d)x).ToList());
 
         public ILocalDomain2d Domain()
         {
@@ -42,8 +42,8 @@ namespace MagmaWorks.Geometry
         }
 
         public bool IsClockwise() => LocalPoint2d.IsClockwise(Points);
-        public ILocalPolygon2d Offset(Length distance) =>
-            new LocalPolygon2d(LocalPoint2d.Offset(Points, distance).Select(x => (ILocalPoint2d)x).ToList());
+        public ILocalPolyline2d Offset(Length distance) =>
+            new LocalPolyline2d(LocalPoint2d.Offset(Points, distance).Select(x => (ILocalPoint2d)x).ToList());
 
         private bool FirstPointEquivilantToLast()
         {
@@ -54,7 +54,7 @@ namespace MagmaWorks.Geometry
         public override string ToString()
         {
             string closed = IsClosed ? "Closed" : "Open";
-            return $"Local 2D Polygon ({Points.Count} points;{closed})";
+            return $"Local 2D Polyline ({Points.Count} points;{closed})";
         }
     }
 }

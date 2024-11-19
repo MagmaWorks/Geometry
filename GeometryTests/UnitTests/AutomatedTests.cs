@@ -13,9 +13,9 @@ namespace GeometryTests.UnitTests
         // Add manual tests of these class' constructors instead
         private static readonly List<Type> _excludedTypes =
         [
-            typeof(LocalPolygon2d),
-            typeof(Polygon2d),
-            typeof(Polygon3d),
+            typeof(LocalPolyline2d),
+            typeof(Polyline2d),
+            typeof(Polyline3d),
         ];
 
         // static inputs used to populate constructor variables

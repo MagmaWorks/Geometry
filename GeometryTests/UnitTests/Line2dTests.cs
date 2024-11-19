@@ -91,7 +91,7 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
-        public void LineCastToPolygonTest()
+        public void LineCastToPolylineTest()
         {
             // Assemble
             var u1 = new Length(2.3, LengthUnit.Centimeter);
@@ -103,13 +103,13 @@ namespace GeometryTests.UnitTests
             IPoint2d pt1 = new Point2d(u1, v1);
             IPoint2d pt2 = new Point2d(u2, v2);
             var ln = new Line2d(pt1, pt2);
-            var polygon = (Polygon2d)ln;
+            var Polyline = (Polyline2d)ln;
 
             // Assert
-            TestUtility.TestLengthsAreEqual(u1, polygon.Points[0].U);
-            TestUtility.TestLengthsAreEqual(u2, polygon.Points[1].U);
-            TestUtility.TestLengthsAreEqual(v1, polygon.Points[0].V);
-            TestUtility.TestLengthsAreEqual(v2, polygon.Points[1].V);
+            TestUtility.TestLengthsAreEqual(u1, Polyline.Points[0].U);
+            TestUtility.TestLengthsAreEqual(u2, Polyline.Points[1].U);
+            TestUtility.TestLengthsAreEqual(v1, Polyline.Points[0].V);
+            TestUtility.TestLengthsAreEqual(v2, Polyline.Points[1].V);
         }
     }
 }

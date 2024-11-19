@@ -15,9 +15,9 @@ namespace MagmaWorks.Geometry
             End = end;
         }
 
-        public static implicit operator Polygon3d(Line3d ln)
+        public static implicit operator Polyline3d(Line3d ln)
         {
-            return new Polygon3d(new List<IPoint3d> { ln.Start, ln.End });
+            return new Polyline3d(new List<IPoint3d> { ln.Start, ln.End });
         }
 
         public static implicit operator Vector3d(Line3d ln)

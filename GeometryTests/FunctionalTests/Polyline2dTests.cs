@@ -4,7 +4,7 @@ using OasysUnits.Units;
 
 namespace GeometryTests.FunctionalTests
 {
-    public class Polygon2dTests
+    public class Polyline2dTests
     {
         [Fact]
         public void GetBarycenterTest()
@@ -14,7 +14,7 @@ namespace GeometryTests.FunctionalTests
             var pt2 = new Point2d(3, 4, LengthUnit.Meter);
 
             // Act
-            var poly = new Polygon2d(new List<IPoint2d>() { pt1, pt2 });
+            var poly = new Polyline2d(new List<IPoint2d>() { pt1, pt2 });
             Point2d center = poly.GetBarycenter();
 
             // Assert
@@ -32,7 +32,7 @@ namespace GeometryTests.FunctionalTests
             var pt = new Point2d(5, 1, LengthUnit.Meter);
 
             // Act
-            var poly = new Polygon2d(new List<IPoint2d>() { pt1, pt2 });
+            var poly = new Polyline2d(new List<IPoint2d>() { pt1, pt2 });
             Point2d ptOnLine = poly.GetClosest(pt);
 
             // Assert
@@ -41,7 +41,7 @@ namespace GeometryTests.FunctionalTests
         }
 
         [Fact]
-        public void IsCloseToPolygonTest()
+        public void IsCloseToPolylineTest()
         {
             // Assemble
             var pt1 = new Point2d(0, 0, LengthUnit.Meter);
@@ -52,9 +52,9 @@ namespace GeometryTests.FunctionalTests
             Length dist2 = new Length(2, LengthUnit.Meter);
 
             // Act
-            var polygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3 });
-            (bool close, Point2d pt) ptClose1 = polygon.IsCloseToPolygon(pt, dist1);
-            (bool close, Point2d pt) ptClose2 = polygon.IsCloseToPolygon(pt, dist2);
+            var Polyline = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3 });
+            (bool close, Point2d pt) ptClose1 = Polyline.IsCloseToPolyline(pt, dist1);
+            (bool close, Point2d pt) ptClose2 = Polyline.IsCloseToPolyline(pt, dist2);
 
             // Assert
             Assert.False(ptClose1.close);
@@ -74,8 +74,8 @@ namespace GeometryTests.FunctionalTests
             var pt4 = new Point2d(0, 4, LengthUnit.Meter);
 
             // Act
-            var polygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
-            Polygon2d rotated = polygon.Rotate(new Angle(90, AngleUnit.Degree));
+            var Polyline = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
+            Polyline2d rotated = Polyline.Rotate(new Angle(90, AngleUnit.Degree));
 
             // Assert
             Assert.Equal(0, rotated.Points[0].U.Value, 6);
@@ -101,15 +101,15 @@ namespace GeometryTests.FunctionalTests
             var testOutside = new Point2d(-2, 2, LengthUnit.Meter);
 
             // Act
-            var polygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
+            var Polyline = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
 
             // Assert
-            Assert.True(polygon.IsInside(testInside));
-            Assert.False(polygon.IsInside(testOutside));
+            Assert.True(Polyline.IsInside(testInside));
+            Assert.False(Polyline.IsInside(testOutside));
         }
 
         [Fact]
-        public void GetPolygonAreaTest()
+        public void GetPolylineAreaTest()
         {
             // Assemble
             var pt1 = new Point2d(0, 0, LengthUnit.Millimeter);
@@ -118,8 +118,8 @@ namespace GeometryTests.FunctionalTests
             var pt4 = new Point2d(0, 4, LengthUnit.Meter);
 
             // Act
-            var polygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
-            Area area = polygon.GetArea();
+            var Polyline = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
+            Area area = Polyline.GetArea();
 
             // Assert
             Assert.Equal(AreaUnit.SquareMillimeter, area.Unit);
@@ -137,12 +137,12 @@ namespace GeometryTests.FunctionalTests
             var pt5 = new Point2d(0, 0, LengthUnit.Millimeter);
 
             // Act
-            var openPolygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
-            var closedPolygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+            var openPolyline = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
+            var closedPolyline = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4, pt5 });
 
             // Assert
-            Assert.False(openPolygon.IsClosed);
-            Assert.True(closedPolygon.IsClosed);
+            Assert.False(openPolyline.IsClosed);
+            Assert.True(closedPolyline.IsClosed);
         }
 
         [Fact]
@@ -156,10 +156,10 @@ namespace GeometryTests.FunctionalTests
             var pt5 = new Point2d(Length.Zero, Length.Zero);
 
             // Act
-            var clockwiseOpen = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
-            var counterclockwiseOpen = new Polygon2d(new List<IPoint2d> { pt4, pt3, pt2, pt1 });
-            var clockwiseClosed = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4, pt5 });
-            var counterclockwiseClosed = new Polygon2d(new List<IPoint2d> { pt5, pt4, pt3, pt2, pt1 });
+            var clockwiseOpen = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
+            var counterclockwiseOpen = new Polyline2d(new List<IPoint2d> { pt4, pt3, pt2, pt1 });
+            var clockwiseClosed = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+            var counterclockwiseClosed = new Polyline2d(new List<IPoint2d> { pt5, pt4, pt3, pt2, pt1 });
 
             // Assert
             Assert.False(clockwiseOpen.IsClosed);
@@ -185,16 +185,16 @@ namespace GeometryTests.FunctionalTests
 
             var offset = new Length(50, u);
 
-            var clockwiseOpen = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
-            var counterclockwiseOpen = new Polygon2d(new List<IPoint2d> { pt4, pt3, pt2, pt1 });
-            var clockwiseClosed = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3, pt4, pt5 });
-            var counterclockwiseClosed = new Polygon2d(new List<IPoint2d> { pt5, pt4, pt3, pt2, pt1 });
+            var clockwiseOpen = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4 });
+            var counterclockwiseOpen = new Polyline2d(new List<IPoint2d> { pt4, pt3, pt2, pt1 });
+            var clockwiseClosed = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+            var counterclockwiseClosed = new Polyline2d(new List<IPoint2d> { pt5, pt4, pt3, pt2, pt1 });
 
             // Act
-            IPolygon2d clockwiseOpenOffset = clockwiseOpen.Offset(offset);
-            IPolygon2d counterclockwiseOpenOffset = counterclockwiseOpen.Offset(offset);
-            IPolygon2d clockwiseClosedOffset = clockwiseClosed.Offset(offset);
-            IPolygon2d counterclockwiseClosedOffset = counterclockwiseClosed.Offset(offset);
+            IPolyline2d clockwiseOpenOffset = clockwiseOpen.Offset(offset);
+            IPolyline2d counterclockwiseOpenOffset = counterclockwiseOpen.Offset(offset);
+            IPolyline2d clockwiseClosedOffset = clockwiseClosed.Offset(offset);
+            IPolyline2d counterclockwiseClosedOffset = counterclockwiseClosed.Offset(offset);
 
             // Assert
             Assert.False(clockwiseOpenOffset.IsClosed);

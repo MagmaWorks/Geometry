@@ -6,10 +6,10 @@ using OasysUnits.Units;
 
 namespace GeometryTests.UnitTests
 {
-    public class Polygon3dTests
+    public class Polyline3dTests
     {
         [Fact]
-        public void CreatePolygonTest()
+        public void CreatePolylineTest()
         {
             // Assemble
             var x1 = new Length(2.3, LengthUnit.Centimeter);
@@ -23,15 +23,15 @@ namespace GeometryTests.UnitTests
             IPoint3d pt1 = new Point3d(x1, y1, z1);
             IPoint3d pt2 = new Point3d(x2, y2, z2);
             var pts = new List<IPoint3d>() { pt1, pt2 };
-            IPolygon3d polygon = new Polygon3d(pts);
+            IPolyline3d Polyline = new Polyline3d(pts);
 
             // Assert
-            TestUtility.TestLengthsAreEqual(x1, polygon.Points[0].X);
-            TestUtility.TestLengthsAreEqual(y1, polygon.Points[0].Y);
-            TestUtility.TestLengthsAreEqual(z1, polygon.Points[0].Z);
-            TestUtility.TestLengthsAreEqual(x2, polygon.Points[1].X);
-            TestUtility.TestLengthsAreEqual(y2, polygon.Points[1].Y);
-            TestUtility.TestLengthsAreEqual(z2, polygon.Points[1].Z);
+            TestUtility.TestLengthsAreEqual(x1, Polyline.Points[0].X);
+            TestUtility.TestLengthsAreEqual(y1, Polyline.Points[0].Y);
+            TestUtility.TestLengthsAreEqual(z1, Polyline.Points[0].Z);
+            TestUtility.TestLengthsAreEqual(x2, Polyline.Points[1].X);
+            TestUtility.TestLengthsAreEqual(y2, Polyline.Points[1].Y);
+            TestUtility.TestLengthsAreEqual(z2, Polyline.Points[1].Z);
         }
 
         [Fact]
@@ -49,14 +49,14 @@ namespace GeometryTests.UnitTests
             IPoint3d pt1 = new Point3d(x1, y1, z1);
             IPoint3d pt2 = new Point3d(x2, y2, z2);
             var pts = new List<IPoint3d>() { pt1, pt2 };
-            var polygon = new Polygon3d(pts);
+            var Polyline = new Polyline3d(pts);
 
             // Assert
-            Assert.Equal("3D Polygon (2 points;Open)", polygon.ToString());
+            Assert.Equal("3D Polyline (2 points;Open)", Polyline.ToString());
         }
 
         [Fact]
-        public void CastPolygonToLineTest()
+        public void CastPolylineToLineTest()
         {
             // Assemble
             var x1 = new Length(2.3, LengthUnit.Centimeter);
@@ -70,8 +70,8 @@ namespace GeometryTests.UnitTests
             IPoint3d pt1 = new Point3d(x1, y1, z1);
             IPoint3d pt2 = new Point3d(x2, y2, z2);
             var pts = new List<IPoint3d>() { pt1, pt2 };
-            var polygon = new Polygon3d(pts);
-            var ln = (Line3d)polygon;
+            var Polyline = new Polyline3d(pts);
+            var ln = (Line3d)Polyline;
 
             // Assert
             TestUtility.TestLengthsAreEqual(x1, ln.Start.X);
@@ -83,7 +83,7 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
-        public void PolygonSurvivesJsonRoundtripTest()
+        public void PolylineSurvivesJsonRoundtripTest()
         {
             // Assemble
             var x1 = new Length(2.3, LengthUnit.Centimeter);
@@ -97,17 +97,17 @@ namespace GeometryTests.UnitTests
             IPoint3d pt1 = new Point3d(x1, y1, z1);
             IPoint3d pt2 = new Point3d(x2, y2, z2);
             var pts = new List<IPoint3d>() { pt1, pt2 };
-            IPolygon3d polygon = new Polygon3d(pts);
-            string json = polygon.ToJson();
-            IPolygon3d poligonDeserialized = json.FromJson<Polygon3d>();
+            IPolyline3d Polyline = new Polyline3d(pts);
+            string json = Polyline.ToJson();
+            IPolyline3d poligonDeserialized = json.FromJson<Polyline3d>();
 
             // Assert
-            TestUtility.TestLengthsAreEqual(x1, polygon.Points[0].X);
-            TestUtility.TestLengthsAreEqual(y1, polygon.Points[0].Y);
-            TestUtility.TestLengthsAreEqual(z1, polygon.Points[0].Z);
-            TestUtility.TestLengthsAreEqual(x2, polygon.Points[1].X);
-            TestUtility.TestLengthsAreEqual(y2, polygon.Points[1].Y);
-            TestUtility.TestLengthsAreEqual(z2, polygon.Points[1].Z);
+            TestUtility.TestLengthsAreEqual(x1, Polyline.Points[0].X);
+            TestUtility.TestLengthsAreEqual(y1, Polyline.Points[0].Y);
+            TestUtility.TestLengthsAreEqual(z1, Polyline.Points[0].Z);
+            TestUtility.TestLengthsAreEqual(x2, Polyline.Points[1].X);
+            TestUtility.TestLengthsAreEqual(y2, Polyline.Points[1].Y);
+            TestUtility.TestLengthsAreEqual(z2, Polyline.Points[1].Z);
         }
 
         [Fact]
@@ -119,12 +119,12 @@ namespace GeometryTests.UnitTests
             var z = new Length(10, LengthUnit.Centimeter);
 
             // Assert
-            Assert.Throws<ArgumentException>(() => new Polygon3d(new List<IPoint3d>()));
+            Assert.Throws<ArgumentException>(() => new Polyline3d(new List<IPoint3d>()));
 
             // Act
             IPoint3d pt = new Point3d(x, y, z);
             var pts = new List<IPoint3d>() { pt };
-            Assert.Throws<ArgumentException>(() => new Polygon3d(pts));
+            Assert.Throws<ArgumentException>(() => new Polyline3d(pts));
         }
     }
 }

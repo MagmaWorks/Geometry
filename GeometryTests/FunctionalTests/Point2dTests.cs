@@ -70,7 +70,7 @@ namespace GeometryTests.FunctionalTests
         }
 
         [Fact]
-        public void IsCloseToPolygonTest()
+        public void IsCloseToPolylineTest()
         {
             // Assemble
             var pt1 = new Point2d(0, 0, LengthUnit.Meter);
@@ -81,9 +81,9 @@ namespace GeometryTests.FunctionalTests
             Length dist2 = new Length(2, LengthUnit.Meter);
 
             // Act
-            Polygon2d polygon = new Polygon2d(new List<IPoint2d> { pt1, pt2, pt3 });
-            (bool close, Point2d pt) ptClose1 = Point2d.IsCloseToPolygon(pt, polygon, dist1);
-            (bool close, Point2d pt) ptClose2 = Point2d.IsCloseToPolygon(pt, polygon, dist2);
+            Polyline2d Polyline = new Polyline2d(new List<IPoint2d> { pt1, pt2, pt3 });
+            (bool close, Point2d pt) ptClose1 = Point2d.IsCloseToPolyline(pt, Polyline, dist1);
+            (bool close, Point2d pt) ptClose2 = Point2d.IsCloseToPolyline(pt, Polyline, dist2);
 
             // Assert
             Assert.False(ptClose1.close);
@@ -202,7 +202,7 @@ namespace GeometryTests.FunctionalTests
         }
 
         [Fact]
-        public void GetPolygonAreaTest()
+        public void GetPolylineAreaTest()
         {
             // Assemble
             var pt1 = new Point2d(0, 0, LengthUnit.Millimeter);
@@ -212,7 +212,7 @@ namespace GeometryTests.FunctionalTests
 
             // Act
             var list = new List<IPoint2d> { pt1, pt2, pt3, pt4 };
-            Area area = Point2d.GetPolygonArea(list);
+            Area area = Point2d.GetPolylineArea(list);
 
             // Assert
             Assert.Equal(AreaUnit.SquareMillimeter, area.Unit);

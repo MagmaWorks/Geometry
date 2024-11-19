@@ -219,7 +219,7 @@ namespace MagmaWorks.Geometry
             }
         }
 
-        public static Mesh MakeExtrudedPolygon(IPoint3d start, IPoint3d end, Length radius, int sides)
+        public static Mesh MakeExtrudedPolyline(IPoint3d start, IPoint3d end, Length radius, int sides)
         {
             var returnMesh = new Mesh();
             Length length = ((Point3d)end - (Point3d)start).Length;
@@ -261,7 +261,7 @@ namespace MagmaWorks.Geometry
             return returnMesh;
         }
 
-        public static Mesh MakeExtrudedPolygon(IPoint3d start, IPoint3d end, List<IPoint3d> startPoints)
+        public static Mesh MakeExtrudedPolyline(IPoint3d start, IPoint3d end, List<IPoint3d> startPoints)
         {
             Mesh returnMesh = new Mesh();
             Vector3d extrusionRail = (Point3d)end - (Point3d)start;

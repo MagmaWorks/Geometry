@@ -7,12 +7,12 @@ using OasysUnits.Units;
 
 namespace MagmaWorks.Geometry
 {
-    public class Polygon3d : IPolygon3d
+    public class Polyline3d : IPolyline3d
     {
         public IList<IPoint3d> Points { get; set; }
         public bool IsClosed => FirstPointEquivilantToLast();
 
-        public Polygon3d(IList<IPoint3d> points)
+        public Polyline3d(IList<IPoint3d> points)
         {
             if (points.IsNullOrEmpty() || points.Count < 2)
             {
@@ -33,19 +33,19 @@ namespace MagmaWorks.Geometry
         }
 
         public static Point3d PlaneLineIntersection<P>(P line, P plane, bool within = true)
-            where P : Polygon3d
+            where P : Polyline3d
         {
             return Point3d.PlaneLineIntersection(line.Points, plane.Points, within);
         }
 
-        public static explicit operator Line3d(Polygon3d polygon)
+        public static explicit operator Line3d(Polyline3d Polyline)
         {
-            if (polygon.Points.Count != 2)
+            if (Polyline.Points.Count != 2)
             {
-                throw new InvalidCastException("Only a Polygon with two points can be cast to a Line");
+                throw new InvalidCastException("Only a Polyline with two points can be cast to a Line");
             }
 
-            return new Line3d(polygon.Points[0], polygon.Points[1]);
+            return new Line3d(Polyline.Points[0], Polyline.Points[1]);
         }
 
         public IDomain Domain()
@@ -71,7 +71,7 @@ namespace MagmaWorks.Geometry
         public override string ToString()
         {
             string closed = IsClosed ? "Closed" : "Open";
-            return $"3D Polygon ({Points.Count} points;{closed})";
+            return $"3D Polyline ({Points.Count} points;{closed})";
         }
     }
 }
