@@ -10,7 +10,7 @@ namespace MagmaWorks.Geometry
     public class Polygon2d : IPolygon2d
     {
         public IList<IPoint2d> Points { get; set; }
-        public bool IsClosed => ((Point2d)Points.First()).Equals(Points.Last());
+        public bool IsClosed => FirstPointEquivilantToLast();
 
         public Polygon2d(IList<IPoint2d> points)
         {
@@ -22,36 +22,27 @@ namespace MagmaWorks.Geometry
             Points = points;
         }
 
-        public Area GetArea()
+        public IDomain2d Domain()
         {
-            return Point2d.GetPolygonArea(Points);
+            var max = new Point2d(
+                Points.Select(pt => pt.U).Max(LengthUnit.Meter),
+                Points.Select(pt => pt.V).Max(LengthUnit.Meter));
+            var min = new Point2d(
+                Points.Select(pt => pt.U).Min(LengthUnit.Meter),
+                Points.Select(pt => pt.V).Min(LengthUnit.Meter));
+            return new Domain2d(max, min);
         }
-
-        public Point2d GetBarycenter()
-        {
-            return Utility.GetCenterLocal(Points);
-        }
-
-        public Point2d GetClosest<P>(P pt) where P : IPoint2d
-        {
-            return Point2d.GetClosest(pt, Points);
-        }
-
+        public Area GetArea() => Point2d.GetPolygonArea(Points);
+        public Point2d GetBarycenter() => Utility.GetCenterLocal(Points);
+        public Point2d GetClosest<P>(P pt) where P : IPoint2d => Point2d.GetClosest(pt, Points);
+        public bool IsClockwise() => Point2d.IsClockwise(Points);
         public (bool, Point2d) IsCloseToPolygon<P>(P p0, Length d) where P : IPoint2d
-        {
-            return Point2d.IsCloseToPolygon(p0, Points, d);
-        }
-
+            => Point2d.IsCloseToPolygon(p0, Points, d);
         public bool IsInside<P>(P point, double tol = 0, bool border = true) where P : IPoint2d
-        {
-            return Point2d.IsInside(Points, point, tol, border);
-        }
-
-        public Polygon2d Rotate(Angle angle)
-        {
-            List<IPoint2d> list = Point2d.RotatePoints(Points, angle).Select(x => (IPoint2d)x).ToList();
-            return new Polygon2d(list);
-        }
+            => Point2d.IsInside(Points, point, tol, border);
+        public IPolygon2d Offset(Length distance) => new Polygon2d(Point2d.Offset(Points, distance));
+        public Polygon2d Rotate(Angle angle) =>
+            new Polygon2d(Point2d.RotatePoints(Points, angle).Select(x => (IPoint2d)x).ToList());
 
         public static explicit operator Line2d(Polygon2d polygon)
         {
@@ -63,15 +54,10 @@ namespace MagmaWorks.Geometry
             return new Line2d(polygon.Points[0], polygon.Points[1]);
         }
 
-        public IDomain2d Domain()
+        private bool FirstPointEquivilantToLast()
         {
-            var max = new Point2d(
-                Points.Select(pt => pt.U).Max(LengthUnit.Meter),
-                Points.Select(pt => pt.V).Max(LengthUnit.Meter));
-            var min = new Point2d(
-                Points.Select(pt => pt.U).Min(LengthUnit.Meter),
-                Points.Select(pt => pt.V).Min(LengthUnit.Meter));
-            return new Domain2d(max, min);
+            return Points.First().U.Meters == Points.Last().U.Meters
+                && Points.First().V.Meters == Points.Last().V.Meters;
         }
     }
 }

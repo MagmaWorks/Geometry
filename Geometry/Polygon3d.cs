@@ -10,7 +10,7 @@ namespace MagmaWorks.Geometry
     public class Polygon3d : IPolygon3d
     {
         public IList<IPoint3d> Points { get; set; }
-        public bool IsClosed => ((Point3d)Points.First()).Equals(Points.Last());
+        public bool IsClosed => FirstPointEquivilantToLast();
 
         public Polygon3d(IList<IPoint3d> points)
         {
@@ -59,6 +59,13 @@ namespace MagmaWorks.Geometry
                 Points.Select(pt => pt.Y).Min(LengthUnit.Meter),
                 Points.Select(pt => pt.Z).Min(LengthUnit.Meter));
             return new Domain(max, min);
+        }
+
+        private bool FirstPointEquivilantToLast()
+        {
+            return Points.First().X.Meters == Points.Last().X.Meters
+                && Points.First().Y.Meters == Points.Last().Y.Meters
+                && Points.First().Z.Meters == Points.Last().Z.Meters;
         }
     }
 }

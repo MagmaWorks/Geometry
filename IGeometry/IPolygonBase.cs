@@ -1,6 +1,4 @@
-﻿using OasysUnits;
-
-namespace MagmaWorks.Geometry
+﻿namespace MagmaWorks.Geometry
 {
     public interface IPolygonBase<D, T> where D : IExtrema<T>
     {

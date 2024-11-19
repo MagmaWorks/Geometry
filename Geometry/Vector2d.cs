@@ -44,9 +44,21 @@ namespace MagmaWorks.Geometry
             return new Vector2d(new Length(U / Length, unit), new Length(V / Length, unit));
         }
 
+        public Vector2d Amplitude(Length amplitude)
+        {
+            LengthUnit unit = amplitude.Unit;
+            return new Vector2d(new Length(U.As(unit) * amplitude.As(unit), unit),
+                                new Length(V.As(unit) * amplitude.As(unit), unit));
+        }
+
         public static Vector2d operator *(double number, Vector2d point)
         {
             return new Vector2d(point.U * number, point.V * number);
+        }
+
+        public static Vector2d operator *(Vector2d point, double number)
+        {
+            return number * point;
         }
 
         public static Vector2d operator +(Vector2d v1, Vector2d v2)
