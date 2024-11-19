@@ -340,8 +340,9 @@ namespace MagmaWorks.Geometry
                     }
 
                     tangentAfter = (Point2d)pts[1] - (Point2d)pts[0];
-                    
-                } else if (i + 1 == pts.Count)
+
+                }
+                else if (i + 1 == pts.Count)
                 {
                     if (isClosed)
                     {
@@ -349,7 +350,8 @@ namespace MagmaWorks.Geometry
                     }
 
                     tangentBefore = (Point2d)pts[i] - (Point2d)pts[i - 1];
-                } else
+                }
+                else
                 {
                     tangentBefore = (Point2d)pts[i] - (Point2d)pts[i - 1];
                     tangentAfter = (Point2d)pts[i + 1] - (Point2d)pts[i];
