@@ -92,7 +92,7 @@ namespace GeometryTests.FunctionalTests
             var pt2 = new LocalPoint2d(400, -250, LengthUnit.Centimeter);
             var pt3 = new LocalPoint2d(4, 4, LengthUnit.Meter);
             var pt4 = new LocalPoint2d(0, 5, LengthUnit.Meter);
-            var pt5 = new LocalPoint2d(-100, 0, LengthUnit.Millimeter);
+            var pt5 = new LocalPoint2d(Length.Zero, Length.Zero);
 
             // Act
             var openPolygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
