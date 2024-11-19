@@ -4,7 +4,7 @@ using OasysUnits.Units;
 
 namespace GeometryTests.FunctionalTests
 {
-    public class LocalPolygon2dTests
+    public class LocalPolyline2dTests
     {
         [Fact]
         public void GetBarycenterTest()
@@ -14,7 +14,7 @@ namespace GeometryTests.FunctionalTests
             var pt2 = new LocalPoint2d(3, 4, LengthUnit.Meter);
 
             // Act
-            var poly = new LocalPolygon2d(new List<ILocalPoint2d>() { pt1, pt2 });
+            var poly = new LocalPolyline2d(new List<ILocalPoint2d>() { pt1, pt2 });
             LocalPoint2d center = poly.GetBarycenter();
 
             // Assert
@@ -32,8 +32,8 @@ namespace GeometryTests.FunctionalTests
             var pt4 = new LocalPoint2d(0, 4, LengthUnit.Meter);
 
             // Act
-            var polygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
-            LocalPolygon2d rotated = polygon.Rotate(new Angle(90, AngleUnit.Degree));
+            var Polyline = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            LocalPolyline2d rotated = Polyline.Rotate(new Angle(90, AngleUnit.Degree));
 
             // Assert
             Assert.Equal(0, rotated.Points[0].Y.Value, 6);
@@ -47,7 +47,7 @@ namespace GeometryTests.FunctionalTests
         }
 
         [Fact]
-        public void GetPolygonAreaTest()
+        public void GetPolylineAreaTest()
         {
             // Assemble
             var pt1 = new LocalPoint2d(0, 0, LengthUnit.Millimeter);
@@ -56,8 +56,8 @@ namespace GeometryTests.FunctionalTests
             var pt4 = new LocalPoint2d(0, 4, LengthUnit.Meter);
 
             // Act
-            var polygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
-            Area area = polygon.GetArea();
+            var Polyline = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            Area area = Polyline.GetArea();
 
             // Assert
             Assert.Equal(AreaUnit.SquareMillimeter, area.Unit);
@@ -74,8 +74,8 @@ namespace GeometryTests.FunctionalTests
             var pt4 = new LocalPoint2d(0, 5, LengthUnit.Meter);
 
             // Act
-            var polygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
-            ILocalDomain2d domain = polygon.Domain();
+            var Polyline = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            ILocalDomain2d domain = Polyline.Domain();
 
             // Assert
             Assert.Equal(4, domain.Max.Y.Meters);
@@ -95,12 +95,12 @@ namespace GeometryTests.FunctionalTests
             var pt5 = new LocalPoint2d(Length.Zero, Length.Zero);
 
             // Act
-            var openPolygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
-            var closedPolygon = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+            var openPolyline = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            var closedPolyline = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4, pt5 });
 
             // Assert
-            Assert.False(openPolygon.IsClosed);
-            Assert.True(closedPolygon.IsClosed);
+            Assert.False(openPolyline.IsClosed);
+            Assert.True(closedPolyline.IsClosed);
         }
 
         [Fact]
@@ -114,10 +114,10 @@ namespace GeometryTests.FunctionalTests
             var pt5 = new LocalPoint2d(Length.Zero, Length.Zero);
 
             // Act
-            var clockwiseOpen = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
-            var counterclockwiseOpen = new LocalPolygon2d(new List<ILocalPoint2d> { pt4, pt3, pt2, pt1 });
-            var clockwiseClosed = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4, pt5 });
-            var counterclockwiseClosed = new LocalPolygon2d(new List<ILocalPoint2d> { pt5, pt4, pt3, pt2, pt1 });
+            var clockwiseOpen = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            var counterclockwiseOpen = new LocalPolyline2d(new List<ILocalPoint2d> { pt4, pt3, pt2, pt1 });
+            var clockwiseClosed = new LocalPolyline2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+            var counterclockwiseClosed = new LocalPolyline2d(new List<ILocalPoint2d> { pt5, pt4, pt3, pt2, pt1 });
 
             // Assert
             Assert.False(clockwiseOpen.IsClosed);

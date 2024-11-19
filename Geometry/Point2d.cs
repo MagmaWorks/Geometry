@@ -149,13 +149,13 @@ namespace MagmaWorks.Geometry
                 l1.V + uv / d * (l2.V - l1.V));
         }
 
-        public static (bool, Point2d) IsCloseToPolygon<Pt, Pl>(Pt p, Pl polygon, Length d)
-            where Pt : IPoint2d where Pl : IPolygon2d
+        public static (bool, Point2d) IsCloseToPolyline<Pt, Pl>(Pt p, Pl Polyline, Length d)
+            where Pt : IPoint2d where Pl : IPolyline2d
         {
-            return IsCloseToPolygon(p, polygon.Points, d);
+            return IsCloseToPolyline(p, Polyline.Points, d);
         }
 
-        public static (bool, Point2d) IsCloseToPolygon(IPoint2d p0, IList<IPoint2d> points, Length d)
+        public static (bool, Point2d) IsCloseToPolyline(IPoint2d p0, IList<IPoint2d> points, Length d)
         {
             Point2d pt = null;
             bool isClose = false;
@@ -252,7 +252,7 @@ namespace MagmaWorks.Geometry
         }
 
         /// <summary>
-        /// Returns true if point is inside the polygon defined by the vertices.
+        /// Returns true if point is inside the Polyline defined by the vertices.
         /// </summary>
         /// <param name="vertices"></param>
         /// <param name="point"></param>
@@ -283,7 +283,7 @@ namespace MagmaWorks.Geometry
             return inside;
         }
 
-        public static Area GetPolygonArea(IList<IPoint2d> vertices, bool closed = false)
+        public static Area GetPolylineArea(IList<IPoint2d> vertices, bool closed = false)
         {
             return CalculateArea(vertices, closed).Abs();
         }

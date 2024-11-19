@@ -6,10 +6,10 @@ using OasysUnits.Units;
 
 namespace GeometryTests.UnitTests
 {
-    public class Polygon2dTests
+    public class Polyline2dTests
     {
         [Fact]
-        public void CreatePolygonTest()
+        public void CreatePolylineTest()
         {
             // Assemble
             var u1 = new Length(2.3, LengthUnit.Centimeter);
@@ -21,13 +21,13 @@ namespace GeometryTests.UnitTests
             IPoint2d pt1 = new Point2d(u1, y1);
             IPoint2d pt2 = new Point2d(u2, y2);
             var pts = new List<IPoint2d>() { pt1, pt2 };
-            IPolygon2d polygon = new Polygon2d(pts);
+            IPolyline2d Polyline = new Polyline2d(pts);
 
             // Assert
-            TestUtility.TestLengthsAreEqual(u1, polygon.Points[0].U);
-            TestUtility.TestLengthsAreEqual(y1, polygon.Points[0].V);
-            TestUtility.TestLengthsAreEqual(u2, polygon.Points[1].U);
-            TestUtility.TestLengthsAreEqual(y2, polygon.Points[1].V);
+            TestUtility.TestLengthsAreEqual(u1, Polyline.Points[0].U);
+            TestUtility.TestLengthsAreEqual(y1, Polyline.Points[0].V);
+            TestUtility.TestLengthsAreEqual(u2, Polyline.Points[1].U);
+            TestUtility.TestLengthsAreEqual(y2, Polyline.Points[1].V);
         }
 
         [Fact]
@@ -43,14 +43,14 @@ namespace GeometryTests.UnitTests
             IPoint2d pt1 = new Point2d(u1, y1);
             IPoint2d pt2 = new Point2d(u2, y2);
             var pts = new List<IPoint2d>() { pt1, pt2 };
-            var polygon = new Polygon2d(pts);
+            var Polyline = new Polyline2d(pts);
 
             // Assert
-            Assert.Equal("2D Polygon (2 points;Open)", polygon.ToString());
+            Assert.Equal("2D Polyline (2 points;Open)", Polyline.ToString());
         }
 
         [Fact]
-        public void CastPolygonToLineTest()
+        public void CastPolylineToLineTest()
         {
             // Assemble
             var u1 = new Length(2.3, LengthUnit.Centimeter);
@@ -62,8 +62,8 @@ namespace GeometryTests.UnitTests
             IPoint2d pt1 = new Point2d(u1, y1);
             IPoint2d pt2 = new Point2d(u2, y2);
             var pts = new List<IPoint2d>() { pt1, pt2 };
-            var polygon = new Polygon2d(pts);
-            Line2d ln = (Line2d)polygon;
+            var Polyline = new Polyline2d(pts);
+            Line2d ln = (Line2d)Polyline;
 
             // Assert
             TestUtility.TestLengthsAreEqual(u1, ln.Start.U);
@@ -73,7 +73,7 @@ namespace GeometryTests.UnitTests
         }
 
         [Fact]
-        public void PolygonSurvivesJsonRoundtripTest()
+        public void PolylineSurvivesJsonRoundtripTest()
         {
             // Assemble
             var u1 = new Length(2.3, LengthUnit.Centimeter);
@@ -85,9 +85,9 @@ namespace GeometryTests.UnitTests
             IPoint2d pt1 = new Point2d(u1, y1);
             IPoint2d pt2 = new Point2d(u2, y2);
             var pts = new List<IPoint2d>() { pt1, pt2 };
-            IPolygon2d polygon = new Polygon2d(pts);
-            string json = polygon.ToJson();
-            IPolygon2d poligonDeserialized = json.FromJson<Polygon2d>();
+            IPolyline2d Polyline = new Polyline2d(pts);
+            string json = Polyline.ToJson();
+            IPolyline2d poligonDeserialized = json.FromJson<Polyline2d>();
 
             // Assert
             TestUtility.TestLengthsAreEqual(u1, poligonDeserialized.Points[0].U);
@@ -104,12 +104,12 @@ namespace GeometryTests.UnitTests
             var y = new Length(5.4, LengthUnit.Centimeter);
 
             // Assert
-            Assert.Throws<ArgumentException>(() => new Polygon2d(new List<IPoint2d>()));
+            Assert.Throws<ArgumentException>(() => new Polyline2d(new List<IPoint2d>()));
 
             // Act
             IPoint2d pt = new Point2d(x, y);
             var pts = new List<IPoint2d>() { pt };
-            Assert.Throws<ArgumentException>(() => new Polygon2d(pts));
+            Assert.Throws<ArgumentException>(() => new Polyline2d(pts));
         }
     }
 }

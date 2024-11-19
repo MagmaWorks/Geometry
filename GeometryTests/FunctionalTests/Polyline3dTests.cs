@@ -3,7 +3,7 @@ using OasysUnits.Units;
 
 namespace GeometryTests.FunctionalTests
 {
-    public class Polygon3dTests
+    public class Polyline3dTests
     {
         [Fact]
         public void GetBarycenterTest()
@@ -13,7 +13,7 @@ namespace GeometryTests.FunctionalTests
             var pt2 = new Point3d(3, 4, 5, LengthUnit.Meter);
 
             // Act
-            var poly = new Polygon3d(new List<IPoint3d>() { pt1, pt2 });
+            var poly = new Polyline3d(new List<IPoint3d>() { pt1, pt2 });
             Point3d center = poly.GetBarycenter();
 
             // Assert
@@ -33,9 +33,9 @@ namespace GeometryTests.FunctionalTests
             var pln3 = new Point3d(2, 2, 1, LengthUnit.Meter);
 
             // Act
-            var ln = new Polygon3d(new List<IPoint3d> { pt1, pt2 });
-            var pln = new Polygon3d(new List<IPoint3d> { pln1, pln2, pln3 });
-            Point3d intersect = Polygon3d.PlaneLineIntersection(ln, pln);
+            var ln = new Polyline3d(new List<IPoint3d> { pt1, pt2 });
+            var pln = new Polyline3d(new List<IPoint3d> { pln1, pln2, pln3 });
+            Point3d intersect = Polyline3d.PlaneLineIntersection(ln, pln);
 
             // Assert
             Assert.Equal(1, intersect.X.Value);
@@ -54,12 +54,12 @@ namespace GeometryTests.FunctionalTests
             var pt5 = new Point3d(0, 0, 0, LengthUnit.Meter);
 
             // Act
-            var openPolygon = new Polygon3d(new List<IPoint3d> { pt1, pt2, pt3, pt4 });
-            var closedPolygon = new Polygon3d(new List<IPoint3d> { pt1, pt2, pt3, pt4, pt5 });
+            var openPolyline = new Polyline3d(new List<IPoint3d> { pt1, pt2, pt3, pt4 });
+            var closedPolyline = new Polyline3d(new List<IPoint3d> { pt1, pt2, pt3, pt4, pt5 });
 
             // Assert
-            Assert.False(openPolygon.IsClosed);
-            Assert.True(closedPolygon.IsClosed);
+            Assert.False(openPolyline.IsClosed);
+            Assert.True(closedPolyline.IsClosed);
         }
 
         //[Fact]
@@ -74,11 +74,11 @@ namespace GeometryTests.FunctionalTests
         //    var testOutside = new Point3d(-2, 2, 0, LengthUnit.Meter);
 
         //    // Act
-        //    var polygon = new Polygon3d(new List<IPoint3d> { pt1, pt2, pt3, pt4 });
+        //    var Polyline = new Polyline3d(new List<IPoint3d> { pt1, pt2, pt3, pt4 });
 
         //    // Assert
-        //    Assert.True(polygon.IsInsidePlane(testInside));
-        //    Assert.False(polygon.IsInsidePlane(testOutside));
+        //    Assert.True(Polyline.IsInsidePlane(testInside));
+        //    Assert.False(Polyline.IsInsidePlane(testOutside));
         //}
     }
 }

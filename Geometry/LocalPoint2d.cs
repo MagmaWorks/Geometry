@@ -48,9 +48,9 @@ namespace MagmaWorks.Geometry
             return new LocalPoint2d(point.Y * number, point.Z * number);
         }
 
-        public static Area GetPolygonArea(IList<ILocalPoint2d> vertices, bool closed = false)
+        public static Area GetPolylineArea(IList<ILocalPoint2d> vertices, bool closed = false)
         {
-            return Point2d.GetPolygonArea(vertices.Select(p => (IPoint2d)new Point2d(p)).ToList(), closed);
+            return Point2d.GetPolylineArea(vertices.Select(p => (IPoint2d)new Point2d(p)).ToList(), closed);
         }
 
         public static List<LocalPoint2d> RotatePoints(IList<ILocalPoint2d> pts, Angle angle)

@@ -3,10 +3,10 @@ using OasysUnits;
 
 namespace MagmaWorks.Geometry
 {
-    public interface IPolygon2d : IGeometryBase, IPolygonBase<IDomain2d, IPoint2d>
+    public interface IPolyline2d : IGeometryBase, IPolylineBase<IDomain2d, IPoint2d>
     {
         IList<IPoint2d> Points { get; }
         bool IsClockwise();
-        IPolygon2d Offset(Length distance);
+        IPolyline2d Offset(Length distance);
     }
 }

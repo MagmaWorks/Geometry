@@ -7,7 +7,7 @@ namespace GeometryTests.FunctionalTests
     public class LocalLocalPoint2dTests
     {
         [Fact]
-        public void GetPolygonAreaTest()
+        public void GetPolylineAreaTest()
         {
             // Assemble
             var pt1 = new LocalPoint2d(0, 0, LengthUnit.Millimeter);
@@ -17,7 +17,7 @@ namespace GeometryTests.FunctionalTests
 
             // Act
             var list = new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 };
-            Area area = LocalPoint2d.GetPolygonArea(list);
+            Area area = LocalPoint2d.GetPolylineArea(list);
 
             // Assert
             Assert.Equal(AreaUnit.SquareMillimeter, area.Unit);

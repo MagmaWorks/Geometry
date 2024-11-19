@@ -10,7 +10,7 @@ namespace MagmaWorks.Geometry
     {
         public IEnumerable<IMesh> Meshes { get; set; } = new List<IMesh>();
         public IEnumerable<IText3d> Texts { get; set; } = new List<IText3d>();
-        public IEnumerable<IPolygon3d> Polygons { get; set; } = new List<IPolygon3d>();
+        public IEnumerable<IPolyline3d> Polylines { get; set; } = new List<IPolyline3d>();
         public IEnumerable<ILine3d> Lines { get; set; } = new List<ILine3d>();
         public IEnumerable<IPoint3d> Points { get; set; } = new List<IPoint3d>();
 
@@ -34,9 +34,9 @@ namespace MagmaWorks.Geometry
                 maxPt = Max(maxPt, GetMax(Texts, (p) => p.Position));
             }
 
-            if (!Polygons.IsNullOrEmpty())
+            if (!Polylines.IsNullOrEmpty())
             {
-                maxPt = Max(maxPt, GetMax(Polygons, (p) => p.Points));
+                maxPt = Max(maxPt, GetMax(Polylines, (p) => p.Points));
             }
 
             if (!Lines.IsNullOrEmpty())
@@ -66,9 +66,9 @@ namespace MagmaWorks.Geometry
                 minPt = Min(minPt, GetMin(Texts, (p) => p.Position));
             }
 
-            if (!Polygons.IsNullOrEmpty())
+            if (!Polylines.IsNullOrEmpty())
             {
-                minPt = Min(minPt, GetMin(Polygons, (p) => p.Points));
+                minPt = Min(minPt, GetMin(Polylines, (p) => p.Points));
             }
 
             if (!Lines.IsNullOrEmpty())
