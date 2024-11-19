@@ -267,7 +267,7 @@ namespace MagmaWorks.Geometry
             if (tol > 0)
             {
 
-                vertices = Extend(vertices, tol);
+                vertices = Expand(vertices, tol);
             }
 
             bool inside = false;
@@ -284,6 +284,113 @@ namespace MagmaWorks.Geometry
         }
 
         public static Area GetPolygonArea(IList<IPoint2d> vertices, bool closed = false)
+        {
+            return CalculateArea(vertices, closed).Abs();
+        }
+
+        public static bool IsClockwise(IList<IPoint2d> vertices)
+        {
+            bool isClosed = ((Point2d)vertices.First()).Equals(vertices.Last());
+            return CalculateArea(vertices, isClosed).Value < 0;
+        }
+
+        public static IList<IPoint2d> Contract(IList<IPoint2d> lpts, double factor)
+        {
+            Point2d cog = Utility.GetCenterLocal(lpts);
+            var points = new List<IPoint2d>();
+            for (int i = 0; i < lpts.Count; i++)
+            {
+                Length x = (1 - factor) * cog.U + factor * lpts[i].U;
+                Length y = (1 - factor) * cog.V + factor * lpts[i].V;
+                points.Add(new Point2d(x, y));
+            }
+
+            return points;
+        }
+
+        public static IList<IPoint2d> Expand(IList<IPoint2d> lpts, double factor)
+        {
+            Point2d cog = Utility.GetCenterLocal(lpts);
+            var points = new List<IPoint2d>();
+            foreach (IPoint2d pt in lpts)
+            {
+                var v = new Vector2d(pt.U - cog.U, pt.V - cog.V);
+                v = v.Normalize();
+                points.Add(new Point2d(pt.U + v.U * factor, pt.V + v.V * factor));
+            }
+
+            return points;
+        }
+
+        public static IList<IPoint2d> Offset(IList<IPoint2d> pts, Length distance)
+        {
+            LengthUnit u = distance.Unit;
+            bool isClosed = pts.First().U.Meters == pts.Last().U.Meters
+                         && pts.First().V.Meters == pts.Last().V.Meters;
+            var offsetPts = new List<IPoint2d>();
+            for (int i = 0; i < pts.Count; i++)
+            {
+                var tangentBefore = new Vector2d(Length.Zero, Length.Zero);
+                var tangentAfter = new Vector2d(Length.Zero, Length.Zero);
+                if (i == 0)
+                {
+                    if (isClosed)
+                    {
+                        tangentBefore = (Point2d)pts[0] - (Point2d)pts[pts.Count - 2];
+                    }
+
+                    tangentAfter = (Point2d)pts[1] - (Point2d)pts[0];
+                    
+                } else if (i + 1 == pts.Count)
+                {
+                    if (isClosed)
+                    {
+                        tangentAfter = (Point2d)pts[1] - (Point2d)pts[0];
+                    }
+
+                    tangentBefore = (Point2d)pts[i] - (Point2d)pts[i - 1];
+                } else
+                {
+                    tangentBefore = (Point2d)pts[i] - (Point2d)pts[i - 1];
+                    tangentAfter = (Point2d)pts[i + 1] - (Point2d)pts[i];
+                }
+
+                int nonZeroVectors = 0;
+                if (!(tangentBefore.U.Value == 0 && tangentBefore.V.Value == 0))
+                {
+                    tangentBefore = tangentBefore.Normalize();
+                    tangentBefore = new Vector2d(new Length(tangentBefore.U.Value, u),
+                                                 new Length(tangentBefore.V.Value, u));
+                    nonZeroVectors++;
+                }
+
+                if (!(tangentAfter.U.Value == 0 && tangentAfter.V.Value == 0))
+                {
+                    tangentAfter = tangentAfter.Normalize();
+                    tangentAfter = new Vector2d(new Length(tangentAfter.U.Value, u),
+                                                 new Length(tangentAfter.V.Value, u));
+                    nonZeroVectors++;
+                }
+
+                Vector2d tangent = tangentBefore + tangentAfter;
+                Length tangentLength = tangent.Length;
+                double factor = 1.0;
+                if (nonZeroVectors > 1)
+                {
+                    factor = 2.0 / tangentLength.As(u);
+                }
+
+                var normal = new Vector2d(-tangent.V, tangent.U);
+                normal = normal.Normalize();
+                normal = new Vector2d(new Length(normal.U.Value, u),
+                                      new Length(normal.V.Value, u));
+                offsetPts.Add((Point2d)pts[i] + normal.Amplitude(distance * factor));
+            }
+
+            return offsetPts;
+        }
+
+        private static Area CalculateArea(IList<IPoint2d> vertices, bool closed = false)
         {
             Area res = Area.Zero;
             Area.TryParse($"0 {Length.GetAbbreviation(vertices[0].U.Unit)}²", out res);
@@ -305,36 +412,7 @@ namespace MagmaWorks.Geometry
                 res += (vertices[n - 1].U * vertices[0].V - vertices[n - 1].V * vertices[0].U) / 2;
             }
 
-            return res.Abs();
-        }
-
-
-        public static IList<IPoint2d> Contract(IList<IPoint2d> lpts, double factor)
-        {
-            Point2d cog = Utility.GetCenterLocal(lpts);
-            var points = new List<IPoint2d>();
-            for (int i = 0; i < lpts.Count; i++)
-            {
-                Length x = (1 - factor) * cog.U + factor * lpts[i].U;
-                Length y = (1 - factor) * cog.V + factor * lpts[i].V;
-                points.Add(new Point2d(x, y));
-            }
-
-            return points;
-        }
-
-        public static IList<IPoint2d> Extend(IList<IPoint2d> lpts, double factor)
-        {
-            Point2d cog = Utility.GetCenterLocal(lpts);
-            var points = new List<IPoint2d>();
-            foreach (IPoint2d pt in lpts)
-            {
-                var v = new Vector2d(pt.U - cog.U, pt.V - cog.V);
-                v = v.Normalize();
-                points.Add(new Point2d(pt.U + v.U * factor, pt.V + v.V * factor));
-            }
-
-            return points;
+            return res;
         }
     }
 }

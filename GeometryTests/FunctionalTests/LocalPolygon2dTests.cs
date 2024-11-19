@@ -102,5 +102,32 @@ namespace GeometryTests.FunctionalTests
             Assert.False(openPolygon.IsClosed);
             Assert.True(closedPolygon.IsClosed);
         }
+
+        [Fact]
+        public void IsClockwiseTest()
+        {
+            // Assemble
+            var pt1 = new LocalPoint2d(0, 0, LengthUnit.Millimeter);
+            var pt2 = new LocalPoint2d(0, 250, LengthUnit.Centimeter);
+            var pt3 = new LocalPoint2d(250, 250, LengthUnit.Meter);
+            var pt4 = new LocalPoint2d(250, 0, LengthUnit.Meter);
+            var pt5 = new LocalPoint2d(Length.Zero, Length.Zero);
+
+            // Act
+            var clockwiseOpen = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4 });
+            var counterclockwiseOpen = new LocalPolygon2d(new List<ILocalPoint2d> { pt4, pt3, pt2, pt1 });
+            var clockwiseClosed = new LocalPolygon2d(new List<ILocalPoint2d> { pt1, pt2, pt3, pt4, pt5 });
+            var counterclockwiseClosed = new LocalPolygon2d(new List<ILocalPoint2d> { pt5, pt4, pt3, pt2, pt1 });
+
+            // Assert
+            Assert.False(clockwiseOpen.IsClosed);
+            Assert.False(counterclockwiseOpen.IsClosed);
+            Assert.True(clockwiseOpen.IsClockwise());
+            Assert.False(counterclockwiseOpen.IsClockwise());
+            Assert.True(clockwiseClosed.IsClosed);
+            Assert.True(counterclockwiseClosed.IsClosed);
+            Assert.True(clockwiseClosed.IsClockwise());
+            Assert.False(counterclockwiseClosed.IsClockwise());
+        }
     }
 }

@@ -58,5 +58,16 @@ namespace MagmaWorks.Geometry
             return Point2d.RotatePoints(pts.Select(p => (IPoint2d)new Point2d(p)).ToList(), angle)
                 .Select(p => new LocalPoint2d(p)).ToList();
         }
+
+        public static bool IsClockwise(IList<ILocalPoint2d> vertices)
+        {
+            return Point2d.IsClockwise(vertices.Select(p => (IPoint2d)new Point2d(p)).ToList());
+        }
+
+        public static List<LocalPoint2d> Offset(IList<ILocalPoint2d> vertices, Length distance)
+        {
+            return Point2d.Offset(vertices.Select(p => (IPoint2d)new Point2d(p)).ToList(), distance)
+                .Select(p => new LocalPoint2d(p)).ToList();
+        }
     }
 }
