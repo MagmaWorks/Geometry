@@ -424,7 +424,7 @@ namespace MagmaWorks.Geometry
 
         public string CoordinatesToString()
         {
-            return $"(U:{U.ToString().Replace(" ", string.Empty)}, V:{V.ToString().Replace(" ", string.Empty)})";
+            return $"(U:{U.ToString().Replace(" ", "\u2009")}, V:{V.ToString().Replace(" ", "\u2009")})";
         }
     }
 }
