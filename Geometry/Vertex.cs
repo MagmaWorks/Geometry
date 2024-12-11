@@ -46,9 +46,9 @@ namespace MagmaWorks.Geometry
 
         public string CoordinatesToString()
         {
-            return $"(X:{X.ToString().Replace(" ", string.Empty)}, " +
-                    $"Y:{Y.ToString().Replace(" ", string.Empty)}, " +
-                    $"Z:{Z.ToString().Replace(" ", string.Empty)})";
+            return $"(X:{X.ToString().Replace(" ", "\u2009")}, " +
+                    $"Y:{Y.ToString().Replace(" ", "\u2009")}, " +
+                    $"Z:{Z.ToString().Replace(" ", "\u2009")})";
         }
     }
 }

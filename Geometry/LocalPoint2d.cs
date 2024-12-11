@@ -77,7 +77,7 @@ namespace MagmaWorks.Geometry
 
         public string CoordinatesToString()
         {
-            return $"(Y:{Y.ToString().Replace(" ", string.Empty)}, Z:{Z.ToString().Replace(" ", string.Empty)})";
+            return $"(Y:{Y.ToString().Replace(" ", "\u2009")}, Z:{Z.ToString().Replace(" ", "\u2009")})";
         }
     }
 }
