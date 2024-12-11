@@ -1,4 +1,4 @@
-using GeometryTests.Utility;
+﻿using GeometryTests.Utility;
 using MagmaWorks.Geometry;
 using MagmaWorks.Geometry.Serialization.Extensions;
 using OasysUnits;
@@ -41,7 +41,7 @@ namespace GeometryTests.UnitTests
             var vertex = new Vertex(pt, txtCoord);
 
             // Assert
-            Assert.Equal("Vertex (X:2.3cm, Y:5.4cm, Z:6.8cm)", vertex.ToString());
+            Assert.Equal("Vertex (X:2.3 cm, Y:5.4 cm, Z:6.8 cm)", vertex.ToString()); // note: using Thin Space \u2009
         }
 
         [Fact]

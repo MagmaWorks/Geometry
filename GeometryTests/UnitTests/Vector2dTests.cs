@@ -1,4 +1,4 @@
-using GeometryTests.Utility;
+﻿using GeometryTests.Utility;
 using MagmaWorks.Geometry;
 using MagmaWorks.Geometry.Serialization.Extensions;
 using OasysUnits;
@@ -34,7 +34,7 @@ namespace GeometryTests.UnitTests
             var vect = new Vector2d(u, v);
 
             // Assert
-            Assert.Equal("2D Vector (U:2.3cm, V:5.4cm)", vect.ToString());
+            Assert.Equal("2D Vector (U:2.3 cm, V:5.4 cm)", vect.ToString()); // note: using Thin Space \u2009
         }
 
         [Fact]

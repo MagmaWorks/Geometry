@@ -1,4 +1,4 @@
-using GeometryTests.Utility;
+﻿using GeometryTests.Utility;
 using MagmaWorks.Geometry;
 using MagmaWorks.Geometry.Serialization.Extensions;
 using OasysUnits;
@@ -44,7 +44,7 @@ namespace GeometryTests.UnitTests
             var ln = new Line2d(pt1, pt2);
 
             // Assert
-            Assert.Equal("2D Line (S:(U:2.3cm, V:5.4cm) - E:(U:-2.3cm, V:-5.4cm)", ln.ToString());
+            Assert.Equal("2D Line (S:(U:2.3 cm, V:5.4 cm) - E:(U:-2.3 cm, V:-5.4 cm)", ln.ToString()); // note: using Thin Space \u2009
         }
 
         [Fact]
