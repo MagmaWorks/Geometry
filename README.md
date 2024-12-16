@@ -2,6 +2,7 @@
 A small library for basic geometry operations for structural engineering needs.
 
 ![GitHub Actions Workflow Status](https://github.com/MagmaWorks/Geometry/actions/workflows/on-merge-to-main.yml/badge.svg)
+[![codecov](https://codecov.io/gh/MagmaWorks/Geometry/graph/badge.svg)](https://codecov.io/gh/MagmaWorks/Geometry)
 
 ## Latest release
 [![Releasestatus](https://github.com/MagmaWorks/Geometry/actions/workflows/on-release.yml/badge.svg)](https://github.com/MagmaWorks/Geometry/releases)
@@ -14,9 +15,3 @@ A small library for basic geometry operations for structural engineering needs.
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/MagmaWorks/Geometry/issues)
 ![GitHub contributors](https://img.shields.io/github/contributors/MagmaWorks/Geometry)
 ![GitHub top language](https://img.shields.io/github/languages/top/MagmaWorks/Geometry)
-
-
-
-
-
-
