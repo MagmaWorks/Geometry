@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
-using OasysUnits;
+using UnitsNet;
 
 namespace MagmaWorks.Geometry
 {

@@ -1,8 +1,8 @@
 using GeometryTests.Utility;
 using MagmaWorks.Geometry;
 using MagmaWorks.Geometry.Serialization.Extensions;
-using OasysUnits;
-using OasysUnits.Units;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace GeometryTests.UnitTests
 {

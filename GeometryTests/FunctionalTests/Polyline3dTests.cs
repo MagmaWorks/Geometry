@@ -1,5 +1,5 @@
 ﻿using MagmaWorks.Geometry;
-using OasysUnits.Units;
+using UnitsNet.Units;
 
 namespace GeometryTests.FunctionalTests
 {

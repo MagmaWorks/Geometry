@@ -1,5 +1,5 @@
 ﻿using MagmaWorks.Geometry;
-using OasysUnits;
+using UnitsNet;
 
 namespace GeometryTests.FunctionalTests
 {
@@ -8,9 +8,9 @@ namespace GeometryTests.FunctionalTests
         [Fact]
         public void TestAreaXY()
         {
-            var p1 = new Point3d(-5, 10, 0, OasysUnits.Units.LengthUnit.Centimeter);
-            var p2 = new Point3d(20, -7, 0, OasysUnits.Units.LengthUnit.Centimeter);
-            var p3 = new Point3d(-5, -7, 0, OasysUnits.Units.LengthUnit.Centimeter);
+            var p1 = new Point3d(-5, 10, 0, UnitsNet.Units.LengthUnit.Centimeter);
+            var p2 = new Point3d(20, -7, 0, UnitsNet.Units.LengthUnit.Centimeter);
+            var p3 = new Point3d(-5, -7, 0, UnitsNet.Units.LengthUnit.Centimeter);
 
             Area a = MagmaWorks.Geometry.Utility.GetArea(p1, p2, p3);
 
@@ -21,9 +21,9 @@ namespace GeometryTests.FunctionalTests
         [Fact]
         public void TestAreaYZ()
         {
-            var p1 = new Point3d(0, -5, 10, OasysUnits.Units.LengthUnit.Centimeter);
-            var p2 = new Point3d(0, 20, -7, OasysUnits.Units.LengthUnit.Centimeter);
-            var p3 = new Point3d(0, -5, -7, OasysUnits.Units.LengthUnit.Centimeter);
+            var p1 = new Point3d(0, -5, 10, UnitsNet.Units.LengthUnit.Centimeter);
+            var p2 = new Point3d(0, 20, -7, UnitsNet.Units.LengthUnit.Centimeter);
+            var p3 = new Point3d(0, -5, -7, UnitsNet.Units.LengthUnit.Centimeter);
 
             Area a = MagmaWorks.Geometry.Utility.GetArea(p1, p2, p3);
 
@@ -34,9 +34,9 @@ namespace GeometryTests.FunctionalTests
         [Fact]
         public void TestAreaZx()
         {
-            var p1 = new Point3d(-5, 0, 10, OasysUnits.Units.LengthUnit.Centimeter);
-            var p2 = new Point3d(20, 0, -7, OasysUnits.Units.LengthUnit.Centimeter);
-            var p3 = new Point3d(-5, 0, -7, OasysUnits.Units.LengthUnit.Centimeter);
+            var p1 = new Point3d(-5, 0, 10, UnitsNet.Units.LengthUnit.Centimeter);
+            var p2 = new Point3d(20, 0, -7, UnitsNet.Units.LengthUnit.Centimeter);
+            var p3 = new Point3d(-5, 0, -7, UnitsNet.Units.LengthUnit.Centimeter);
 
             Area a = MagmaWorks.Geometry.Utility.GetArea(p1, p2, p3);
 

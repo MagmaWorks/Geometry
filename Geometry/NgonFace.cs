@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using OasysUnits;
+using UnitsNet;
 
 namespace MagmaWorks.Geometry
 {
@@ -34,7 +34,7 @@ namespace MagmaWorks.Geometry
 
         private Area CalculateArea()
         {
-            Area a = OasysUnits.Area.Zero;
+            Area a = UnitsNet.Area.Zero;
             for (int i = 0; i < Verticies.Count - 1; i++)
             {
                 a += Utility.GetArea(Verticies[i], Center, Verticies[i + 1]);
