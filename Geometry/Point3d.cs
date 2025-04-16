@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Numerics;
 using MagmaWorks.Geometry.Extensions;
-using OasysUnits;
-using OasysUnits.Units;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace MagmaWorks.Geometry
 {

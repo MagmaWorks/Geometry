@@ -1,6 +1,6 @@
 using MagmaWorks.Geometry.Extensions;
-using OasysUnits;
-using OasysUnits.Units;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace GeometryTests.UnitTests
 {
