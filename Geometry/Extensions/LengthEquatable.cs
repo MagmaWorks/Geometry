@@ -7,7 +7,7 @@ namespace MagmaWorks.Geometry.Extensions
     {
         internal static bool IsEqual(this Length length, Length other, double tolerance = 1.0e-12)
         {
-            return length.Equals(other, tolerance, ComparisonType.Relative);
+            return length.Equals(other, new Length(tolerance, length.Unit));
         }
 
         internal static bool IsEqual(this List<Length> lengths, List<Length> others, double tolerance = 1.0e-12)
