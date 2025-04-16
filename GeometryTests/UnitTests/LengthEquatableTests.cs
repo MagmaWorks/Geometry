@@ -1,6 +1,6 @@
 using MagmaWorks.Geometry.Extensions;
-using OasysUnits;
-using OasysUnits.Units;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace GeometryTests.UnitTests
 {
@@ -36,7 +36,8 @@ namespace GeometryTests.UnitTests
             Length other = new Length(5.11, LengthUnit.Meter);
 
             // Act & Assert
-            Assert.True(length.IsEqual(other, 0.01));
+            Assert.False(length.IsEqual(other, 0.01));
+            Assert.True(length.IsEqual(other, 0.02));
         }
 
         [Fact]

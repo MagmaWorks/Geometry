@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MagmaWorks.Geometry.Extensions;
-using OasysUnits;
+using UnitsNet;
 
 namespace MagmaWorks.Geometry
 {
@@ -23,7 +23,7 @@ namespace MagmaWorks.Geometry
 
         public Point3d GetMaximumCorner()
         {
-            var maxPt = new Point3d(double.MinValue, double.MinValue, double.MinValue, OasysUnits.Units.LengthUnit.Meter);
+            var maxPt = new Point3d(double.MinValue, double.MinValue, double.MinValue, UnitsNet.Units.LengthUnit.Meter);
             if (!Meshes.IsNullOrEmpty())
             {
                 maxPt = Max(maxPt, GetMax(Meshes, (p) => p.Verticies));
@@ -55,7 +55,7 @@ namespace MagmaWorks.Geometry
 
         public Point3d GetMinimumCorner()
         {
-            var minPt = new Point3d(double.MaxValue, double.MaxValue, double.MaxValue, OasysUnits.Units.LengthUnit.Meter);
+            var minPt = new Point3d(double.MaxValue, double.MaxValue, double.MaxValue, UnitsNet.Units.LengthUnit.Meter);
             if (!Meshes.IsNullOrEmpty())
             {
                 minPt = Min(minPt, GetMin(Meshes, (p) => p.Verticies));

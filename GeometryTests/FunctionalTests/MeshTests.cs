@@ -1,7 +1,7 @@
 ﻿using GeometryTests.Utility;
 using MagmaWorks.Geometry;
-using OasysUnits;
-using OasysUnits.Units;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace GeometryTests.FunctionalTests
 {
